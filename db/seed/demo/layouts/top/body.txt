@@ -68,6 +68,8 @@
 
 [[piece/useful-information]]
 
+[[piece/bn-bbs]]
+
 [[piece/population]]
 
 [[piece/qr-code]]

@@ -1,0 +1,111 @@
+@charset "UTF-8";
+@import "../base/style.css";
+@import "../base/layouts/col-1.css";
+@import "../piece/style.css";
+
+/* =========================================================
+   BBS
+========================================================= */
+
+/* contentBbsThreads
+--------------------------------------------------------- */
+.contentBbsThreads .bbsMenu {
+  margin: 10px 0px 10px 0px;
+  text-align: center;
+}
+.contentBbsThreads .pagination {
+  margin: 20px 0px 10px 0px;
+  text-align: center;
+}
+.contentBbsThreads .back {
+  margin: 10px 0px;
+  text-align: center;
+}
+
+/* Notice and Errors
+----------------------------------------------- */
+.notice {
+  margin: 10px 0px;
+  color: #080;
+  text-align: center;
+}
+.errorExplanation {
+  margin: 10px 0px;
+  color: #f00;
+}
+
+/* Entry Form
+----------------------------------------------- */
+.contentBbsThreads .entryForm {
+}
+.contentBbsThreads .entryForm h2 {
+  margin: 10px 0px;
+  padding: 2px 0px;
+  background-color: #eee;
+  font-size: 100%;
+  text-align: center;
+}
+.contentBbsThreads .entryForm form {
+  margin: 10px 5px;
+}
+.contentBbsThreads .entryForm textarea {
+  width: 90%;
+  height: 50px;
+}
+.contentBbsThreads .entryForm .submitters {
+  text-align: center;
+}
+
+/* Delete Form
+----------------------------------------------- */
+.contentBbsThreads .deleteForm h2 {
+  margin: 10px 0px;
+  padding: 2px 0px;
+  background-color: #eee;
+  font-size: 100%;
+  text-align: center;
+}
+.contentBbsThreads .deleteForm form {
+  margin: 10px 5px;
+}
+.contentBbsThreads .deleteForm .no {
+}
+.contentBbsThreads .deleteForm .password {
+}
+.contentBbsThreads .deleteForm .submitters {
+  text-align: center;
+}
+
+/* Threads
+----------------------------------------------- */
+.contentBbsThreads .threads {
+}
+.contentBbsThreads .thread {
+}
+.contentBbsThreads .thread .date {
+  text-align: right;
+}
+.contentBbsThreads .thread .poster {
+  text-align: right;
+}
+
+.contentBbsThreads .threadItem {
+  margin: 10px 5px 0px 5px;
+}
+.contentBbsThreads .threadItem .title {
+  padding: 2px;
+  background-color: #def;
+}
+
+.contentBbsThreads .resItem {
+  margin: 10px 5px 0px 15px;
+  border-top: 1px solid #ccc;
+}
+.contentBbsThreads .resItem .title {
+}
+
+/* Threads
+----------------------------------------------- */
+.contentBbsThreads .bpdy {
+margin:10px 5px;
+}

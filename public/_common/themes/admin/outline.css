@@ -160,13 +160,6 @@
 #content {
   margin: 0px 12px;
 }
-#contentContainer {
-}
-#contentHeader {
-  margin-bottom: 15px;
-}
-#contentBody {
-}
 #content h2 {
   margin: 15px 0px 10px 5px;
   color: #2b6;
@@ -208,10 +201,23 @@
   background-color: #f4f4f4;
   line-height: 2.0;
 }
+#contentContainer {
+}
+#contentHeader {
+  margin-bottom: 15px;
+}
+#contentHeader .navi {
+  padding: 0px 10px;
+}
 #contentHeader .navi a {
   display: inline-block;
-  padding: 0px 5px;
+  padding: 0px 2px;
   text-decoration: none;
+}
+#contentHeader .navi span.separator {
+  margin: 0px 4px;
+}
+#contentBody {
 }
 
 

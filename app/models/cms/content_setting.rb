@@ -40,7 +40,15 @@ class Cms::ContentSetting < ActiveRecord::Base
   end
   
   def config_options
-    config ? config[:options] : nil
+    config[:options] ? config[:options].collect {|e| [e[0], e[1].to_s] } : nil
+  end
+  
+  def upper_text
+    config[:upper_text] ? config[:upper_text] : nil
+  end
+  
+  def lower_text
+    config[:lower_text] ? config[:lower_text] : nil
   end
   
   def value_name
@@ -51,4 +59,10 @@ class Cms::ContentSetting < ActiveRecord::Base
     end
     nil
   end
+  
+  def form_type
+    return config[:form_type] if config[:form_type]
+    config_options ? :select : :string
+  end
+  
 end

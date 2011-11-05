@@ -6,7 +6,13 @@
     <td><%= safe{@item.status.name} %></td>
   </tr><tr>
     <th><%= @item.locale(:concept_id) %></th>
-    <td><%=h safe{@item.inherited_concept(:name)} %></td>
+    <td>
+      <% if @item.concept %>
+        <%=h safe{@item.concept.name} %>
+      <% elsif safe{@item.inherited_concept} %>
+        （<%=h safe{@item.inherited_concept(:name)} %>）
+      <% end %>
+    </td>
   </tr>
   <%= layout_view @item, :container => :tr %>
   <tr>

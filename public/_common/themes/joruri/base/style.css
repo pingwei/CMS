@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 /* =========================================================
    Base
@@ -121,6 +121,27 @@ ul.notices li {
 .elementError {
  margin: 3px 0px 0px 0px;
  color: #ee0000;
+}
+.errorExplanation {
+  margin: 0px 10px 20px 10px;
+  color: #ee0000;
+}
+.errorExplanation h2 {
+  padding: 4px 6px;
+  font-weight: bold;
+  border: 1px solid #ee4;
+  background-color: #FFFF99;
+}
+.errorExplanation p {
+  margin: 15px 10px 10px 10px;
+  font-weight: bold;
+}
+.errorExplanation ul {
+  margin: 10px 30px;
+  list-style-type: disc;
+}
+.errorExplanation li {
+  padding: 1px 0px;
 }
 
 /* Form relation

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xml>
+  <% item = @thread %>
+  <item>
+    <id><%=h item.id %></id>
+    <thread_id><%=h item.thread_id %></thread_id>
+    <parent_id><%=h item.parent_id %></parent_id>
+    <created_at><%=h safe{item.created_at.strftime("%Y-%m-%d %H:%M:%S")} %></created_at>
+    <name><%=h item.name %></name>
+    <title><%=h item.title %></title>
+    <email><%=h item.email %></email>
+    <uri><%=h item.uri %></uri>
+    <body><%=h item.body %></body>
+    <ipaddr><%=h item.ipaddr %></ipaddr>
+    <user_agent><%=h item.user_agent %></user_agent>
+    <% item.all_responses.each do |res| %>
+    <item>
+      <id><%=h res.id %></id>
+      <thread_id><%=h res.thread_id %></thread_id>
+      <parent_id><%=h res.parent_id %></parent_id>
+      <created_at><%=h safe{res.created_at.strftime("%Y-%m-%d %H:%M:%S")} %></created_at>
+      <name><%=h res.name %></name>
+      <title><%=h res.title %></title>
+      <email><%=h res.email %></email>
+      <uri><%=h res.uri %></uri>
+      <body><%=h res.body %></body>
+      <ipaddr><%=h res.ipaddr %></ipaddr>
+      <user_agent><%=h res.user_agent %></user_agent>
+    </item>
+    <% end %>
+  </item>
+</xml>

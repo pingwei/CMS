@@ -15,25 +15,6 @@
   text-align: center;
 }
 
-/* Errors
------------------------------------------------ */
-.errorExplanation {
-  margin: 0px 10px;
-  color: #f00;
-}
-.errorExplanation h2 {
-  padding: 4px;
-  background-color: #fdd;
-  font-weight: bold;
-}
-.errorExplanation p {
-  margin-top: 4px;
-}
-.errorExplanation ul {
-  margin: 2px 20px;
-  list-style-type: disc;
-}
-
 /* Index : enqueteForms
 ----------------------------------------------- */
 .enqueteForms .form, .enqueteForm .form {

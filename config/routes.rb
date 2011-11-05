@@ -1,14 +1,17 @@
 ActionController::Routing::Routes.draw do |map|
   
+  ## Captcha
+  map.simple_captcha '/_tools/captcha/:action', :controller => 'simple_captcha'
+  
   ## Files
   map.connect '_files/*path'           , :controller => 'cms/public/files'  , :action => 'down'
   
-  ## Tools
+  ## Talk
   map.connect '*path.html.mp3'         , :controller => 'cms/public/talk'   , :action => 'down_mp3'
   map.connect '*path.html.m3u'         , :controller => 'cms/public/talk'   , :action => 'down_m3u'
   map.connect '*path.html.r.mp3'       , :controller => 'cms/public/talk'   , :action => 'down_mp3'
   map.connect '*path.html.r.m3u'       , :controller => 'cms/public/talk'   , :action => 'down_m3u'
-
+  
   ## Admin
   map.connect '_admin'                 , :controller => 'sys/admin/front'   , :action => 'index'
   map.connect '_admin/login.:format'   , :controller => 'sys/admin/account' , :action => 'login'

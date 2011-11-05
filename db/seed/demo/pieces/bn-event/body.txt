@@ -1,4 +1,4 @@
-<div id="event" class="piece">
+<div id="bnEvent" class="piece">
 <div class="pieceContainer">
 <div class="pieceBody">
 <a href="/calendar/">

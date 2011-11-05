@@ -19,17 +19,17 @@ class Util::Html::SimplePagination
     h = %Q(<div class="#{options[:class]}">)
     h += "\n"
     if prev_uri
-      h += %Q(<a class="prev" href="#{prev_uri}">#{prev_label}</a>)
+      h += %Q(<a class="prev_page" href="#{prev_uri}">#{prev_label}</a>)
     else
-      h += %Q(<span class="prev">#{prev_label}</span>)
+      h += %Q(<span class="disabled prev_page">#{prev_label}</span>)
     end
     if separator
       h += "\n" + separator + "\n"
     end
     if next_uri
-      h += %Q(<a class="next" href="#{next_uri}">#{next_label}</a>)
+      h += %Q(<a class="next_page" href="#{next_uri}">#{next_label}</a>)
     else
-      h += %Q(<span class="next">#{next_label}</span>)
+      h += %Q(<span class="disabled next_page">#{next_label}</span>)
     end
     h += "\n"
     h += %Q(</div>)

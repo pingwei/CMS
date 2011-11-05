@@ -349,3 +349,62 @@ border:none;
 background-color:#000000;
 border:2px solid #ffffff;
 }
+/* calendar
+----------------------------------------------- */
+.calendarEvents .pagination{
+  background-color: #000000;
+}
+#menu li .year ,
+#menu li .month {
+    background-color: #000000;
+}
+/* bbs
+----------------------------------------------- */
+.contentBbsThreads .entryForm h2.formTitle {
+  background-color: #000000;
+}
+.contentBbsThreads .threadItem h2 {
+  color: #ffffff;
+  background-color: #000000;
+}
+.contentBbsThreads .poster span ,
+.contentBbsThreads .poster .no {
+  color: #ffffff;
+}
+.contentBbsThreads .deleteForm h2.formTitle {
+  background-color: #000000;
+}
+#bbsRecent .pieceHeader ,
+#bbsThread .pieceHeader ,
+#bbsRes .pieceHeader {
+  padding: 0 5px 0 10px;
+  border: 1px solid #FFFFFF;
+  background-image: none;
+}
+#bbsRecent ul ,
+#bbsThread ul ,
+#bbsRes ul {
+  border-width: medium 1px 1px;
+  border-color: #FFFFFF;
+  border-style: none solid solid;
+  border-right: 1px solid #FFFFFF;
+}
+.notice {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: #000000;
+}
+.errorExplanation {
+  border-width: medium 1px 1px;
+  border-color: #FFFFFF;
+  border-style: none solid solid;
+  border-right: 1px solid #FFFFFF;
+  color: #ffffff;
+}
+.errorExplanation h2 {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+}
+.contentBbsThreads .back a {
+  background-color: #000000;
+}

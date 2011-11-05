@@ -180,6 +180,7 @@ end
   [ c_site.id , 'Cms::Free'      , 'relation-link'        , '関連リンク' ],
   [ c_top.id  , 'Cms::Free'      , 'about'                , 'ジョールリ市の紹介' ],
   [ c_top.id  , 'Cms::Free'      , 'bn-event'             , '年間行事' ],
+  [ c_top.id  , 'Cms::Free'      , 'bn-bbs'               , '掲示板' ],
   [ c_top.id  , 'Cms::Free'      , 'application'          , '申請書ダウンロード' ],
   [ c_top.id  , 'Cms::Free'      , 'area-information'     , '地域情報' ],
   [ c_top.id  , 'Cms::Free'      , 'basic-information'    , '基本情報' ],
@@ -290,5 +291,6 @@ load_seed_file "demo/enquete.rb"
 load_seed_file "demo/portal.rb"
 load_seed_file "demo/newsletter.rb"
 load_seed_file "demo/calendar.rb"
+load_seed_file "demo/bbs.rb"
 
 puts "Imported demo data."

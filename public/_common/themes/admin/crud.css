@@ -66,13 +66,13 @@ table.show th {
   padding: 6px;
   border: 1px solid #fff;
   border-width: 0px 0px 2px 0px;
-  background-color: #ddd; 
+  background-color: #e0e2e4; 
 }
 table.show td {
   padding: 6px;
   border: 1px solid #fff;
   border-width: 0px 0px 2px 0px;
-  background-color: #f0f0f0; 
+  background-color: #f0f2f4; 
 }
 table.noDesign, table.noDesign th, table.noDesign td {
   border-width: 0px;
@@ -126,6 +126,7 @@ table.show input.url {
 table.show input.date {
   width: 80px;
   font-family: "MS PGothic";
+  text-align: center;
 }
 table.show input.dateTime {
   width: 120px;

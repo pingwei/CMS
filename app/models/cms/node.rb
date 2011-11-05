@@ -35,7 +35,7 @@ class Cms::Node < ActiveRecord::Base
   end
   
   def states
-    [['非公開保存','closed'],['公開保存','public']]
+    [['公開保存','public'],['非公開保存','closed']]
   end
   
   def self.find_by_uri(path, site_id)
@@ -82,13 +82,14 @@ class Cms::Node < ActiveRecord::Base
   end
   
   def inherited_concept(key = nil)
-    return @_inherited_concept if @_inherited_concept
-    concept_id = concept_id
-    parents_tree.each do |r|
-      concept_id = r.concept_id if r.concept_id
-    end unless concept_id
-    return nil unless concept_id
-    return nil unless @_inherited_concept = Cms::Concept.find(:first, :conditions => {:id => concept_id})
+    if !@_inherited_concept
+      concept_id = concept_id
+      parents_tree.each do |r|
+        concept_id = r.concept_id if r.concept_id
+      end unless concept_id
+      return nil unless concept_id
+      return nil unless @_inherited_concept = Cms::Concept.find(:first, :conditions => {:id => concept_id})
+    end
     key.nil? ? @_inherited_concept : @_inherited_concept.send(key)
   end
   

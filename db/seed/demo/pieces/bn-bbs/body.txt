@@ -1,0 +1,8 @@
+<div id="bnBbs" class="piece">
+<div class="pieceContainer">
+<div class="pieceBody">
+<a href="/bbs/">
+  <img title="掲示板" alt="掲示板" src="/_common/themes/joruri/top/images/bn-bbs.gif" /></a>
+</div>
+</div>
+</div>

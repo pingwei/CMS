@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20110803122623) do
 
   create_table "article_areas", :force => true do |t|
     t.integer  "unid"
@@ -95,6 +95,23 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "word"
   end
 
+  create_table "bbs_items", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "thread_id"
+    t.integer  "content_id"
+    t.string   "state",      :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "email"
+    t.string   "uri"
+    t.text     "title"
+    t.text     "body",       :limit => 2147483647
+    t.string   "password",   :limit => 15
+    t.string   "ipaddr"
+    t.string   "user_agent"
+  end
+
   create_table "calendar_events", :force => true do |t|
     t.integer  "unid"
     t.integer  "content_id"
@@ -109,7 +126,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index "calendar_events", ["content_id", "published_at", "event_date"], :name => "content_id"
-  
+
   create_table "cms_concepts", :force => true do |t|
     t.integer  "unid"
     t.integer  "parent_id"
@@ -134,7 +151,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index "cms_content_settings", ["content_id"], :name => "content_id"
-
+  
   create_table "cms_contents", :force => true do |t|
     t.integer  "unid"
     t.integer  "site_id",                              :null => false
@@ -756,5 +773,12 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index "sys_users_roles", ["user_id", "role_id"], :name => "user_id"
+
+  create_table "tool_simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

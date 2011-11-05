@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     return Core.dispatched
   end
   
+  def query(params = nil)
+    Util::Http::QueryString.get_query(params)
+  end
+  
   def skip_layout
     self.class.layout 'base'
   end

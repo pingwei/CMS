@@ -329,3 +329,82 @@ ul.sitemap ul.level2 {
   border: 1px solid #ffffff;
   background-color: #0000bb;
 }
+
+/* emergency
+----------------------------------------------- */
+#emergency .pieceHeader,
+#emergencyApplication .pieceBody,
+#emergencyMailmagazine .pieceBody,
+#emergencyInquiry .pieceBody {
+  background-color: #0000bb;
+  color:#ffffff;
+}
+#emergency {
+border:2px solid #ffffff;
+}
+#emergency .pieceBody ul {
+border:none;
+}
+#emergencyInfo .pieceContainer {
+background-color:#0000bb;
+border:2px solid #ffffff;
+}
+/* calendar
+----------------------------------------------- */
+.calendarEvents .pagination{
+  background-color: #0000bb;
+}
+#menu li .year ,
+#menu li .month {
+    background-color: #0000bb;
+}
+/* bbs
+----------------------------------------------- */
+.contentBbsThreads .entryForm h2.formTitle {
+  background-color: #0000bb;
+}
+.contentBbsThreads .threadItem h2 {
+  color: #ffffff;
+  background-color: #0000bb;
+}
+.contentBbsThreads .poster span ,
+.contentBbsThreads .poster .no {
+  color: #ffffff;
+}
+.contentBbsThreads .deleteForm h2.formTitle {
+  background-color: #0000bb;
+}
+#bbsRecent .pieceHeader ,
+#bbsThread .pieceHeader ,
+#bbsRes .pieceHeader {
+  padding: 0 5px 0 10px;
+  border: 1px solid #FFFFFF;
+  background-image: none;
+}
+#bbsRecent ul ,
+#bbsThread ul ,
+#bbsRes ul {
+  border-width: medium 1px 1px;
+  border-color: #FFFFFF;
+  border-style: none solid solid;
+  border-right: 1px solid #FFFFFF;
+}
+.notice {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: #0000bb;
+}
+.errorExplanation {
+  border-width: medium 1px 1px;
+  border-color: #FFFFFF;
+  border-style: none solid solid;
+  border-right: 1px solid #FFFFFF;
+  color: #ffffff;
+}
+.errorExplanation h2 {
+  border: 1px solid #ffffff;
+  background-color: #0000bb;
+}
+.contentBbsThreads .back a {
+  background-color: #0000bb;
+}

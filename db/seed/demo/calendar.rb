@@ -42,9 +42,9 @@ layout = create_cms_layout :name => "calendar", :title => "年間行事"
 ## cms/pieces
 
 create_cms_piece :content_id => content.id, :model => "Calendar::MonthlyLink",
-  :name => "calendar-monthly-links", :title => "年間行事月別リンク"
+  :name => "calendar-monthly-links", :title => "年間行事-月別リンク"
 create_cms_piece :content_id => content.id, :model => "Calendar::DailyLink",
-  :name => "calendar-daily-links", :title => "年間行事日別リンク", :view_title => "カレンダー"
+  :name => "calendar-daily-links", :title => "年間行事-日別リンク", :view_title => "カレンダー"
 
 ## ---------------------------------------------------------
 ## cms/nodes

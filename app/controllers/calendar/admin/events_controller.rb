@@ -5,7 +5,7 @@ class Calendar::Admin::EventsController < Cms::Controller::Admin::Base
   include Sys::Controller::Scaffold::Publication
 
   def pre_dispatch
-    return error_auth unless Core.user.has_auth?(:designer)
+    #return error_auth unless Core.user.has_auth?(:designer)
     return error_auth unless @content = Cms::Content.find(params[:content])
     return error_auth unless Core.user.has_priv?(:read, :item => @content.concept)
     default_url_options :content => @content

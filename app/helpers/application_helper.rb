@@ -1,5 +1,10 @@
 # encoding: utf-8
 module ApplicationHelper
+  ## query string
+  def query(params = nil)
+    Util::Http::QueryString.get_query(params)
+  end
+  
   ## nl2br
   def br(str)
     str.gsub(/\r\n|\r|\n/, '<br />')
@@ -61,18 +66,18 @@ module ApplicationHelper
     links
   end
   
-  ## Number format
+  ## number format
   def number_format(num)
     number_to_currency(num, :unit => '', :precision => 0)
   end
 
-  ## Emoji
+  ## emoji
   def emoji(name)
     require 'jpmobile'
     return Cms::Lib::Mobile::Emoji.convert(name, request.mobile)
   end
   
-  ## Furigana
+  ## furigana
   def ruby(str, ruby = nil)
     ruby = Page.ruby unless ruby
     return ruby == true ? Cms::Lib::Navi::Ruby.convert(str) : str

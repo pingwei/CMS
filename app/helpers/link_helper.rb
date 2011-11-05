@@ -1,6 +1,6 @@
 # encoding: utf-8
 module LinkHelper
-  def action_menu(type, link = nil)
+  def action_menu(type, link = nil, options = {})
     action = @template.params[:action]
     
     if action =~ /index/
@@ -13,18 +13,19 @@ module LinkHelper
       return '' unless [:index, :show].index(type)
     end
     
-    options = {}
+    params = {}
+    
     if type == :destroy
-      options[:confirm] = '削除してよろしいですか？'
-      options[:method]  = :delete
+      params[:confirm] = '削除してよろしいですか？'
+      params[:method]  = :delete
     end
     
     if link.class == String
-      return link_to(type, link, options)
+      return link_to(type, link, params)
     elsif link.class == Array
-      return link_to(link[0], link[1], options)
+      return link_to(link[0], link[1], params)
     else
-      return link_to(type, url_for(:action => type), options)
+      return link_to(type, url_for(:action => type), params)
     end
   end
   

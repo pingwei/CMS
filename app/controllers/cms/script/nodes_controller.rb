@@ -51,7 +51,7 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
           error_log(e)
           next
         end
-        next
+        #next
       end
       
       publish_node(item)
