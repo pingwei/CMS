@@ -499,6 +499,9 @@ html:first-child #globalNavi a.bosai {
 
 /* calendar
 ----------------------------------------------- */
+#calendarDailyLinks{
+  width: 170px;
+}
 * html .calender {
   height: 1%;
 }
@@ -506,7 +509,12 @@ html:first-child #globalNavi a.bosai {
   width: 100%;
 }
 #menu #calendar .pieceHeader,
-#links #calendar .pieceHeader {
+#links #calendar .pieceHeader ,
+#content #calendar .pieceHeader ,
+#menu #calendarDailyLinks .pieceHeader ,
+#links #calendarDailyLinks .pieceHeader ,
+#content #calendarDailyLinks .pieceHeader 
+{
   height: 8px;
   margin: 0px;
   padding: 0px;
@@ -517,7 +525,8 @@ html:first-child #globalNavi a.bosai {
   text-indent: -9999px;
   line-height: 1;
 }
-#calendar .pieceBody {
+#calendar .pieceBody ,
+#calendarDailyLinks .pieceBody {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -526,14 +535,16 @@ html:first-child #globalNavi a.bosai {
   background-repeat: repeat-y;
 
 }
-#calendar .calendar {
+#calendar .calendar ,
+#calendarDailyLinks .calendar {
   float: left;
   width: 162px;
   padding: 5px 0px 0px 6px;
   font-size: 12px;
   font-weight: bold;
 }
-#calendar .links {
+#calendar .links ,
+#calendarDailyLinks .links {
   clear: both;
   padding: 5px 0px 10px 0px;
   background-image: url(./images/bg-calendar-bottom.gif);
@@ -541,7 +552,8 @@ html:first-child #globalNavi a.bosai {
   background-position: left bottom;
   text-align: center;
 }
-#calendar .calendar .wdays .wday {
+#calendar .calendar .wdays .wday ,
+#calendarDailyLinks .calendar .wdays .wday {
   display: block;
   float: left;
   width: 17px;
@@ -551,7 +563,8 @@ html:first-child #globalNavi a.bosai {
   border-bottom: solid 1px #aaaaaa;
   text-align: center;
 }
-#calendar .calendar .days .day {
+#calendar .calendar .days .day ,
+#calendarDailyLinks .calendar .days .day {
   display: block;
   float: left;
   width: 17px;
@@ -560,15 +573,20 @@ html:first-child #globalNavi a.bosai {
   border-bottom: solid 1px #aaaaaa;
   text-align: center;
 }
-#calendar .calendar .wdays .sun,
-#calendar .calendar .days .sun {
+#calendar .calendar .wdays .sun ,
+#calendar .calendar .days .sun ,
+#calendarDailyLinks .calendar .wdays .sun ,
+#calendarDailyLinks .calendar .days .sun {
   border-left: solid 1px #aaaaaa;
 }
-#calendar .calendar .days .sat {
+#calendar .calendar .days .sat ,
+#calendarDailyLinks .calendar .days .sat {
   color: #3366ff;
 }
-#calendar .calendar .days .sun,
-#calendar .calendar .days .holiday {
+#calendar .calendar .days .sun ,
+#calendar .calendar .days .holiday ,
+#calendarDailyLinks .calendar .days .sun ,
+#calendarDailyLinks .days .holiday {
   color: #ff0000;
 }
 .january {
@@ -618,19 +636,23 @@ html:first-child #globalNavi a.bosai {
   text-indent: -9999px;
   overflow: hidden;
 }
-.links a.prevMonth {
+#calendarDailyLinks .links .pagination{
+   text-align: center;
+}
+.links a.prevMonth{
   padding-left: 13px;
   background-image: url(./images/ic-prevmonth.gif);
   background-position: 4% center;
   background-repeat: no-repeat;
 
 }
-.links a.nextMonth {
+.links a.nextMonth{
   padding-right:13px;
   background-image: url(./images/ic-nextmonth.gif);
   background-position: 96% center;
   background-repeat: no-repeat;
 }
+
 
 /* piece
 ----------------------------------------------- */

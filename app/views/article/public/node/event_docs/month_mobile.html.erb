@@ -3,7 +3,7 @@
 <div class="h2"><%= "#{@calendar.year}年#{@calendar.month}月" %></div>
 
 <% @items.each do |item| %>
-<%= %Q(<div class="date">#{item[:date]}</div>) if item[:date] %>
+<%= %Q(<div class="date" id="#{item[:date_id]}">#{item[:date]}</div>) if item[:date] %>
 <div class="doc">・<%= link_to h(item[:doc].title), item[:doc].public_uri %></div>
 <% end %>
 

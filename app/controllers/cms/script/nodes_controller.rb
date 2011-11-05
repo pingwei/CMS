@@ -44,6 +44,9 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
           
           publish_page(item, :uri => item.public_uri, :site => item.site, :path => item.public_path)
           res   = render_component_as_string :controller => model, :action => "publish", :params => {:node => item}
+        rescue LoadError => e
+          error_log(e)
+          next
         rescue Exception => e
           error_log(e)
           next
@@ -60,8 +63,8 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
       item = params[:item]
       if item.state == 'recognized' && item.model == "Cms::Page"
         puts "-- Publish: #{item.class}##{item.id}"
-        item = Cms::Model::Node::Page.find(item.id)
-        uri  = "#{item.public_uri}"
+        item = Cms::Node::Page.find(item.id)
+        uri  = "#{item.public_uri}?node_id=#{item.id}"
         path = "#{item.public_path}"
         
         if !item.publish(render_public_as_string(uri, :site => item.site))
@@ -86,7 +89,7 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
       item = params[:item]
       if item.state == 'public' && item.model == "Cms::Page"
         puts "-- Close: #{item.class}##{item.id}"
-        item = Cms::Model::Node::Page.find(item.id)
+        item = Cms::Node::Page.find(item.id)
         
         item.close
         

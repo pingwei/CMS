@@ -3,7 +3,7 @@
 <div class="navi">
 <%#= link_to '組織', url_for(:action => :index, :parent => 0) %>
 <% tree = @parent.parents_tree; tree.each_with_index do |c, k| %>
-<%= "&gt;" if k != 0 %> <%=link_to c.title, url_for(:action => :index, :parent => c ) %>
+<%= '<span class="separator">&gt;</span>' if k != 0 %><%=link_to c.title, url_for(:action => :index, :parent => c ) %>
 <% end %>
 </div>
 

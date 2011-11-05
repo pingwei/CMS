@@ -1,3 +1,19 @@
+1.1.8
+  CREATE TABLE IF NOT EXISTS calendar_events (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    content_id int(11) DEFAULT NULL,
+    state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    published_at datetime DEFAULT NULL,
+    event_date date DEFAULT NULL,
+    event_uri varchar(255) DEFAULT NULL,
+    title text,
+    body longtext,
+    PRIMARY KEY (id)
+  );
+
 1.1.5
   CREATE TABLE sys_unid_relations (
     id int(11) NOT NULL AUTO_INCREMENT,

@@ -19,7 +19,7 @@ def show_children(node, level = 1, cls = nil)
   return html
 end
 
-%><ul class = "sitemap level1">
+%><ul class="sitemap level1">
 <% @items.each do |item| %>
 <%= show_children(item) %><% end %>
 </ul> 

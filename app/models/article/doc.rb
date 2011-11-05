@@ -156,14 +156,21 @@ class Article::Doc < ActiveRecord::Base
   def event_date_is(options = {})
     self.and :language_id, 1
     self.and :event_state, 'visible'
+    self.and :event_date, 'IS NOT', nil
 
     if options[:year] && options[:month]
-      sd = Date.new(options[:year], options[:month], 1)
-      ed = sd >> 1
-      self.and :event_date, 'IS NOT', nil
-      self.and :event_date, '>=', sd
-      self.and :event_date, '<' , ed
+      sdate = Date.new(options[:year], options[:month], 1)
+      edate = sdate >> 1
+      self.and :event_date, '>=', sdate
+      self.and :event_date, '<' , edate
+    elsif options[:year]
+      sdate = Date.new(options[:year], 1, 1)
+      edate = sdate >> 12
+      self.and :event_date, '>=', sdate
+      self.and :event_date, '<' , edate
     end
+    
+    self
   end
 
   def group_is(group)

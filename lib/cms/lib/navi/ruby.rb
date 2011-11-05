@@ -49,12 +49,7 @@ class Cms::Lib::Navi::Ruby
       break unless c = next_char.call(i)
       if c == '<' # tag
         break unless c = next_char.call(i+=1)
-        if c == '!'
-          while i = forward_char.call('-', i) do
-            break if i > chars.size
-            break if next_char.call(i+=1) == '-' && next_char.call(i+=1) == '>'
-          end
-        elsif c == 'style'
+        if c == 'style'
           i = forward_char.call('>', i)
           while i = forward_char.call('<', i) do
             break if i > chars.size
@@ -66,6 +61,13 @@ class Cms::Lib::Navi::Ruby
             break if i > chars.size
             break if next_char.call(i+=1) == '/' && next_char.call(i+=1) == 'script'
           end
+#        elsif c == '!'
+#          while i = forward_char.call('-', i) do
+#            break if i > chars.size
+#            break if next_char.call(i+=1) == '-' && next_char.call(i+=1) == '>'
+#          end
+        elsif c == '<'
+          # <<
         else
           i = forward_char.call('>', i)
         end

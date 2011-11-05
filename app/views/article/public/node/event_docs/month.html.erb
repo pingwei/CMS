@@ -4,7 +4,7 @@
 
 <table class="calendar">
   <% @items.each do |item| %><tr>
-    <td class="<%= item[:date_class] %>"><%= item[:anchor] %><%= item[:date] %></td>
+    <td class="<%= item[:date_class] %>" id="<%= item[:date_id] %>"><%= item[:date] %></td>
     <td class="<%=h item[:attr_class] %>"><span class="attribute"><%=h item[:attr_title] %></span></td>
     <td class="title"><%= link_to h(item[:doc].title), item[:doc].public_uri %></td>
   </tr><% end %>

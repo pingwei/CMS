@@ -1,4 +1,5 @@
-<% form_for :item, :url => {:action => :create}, :html => {:multipart => true, :id => 'itemForm'} do |f| %>
+<% form_for :item, :url => {:action => :create},
+  :html => {:multipart => true, :id => 'itemForm', :autocomplete=>"off"} do |f| %>
 
 <%= f.error_messages %>
 

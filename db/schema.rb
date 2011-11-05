@@ -95,6 +95,21 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "word"
   end
 
+  create_table "calendar_events", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "content_id"
+    t.string   "state",        :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "published_at"
+    t.date     "event_date"
+    t.string   "event_uri"
+    t.text     "title"
+    t.text     "body",         :limit => 2147483647
+  end
+
+  add_index "calendar_events", ["content_id", "published_at", "event_date"], :name => "content_id"
+  
   create_table "cms_concepts", :force => true do |t|
     t.integer  "unid"
     t.integer  "parent_id"

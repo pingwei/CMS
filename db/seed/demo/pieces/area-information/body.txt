@@ -1,7 +1,7 @@
 <div id="ereaMap" class="piece">
 <div class="pieceContainer">
 <div class="pieceHeader">
-<img src="/_common/themes/joruri/top/images/bg-chiiki00.gif" title="地域情報" alt="地域情報" width="168" usemap="#Map" name="a" id="a">
+<img src="/_common/themes/joruri/top/images/bg-chiiki00.gif" title="地域情報" alt="地域情報" width="168" usemap="#Map" name="a" id="a" />
 <map name="Map" id="map">
 <area shape="rect" coords="2,1,82,24" alt="地域情報" title="地域情報" href="/chiiki/" />
 <area shape="poly" coords="145,106,18,106,82,66" alt="南区" title="南区" href="/chiiki/south/" onmouseover="document.a.src = '/_common/themes/joruri/top/images/bg-chiiki03.gif'" onmouseout="document.a.src = '/_common/themes/joruri/top/images/bg-chiiki00.gif'" />

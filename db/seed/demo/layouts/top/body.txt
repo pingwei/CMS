@@ -38,7 +38,7 @@
 
 [[piece/topic]]
 
-[[piece/life-event]]
+[[piece/lifeevent]]
 
 [[piece/category]]
 
@@ -57,6 +57,8 @@
 [[piece/bn-mailmagazine]]
 
 [[piece/about]]
+
+[[piece/bn-event]]
 
 [[piece/area-information]]
 

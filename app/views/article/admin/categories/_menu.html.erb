@@ -3,7 +3,7 @@
 <div class="navi">
 <%= link_to '分野', url_for(:action => :index, :parent => 0) %>
 <% tree = @parent.parents_tree; tree.each_with_index do |c, k| %>
-&gt; <%=link_to c.title, url_for(:action => :index, :parent => c ) %>
+<span class="separator">&gt;</span><%=link_to c.title, url_for(:action => :index, :parent => c ) %>
 <% end %>
 </div>
 

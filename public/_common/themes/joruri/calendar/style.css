@@ -2,73 +2,106 @@
 @import "../base/init.css";
 @import "../base/style.css";
 @import "../piece/style.css";
-
 /* =========================================================
    calender
 ========================================================= */
-
-/* event-banner
+/* main
 ----------------------------------------------- */
-#eventBanner {
+.calendarEvents {
+  float: left;
+  width: 99%;
   margin-bottom: 20px;
-  text-align: center;
 }
-
-/* event-calender
------------------------------------------------ */
-.contentArticleEventDocs h2 {
-  margin: 0px 0 10px 0;
-  padding: 5px 0 5px 10px;
-  background-color: #e3f0fa;
-  font-weight: bold;
+h2 {
+  font-size: 130%;
 }
-.contentArticleEventDocs table {
-  width: 100%;
-  border-top: 1px solid #666666;
+.upperPagination {
+  background-color: #EDEDED;
 }
-.contentArticleEventDocs td {
-  padding: 10px;
-  border-bottom: 1px solid #666666;
+.date {
+  border-top: 1px solid #ccc;
 }
-.contentArticleEventDocs td.day {
-  width: 15%;
-}
-.contentArticleEventDocs td.title {
-  width: 60%;
-}
-
-td.attribute span {
+.date {
   display: block;
-  width: 90%;
-  padding: 3px 0px;
-  border: 1px solid #666;
-  text-align: center;
+  min-height: 1px;
+  /* \*/
 }
-.attributeNyusatsu span {
-  background-color: #95C837;
-  text-align: center;
+* html .date {
+  height: 1%;
 }
-.attributeSaiyo span {
-  background-color: #b1e6f1;
-  text-align: center;
+.date:after {
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
 }
-.attributeShikakushiken span {
-  background-color: #ffcccc;
-  text-align: center;
+.date .day {
+  float: left;
+  height: 35px;
+  margin-right: 15px;
+  padding-top: 5px;
+  padding-left: 5px;
 }
-.attributeBosyu span {
-  background-color: #66ff99;
-  text-align: center;
+.sat {
+  color: #3366FF;
 }
-.attributeEvent span {
-  background-color: #ffcc00;
-  text-align: center;
+.sun ,
+.holiday {
+  color: #FF0000;
 }
-.attributeKyoka span {
-  text-align: center;
-  background-color: #dbe4ff;
+.events {
+  float: left;
+  padding-top: 5px;
+}
+.events li {
+  line-height: 1;
+  padding-bottom: 5px;
 }
 .pagination {
-  margin-top: 10px;
-  text-align: center;
+  line-height: 23px;
+  padding-right: 5px;
+  text-align: right;
+}
+/* sidemenu
+----------------------------------------------- */
+#menu .pieceHeader {
+  background-repeat: repeat-y;
+}
+#menu ul {
+  padding: 0 0 5px 0;
+  background-color: #FFFFFF;
+}
+#menu li {
+  width: 170px;
+  padding: 0 0 0 0;
+  background-image: none;
+}
+#menu li a {
+  height: 25px;
+  line-height: 25px;
+}
+#menu li .month {
+  display: block;
+  padding: 0 0 0 20px;
+  background-color: #ffffff;
+  background-image: url("./images/ic-list.gif");
+  background-repeat: no-repeat;
+  background-position: 10px 0.7em;
+}
+#menu li .year {
+  display: block;
+  width: 160px;
+  padding-left: 10px;
+  background-color: #D3E8F4;
+}
+#menu li .year:hover ,
+#menu li .month:hover {
+  background-color: #FFFF72;
+}
+#menu li .month12 {
+  height: 25px;
+  line-height: 25px;
+  margin-bottom: 5px;
 }

@@ -125,8 +125,8 @@ ja:
         new_upload: "ファイル"
       
       ## node
-      cms/model/node/page:
+      cms/node/page:
         name: "ファイル名"
-      cms/model/node/sitemap:
+      cms/node/sitemap:
         name: "ファイル名"
 

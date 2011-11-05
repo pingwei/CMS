@@ -1,12 +1,26 @@
 @charset "UTF-8";
+@import "../base/init.css";
 @import "../base/style.css";
-@import "../base/layouts/col-1.css";
 @import "../piece/style.css";
 
 /* =========================================================
-  calendar
+   calender
 ========================================================= */
+.date {
+  border-top: 1px solid #ccc;
+}
+.sat {
+  color: #3366FF;
+}
+.sun {
+  color: #FF0000;
+}
+.event {
+  margin-bottom: 5px;
+}
+.holiday {
+  margin-bottom: 5px;
+}
 .pagination {
-  margin-top: 5px;
   text-align: center;
 }

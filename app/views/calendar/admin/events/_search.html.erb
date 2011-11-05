@@ -1,0 +1,25 @@
+<%
+
+blank_opt  = '<option value=""></option>'
+sort_opts   = [["イベント日（昇順）","event_date"],["イベント日（降順）","event_date -1"]]
+
+%><% form_tag '', :method => :get, :class => 'search' do %>
+
+<table>
+  <tr>
+    <th>イベント日</th>
+    <td><div class="fieldDatetime" style="vertical-align: middle;">
+      <%= calendar_date_select_tag 's_event_date', params[:s_event_date], :style => 'width: 80px; text-align: center;'  %></div></td>
+    <th>イベント名</th>
+    <td ><%= text_field_tag 's_title', params[:s_title], :style => 'width: 300px;' %></td>
+    <th>並び順</th>
+    <td><%= select_tag('sort', blank_opt + options_for_select(sort_opts, params[:sort])) %></td>
+    <td class="submitters">
+      <%= submit_tag '検索',     :name => :search %>
+      <%= submit_tag 'リセット', :name => :reset %>
+    </td>
+  </tr>
+  
+</table>
+
+<!-- end .search --><% end %>

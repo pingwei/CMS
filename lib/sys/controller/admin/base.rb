@@ -34,7 +34,9 @@ private
   def authenticate
     return true  if logged_in?
     return false if request.env['PATH_INFO'] =~ /^\/_admin\/login/
-    cookies[:sys_login_referrer] = request.env['PATH_INFO']
+    uri  = request.env['PATH_INFO']
+    uri += "?#{request.env['QUERY_STRING']}" if !request.env['QUERY_STRING'].blank?
+    cookies[:sys_login_referrer] = uri
     return respond_to do |format|
       format.html { redirect_to('/_admin/login') }
       format.xml  { error 'This is a secure page.' }

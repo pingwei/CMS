@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Cms::Admin::Node::PagesController < Cms::Admin::Node::BaseController
-  set_model Cms::Model::Node::Page
+  set_model Cms::Node::Page
   
   def edit
     @item = model.new.find(params[:id])
@@ -103,7 +103,7 @@ protected
     subject = "ページ（#{item.site.name}）：承認依頼メール"
     message = "#{Core.user.name}さんより「#{item.title}」についての承認依頼が届きました。\n" +
       "次の手順により，承認作業を行ってください。\n\n" +
-      "１．PC用記事のプレビューにより文書を確認\n#{item.preview_uri}\n\n" +
+      "１．PC用記事のプレビューにより文書を確認\n#{item.preview_uri(:params => {:node_id => item.id})}\n\n" +
       "２．次のリンクから承認を実施\n" +
       "#{url_for(:action => :show, :id => item)}\n"
     

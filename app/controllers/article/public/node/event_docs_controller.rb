@@ -53,12 +53,11 @@ class Article::Public::Node::EventDocsController < Cms::Controller::Public::Base
         date   = request.mobile? ?
           "#{day[:month]}月#{day[:day]}日(#{day[:wday_label]})" :
           "#{day[:month]}月#{day[:day]}日（#{day[:wday_label]}）"
-        anchor = %Q(<a id="day#{day[:day]}" name="day#{day[:day]}"></a>)
       end
       attr = doc.attribute_items[0]
       @items << {
         :date       => date,
-        :anchor     => anchor,
+        :date_id    => "day" + sprintf('%02d', day[:day]),
         :date_class => day[:class],
         :attr_class => attr ? "attribute attribute#{attr.name.camelize}" : nil,
         :attr_title => attr ? attr.title : nil,

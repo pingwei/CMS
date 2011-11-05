@@ -1,10 +1,5 @@
 # encoding: utf-8
 class Article::Content::Doc < Cms::Content
-  def config
-    return @config if @config
-    @config = Article::Content::DocConfig.find(:first, self)
-  end
-  
   def doc_node
     return @doc_node if @doc_node
     item = Cms::Node.new.public

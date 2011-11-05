@@ -33,7 +33,17 @@ class Cms::Controller::Script::Publication < ApplicationController
       ruby = true
     end
     
-    item.publish_page(render_public_as_string(uri, :site => site), :path => path, :dependent => dep) if ruby
+    if ruby
+      begin
+        timeout(60) do
+          item.publish_page(render_public_as_string(uri, :site => site), :path => path, :dependent => dep)
+        end
+      rescue TimeoutError => e
+        error_log("#{e}: #{uri}")
+      rescue => e
+        error_log("#{e}: #{uri}")
+      end
+    end
     
     return res
   rescue => e

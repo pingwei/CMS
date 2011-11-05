@@ -38,15 +38,15 @@ areas      = Article::Area.root_items(:content_id => @content.id)
         </tr><tr>
           <td>属性</td>
           <td>
-            <%= f.array_select "attribute[0]", attributes, :include_blank => blank %> &nbsp;
-            <%= f.array_select "attribute[1]", attributes, :include_blank => blank %> &nbsp;
-            <%= f.array_select "attribute[2]", attributes, :include_blank => blank %></td>
+            <%= f.array_select "attribute[0]", attributes, :label => :title, :include_blank => blank %> &nbsp;
+            <%= f.array_select "attribute[1]", attributes, :label => :title, :include_blank => blank %> &nbsp;
+            <%= f.array_select "attribute[2]", attributes, :label => :title, :include_blank => blank %></td>
         </tr><tr>
           <td>地域</td>
           <td>
-            <%= f.select_with_tree "area[0]", areas, :include_blank => blank %> &nbsp;
-            <%= f.select_with_tree "area[1]", areas, :include_blank => blank %> &nbsp;
-            <%= f.select_with_tree "area[2]", areas, :include_blank => blank %></td>
+            <%= f.select_with_tree "area[0]", areas, :label => :title, :include_blank => blank %> &nbsp;
+            <%= f.select_with_tree "area[1]", areas, :label => :title, :include_blank => blank %> &nbsp;
+            <%= f.select_with_tree "area[2]", areas, :label => :title, :include_blank => blank %></td>
         </tr>
       </table>
     </td>

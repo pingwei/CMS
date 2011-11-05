@@ -3,6 +3,7 @@ class Util::Date::Calendar
   attr_accessor :year_uri
   attr_accessor :month_uri
   attr_accessor :day_uri
+  cattr_reader  :wday_specs
   
   @@wday_specs = [
     {:class => 'sun', :label => "日"},
@@ -60,6 +61,8 @@ class Util::Date::Calendar
     
     w = 0
     @days.each do |day|
+      day[:date] = sprintf('%04d-%02d-%02d', day[:year], day[:month], day[:day])
+      
       day[:wday] = w
       day[:wday_label] = @@wday_specs[w][:label]
       
@@ -89,6 +92,14 @@ class Util::Date::Calendar
     @cy
   end
   
+  def prev_year
+    @cy - 1
+  end
+  
+  def next_year
+    @cy + 1
+  end
+  
   def month
     @cm
   end
@@ -105,8 +116,24 @@ class Util::Date::Calendar
     @nm
   end
   
+  def prev_month_date
+    Date.new(@py, @pm, 1)
+  end
+  
+  def next_month_date
+    Date.new(@ny, @nm, 1)
+  end
+  
   def days
     @days
+  end
+  
+  def prev_year_uri
+    @year_uri.gsub(':year', @cy - 1).gsub(':month', sprintf('%02d', @cm))
+  end
+  
+  def next_year_uri
+    @year_uri.gsub(':year', @cy + 1).gsub(':month', sprintf('%02d', @cm))
   end
   
   def current_month_uri
@@ -126,7 +153,6 @@ class Util::Date::Calendar
   end
   
   def day_link=(dates)
-    
     @days.each do |day|
       next unless Date::valid_date?(day[:year], day[:month], day[:day])
       d = Date::new(day[:year], day[:month], day[:day])

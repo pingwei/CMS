@@ -179,6 +179,7 @@ end
   [ c_site.id , 'Cms::Free'      , 'attract-information'  , '注目情報' ],
   [ c_site.id , 'Cms::Free'      , 'relation-link'        , '関連リンク' ],
   [ c_top.id  , 'Cms::Free'      , 'about'                , 'ジョールリ市の紹介' ],
+  [ c_top.id  , 'Cms::Free'      , 'bn-event'             , '年間行事' ],
   [ c_top.id  , 'Cms::Free'      , 'application'          , '申請書ダウンロード' ],
   [ c_top.id  , 'Cms::Free'      , 'area-information'     , '地域情報' ],
   [ c_top.id  , 'Cms::Free'      , 'basic-information'    , '基本情報' ],
@@ -239,7 +240,7 @@ def create_cms_node(params)
   Cms::Node.create(params)
 end
 
-Cms::Node.update_all({:layout_id => l_top.id}, {:id => 1})
+#Cms::Node.update_all({:layout_id => l_top.id}, {:id => 1})
 Cms::Node.update_all({:concept_id => c_top.id, :layout_id => l_top.id}, {:id => 2})
 #create_cms_node :parent_id => 0, :layout_id => l_top.id , :model => 'Cms::Directory', :name => '/'          , :title => site_name
 #create_cms_node :parent_id => 1, :layout_id => l_top.id , :model => 'Cms::Page'     , :name => 'index.html' , :title => site_name, :concept_id => c_top.id
@@ -288,5 +289,6 @@ load_seed_file "demo/article.rb"
 load_seed_file "demo/enquete.rb"
 load_seed_file "demo/portal.rb"
 load_seed_file "demo/newsletter.rb"
+load_seed_file "demo/calendar.rb"
 
 puts "Imported demo data."

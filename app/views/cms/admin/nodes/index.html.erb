@@ -1,57 +1,40 @@
 <%= render :partial => 'search' %>
 
-<div class="crudTree">
-<div class="tree">
+<%#= link_to :up, url_for(:parent => @parent.parent_id) if @parent.parent_id > 0 %>
   
-  <p>
-    <%= link_to :show, @parent.admin_uri %>
-    <%=h @parent.title %></p>
+<table class="index directories">
+  <tr>
+    <th style="width: 60px; text-align: center;">詳細</th>
+    <th style="width: 20%;">ファイル名</th>
+    <th style="width: ;">タイトル</th>
+    <th style="width: 120px; text-align: center;">更新日時</th>
+    <th style="width: 60px; text-align: center;">状態</th>
+    <th style="width: 60px; text-align: center;">プレビュー</th>
+  </tr>
   
-  <div class="links">
-    <div><%= link_to :up, url_for(:parent => @parent.parent_id) if @parent.parent_id > 0 %></div>
-    <% for item in @dirs %>
-    <%= link_to :show, item.admin_uri %>
-      <%= link_to h(truncate(item.title, :length => 12)), url_for(:action => :index, :parent => item) %>
-      <span class="sortNo"><%= truncate(item.name, :length => 16) %></span><br />
-    <% end %>
-  </div>
+  <% @dirs.each do |item| %>
+  <tr class="directory <%= cycle '', 'cycle' %>">
+    <td style="text-align: center;"><%= link_to :show, item.admin_uri %></td>
+    <td class="name"><%= link_to h(item.name), url_for(:action => :index, :parent => item) %></td>
+    <td><%=h truncate(item.title, :length => 36) %></td>
+    <td style="text-align: center;"><%= safe{item.updated_at.strftime('%Y-%m-%d %H:%M')} %></td>
+    <td style="text-align: center;"><%= safe{item.status.name} %></td>
+    <td style="text-align: center;">
+      <%= link_to '表示', item.preview_uri(:params => {:node_id => item.id}), :target => '_blank' if !item.name.blank? %></td>
+  </tr>
+  <% end %>
   
-</div>
-<div class="content">
-  
-  <%#<div style="padding: 0px 0px 10px 0px;">%>
-    <%#= link_to '新規登録', new_cms_page_path(@parent)  if Core.user.has_priv?(:create, :item => @parent.concept) %>
-    <%#= link_to '編集可能', cms_edit_pages_path(@parent) %>
-    <%#= link_to '承認待ち', cms_recognize_pages_path(@parent) %>
-    <%#= link_to '公開待ち', cms_publish_pages_path(@parent) %>
-    <%#= link_to 'ページ一覧', cms_pages_path(@parent) %>
-  <%#</div>%>
+  <% @pages.each do |item| %>
+  <tr class="file <%= cycle '', 'cycle' %>">
+    <td style="text-align: center;"><%= link_to :show, item.admin_uri %></td>
+    <td class="name"><%=h truncate(item.name, :length => 20) %></td>
+    <td><%=h truncate(item.title, :length => 36) %><%= " （更新用）" if item.replace_page? %></td>
+    <td style="text-align: center;"><%= safe{item.updated_at.strftime('%Y-%m-%d %H:%M')} %></td>
+    <td style="text-align: center;"><%= safe{item.status.name} %></td>
+    <td style="text-align: center;">
+      <%= link_to '表示', item.preview_uri(:params => {:node_id => item.id}), :target => '_blank' if !item.name.blank? %></td>
+  </tr>
+  <% end %>
 
-  <table class="index">
-    <tr>
-      <th style="width: 60px; text-align: center;">詳細</th>
-      <th style="width: 20%;">ファイル名</th>
-      <th style="width: ;">タイトル</th>
-      <th style="width: 120px; text-align: center;">更新日時</th>
-      <th style="width: 60px; text-align: center;">状態</th>
-      <th style="width: 60px; text-align: center;">プレビュー</th>
-    </tr>
-    
-    <% for item in @pages %>
-    <tr <%= cycle '', 'class="cycle"' %>>
-      <td style="text-align: center;"><%= link_to :show, item.admin_uri %></td>
-      <td><%=h truncate(item.name, :length => 20) %></td>
-      <td><%=h truncate(item.title, :length => 20) %><%= " （更新用）" if item.replace_page? %></td>
-      <td style="text-align: center;"><%= safe{item.updated_at.strftime('%Y-%m-%d %H:%M')} %></td>
-      <td style="text-align: center;"><%= safe{item.status.name} %></td>
-      <td style="text-align: center;">
-        <%= link_to '表示', item.preview_uri(:params => {:node_id => item.id}), :target => '_blank' if !item.name.blank? %></td>
-    </tr>
-    <% end %>
-  
-  </table>
-  <%#= paginate @items %>
-
-</div>
-<div class="footer"></div>
-</div>
+</table>
+<%#= paginate @items %>
