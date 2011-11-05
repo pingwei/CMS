@@ -1,0 +1,40 @@
+<p class="form">基本情報</p>
+
+<table class="show">
+  <%= piece_base_view @item, :container => :tr %>
+</table>
+
+<br />
+<p class="form">タブ設定</p>
+
+<table class="index">
+  <tr>
+    <th style="width: 200px;"><%= Article::Piece::RecentTabXml.new(@piece).locale(:name) %></th>
+    <th style="width: 200px;"><%= Article::Piece::RecentTabXml.new(@piece).locale(:title) %></th>
+    <th style="width: ;">条件</th>
+  </tr>
+
+  <% Article::Piece::RecentTabXml.find(:all, @piece).each do |item| %>
+  <tr <%= cycle '', 'class="cycle"' %>>
+    <td><%=h item.name %></td>
+    <td><%=h item.title %></td>
+    <td>
+      <% if (items = item.unit_items).size > 0 %>
+      組織 &gt; <%= items.collect{|c| c.name}.join('，') %><br />
+      <% end %>
+      <% if (items = item.category_items).size > 0 %>
+      分野 &gt; <%= items.collect{|c| c.title}.join('，') %><br />
+      <% end %>
+      <% if (items = item.attribute_items).size > 0 %>
+      属性 &gt; <%= items.collect{|c| c.title}.join('，') %><br />
+      <% end %>
+      <% if (items = item.area_items).size > 0 %>
+      地域 &gt; <%= items.collect{|c| c.title}.join('，') %><br />
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+
+<%= creator_view @item %>

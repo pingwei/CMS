@@ -1,0 +1,42 @@
+<%
+
+chFile = "$(item_name).value = $(item_file).value.replace(/\\\\/g, '/').replace(/.*\\//, '');"
+chFile += "$(item_title).value = $(item_file).value.replace(/\\\\/g, '/').replace(/.*\\//, '');"
+
+%><%= f.hidden_field :concept_id  %>
+
+<table class="show">
+  <%#= concept_form f %>
+  
+  <% if @item.id %>
+  <tr>
+    <th><%= @item.locale(:node_id) %></th>
+    <td><%=h safe{@item.node.name} %></td>
+  </tr>
+  <tr>
+    <th style=""><%=@item.locale(:name) %></th>
+    <td><%=h @item.name %></td>
+  </tr>
+  
+  <% else %>
+  <tr>
+    <th><%= @item.locale(:node_id) %></th>
+    <td><%= f.select(:node_id, Cms::DataFileNode.find(:all, 
+        :conditions => {:concept_id => Core.concept(:id)}, :order => :name).collect{|i| [i.label, i.id]},
+        :include_blank => '　') %></td>
+  </tr>
+  <tr>
+    <th><%= @item.locale(:file) %></th>
+    <td><%= f.file_field :file, :size => 64, :style => 'width: 450px;', :onchange => chFile %></td>
+  </tr>
+  <tr>
+    <th style=""><%=@item.locale(:name) %><div class="note">※半角英数字のみ</div></th>
+    <td><%= f.text_field :name, :class => 'nameEn' %></td>
+  </tr>
+  <% end %>
+  
+  <tr>
+    <th style=""><%=@item.locale(:title) %><div class="note">※日本語でわかりやすく</div></th>
+    <td><%= f.text_field :title, :class => 'name' %></td>
+  </tr>
+</table>

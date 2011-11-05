@@ -1,0 +1,47 @@
+<p class="form">基本情報</p>
+
+<table class="show">
+  <tr>
+    <th><%= @item.locale(:concept_id) %></th>
+    <td><%= safe{@item.concept.name} %></td>
+  </tr><tr>
+    <th><%=h @item.locale(:name) %></th>
+    <td><%=hbr @item.name %></td>
+  </tr><tr>
+    <th><%=h @item.locale(:title) %></th>
+    <td><%=hbr @item.title %></td>
+  </tr>
+</table>
+
+<br />
+<table style="width: 100%"><tr><td style="width: 49%; vertical-align: top;">
+  <p class="form">標準レイアウト</p>
+  <table class="show">
+    <tr>
+      <th><%=h @item.locale(:head) %></th></tr><tr>
+      <td><div><%=hbr @item.head %><br /></div></td>
+    </tr><tr>
+      <th><%=h @item.locale(:body) %></th></tr><tr>
+      <td><div><%=hbr @item.body %><br /></div></td>
+    </tr><tr>
+      <th><%=h @item.locale(:stylesheet) %></th></tr><tr>
+      <td><div><%=hbr @item.stylesheet %><br /></div></td>
+    </tr>
+  </table>
+</td><td style="width: 15px;"></td><td style="vertical-align: top;">
+  <p class="form">携帯レイアウト</p>
+  <table class="show">
+    <tr>
+      <th><%=h @item.locale(:mobile_head) %></th></tr><tr>
+      <td><div><%=hbr @item.mobile_head %><br /></div></td>
+    </tr><tr>
+      <th><%=h @item.locale(:mobile_body) %></th></tr><tr>
+      <td><div><%=hbr @item.mobile_body %><br /></div></td>
+    </tr><tr>
+      <th><%=h @item.locale(:mobile_stylesheet) %></th></tr><tr>
+      <td><div><%=hbr @item.mobile_stylesheet %><br /></div></td>
+    </tr>
+  </table>
+</td></tr></table>
+
+<%= creator_view @item %>

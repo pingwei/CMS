@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+/* =========================================================
+   Attribute
+========================================================= */
+
+/* index
+----------------------------------------------- */
+.contentPrefAttribute h3 {
+  height: 1%;
+  padding: 5px 30px 5px 10px;
+/*  background-image: url(/_common/themes/tokushima/files/zokusei/icon_square_title.gif);
+  background-repeat: no-repeat;
+  background-position: 1% 50%;
+  background-color: #f8e1f0;*/
+}
+.contentPrefAttribute .children {
+  line-height: 1.5;
+  margin: 0px 0px 10px 0px;
+}
+.contentPrefAttribute .children a {
+  display: inline-block;
+  margin: 0px 0px 0px 10px;
+}
+.contentPrefAttribute ul {
+  padding-left: 25px;
+}
+.contentPrefAttribute li {
+  line-height: 1.4;
+}
+.contentPrefAttribute .latest li {
+  padding-left:10px;
+  background-image:url(/_common/themes/tokushima/files/zokusei/icon_square_green.gif);
+  background-repeat:no-repeat;
+  background-position:0 7px;
+}
+.contentPrefAttribute .sections li {
+  padding-left:10px;
+  background-image:url(/_common/themes/tokushima/files/zokusei/icon_square_purple.gif);
+  background-repeat:no-repeat;
+  background-position:0 7px;
+}
+
+/* show
+----------------------------------------------- */
+.contentPrefAttribute .latest {
+  position: relative;
+}
+.contentPrefAttribute .latest h3 {
+  padding-left:30px;
+/*background-image: url(/_common/themes/tokushima/files/zokusei/icon_square_new.gif);
+  background-position: 1% 50%;
+  background-repeat: no-repeat;
+  background-color: #8f0572;
+  color: #fff;  */
+}
+.contentPrefAttribute .latest .feed {
+/*float: right;
+  position: relative;
+  top: -25px;
+  right: 5px;*/
+}
+.contentPrefAttribute .latest .feed a {
+/*display:none;
+  color: transparent;
+  text-decoration: none;*/
+}
+.contentPrefAttribute .more {
+  margin-bottom: 10px;
+  text-align: right;
+}
+a.feedRss {
+/*right: 10px;*/
+}
+a.feedAtom {
+/*display: none;*/
+}
+
+/*footer
+--------------------------------------------------*/
+#pageFooter .pieceContainer {
+  border-top: solid 2px rgb(141,5,114);
+}
+.inquiry {
+  border-top: solid 1px #8D0572;
+}
+.inquiry h3 {
+  color: #8d0572;
+}
+

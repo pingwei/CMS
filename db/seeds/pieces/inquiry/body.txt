@@ -1,0 +1,7 @@
+<div id="inquiry" class="piece">
+<div class="pieceContainer">
+<div class="pieceBody">
+<a href="/inquiry/"><img src="/_common/themes/joruri/top/images/bn-toiawase.gif" alt="ジョールリ市へのお問い合わせはこちら" title="ジョールリ市へのお問い合わせはこちら" /></a>
+</div>
+</div>
+</div>

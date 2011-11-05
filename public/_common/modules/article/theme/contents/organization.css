@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+/* =========================================================
+   Organization
+========================================================= */
+
+/* index
+----------------------------------------------- */
+.contentPrefSection .children {
+  margin: 0px 0px 10px 0px;
+  line-height: 1.5;
+}
+
+.contentPrefSection .children a {
+  display: inline-block;
+  margin: 0px 0px 0px 10px;
+}
+
+.contentPrefSection li {
+  padding-left: 10px;
+  background-image: url(/_common/themes/tokushima/files/soshiki/icon_square_yellow.gif);
+  background-position: 0 7px;
+  background-repeat: no-repeat;
+  line-height: 1.4;
+}
+
+.attributes {
+/*  background-image: url(/_common/themes/tokushima/files/soshiki/content-bar-L.gif);
+  background-repeat: no-repeat;*/
+}
+
+#contentBody .attributes h3 {
+/*  margin-left: 24px;
+  padding-left: 3px;
+  background-image: url(/_common/themes/tokushima/files/soshiki/content-bar-1px.gif);
+  background-repeat: repeat-x;
+  background-position: 0 0;*/
+}
+
+
+/* show
+----------------------------------------------- */
+.contentPrefSection .latest {
+  position: relative;
+}
+
+.contentPrefSection .latest h3 {
+  background-color: #000088;
+  background-image: url(/_common/themes/tokushima/files/soshiki/icon_square_newbar.gif);
+}
+
+*html .contentPrefSection .latest h3 {
+  padding-left: 32px;
+}
+
+.contentPrefSection .latest .feed {
+/*  display: none;
+  position: relative;
+  top: -25px;
+  float: right;
+  right: 5px;*/
+}
+
+.contentPrefSection .latest .feed a {
+/*  color: transparent;
+  text-decoration: none;*/
+}
+
+.contentPrefSection .more {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.attributes h3 {
+/*  background-color: #D2D2FF;
+  background-image: url(/_common/themes/tokushima/files/soshiki/icon_square.gif);
+  zoom:1;*/
+}
+
+/*footer
+--------------------------------------------------*/
+.inquiry {
+  border-top: solid 1px #2D2D84;
+}
+
+.inquiry h3 {
+  color:#2D2D84;
+}
+

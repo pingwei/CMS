@@ -1,0 +1,11 @@
+<p class="form">基本情報</p>
+
+<table class="show">
+  <%= node_base_view @item, :container => :tr %>
+  <tr>
+    <th><%= @item.locale(:name) %></th>
+    <td><%= safe{@item.name} %></td>
+  </tr>
+</table>
+
+<%= creator_view @item %>

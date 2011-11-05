@@ -1,0 +1,32 @@
+<%
+
+def concepts_list(item = nil)
+  h = ''
+  if item == nil
+    Cms::Concept.new.readable_children.each do |c|
+      h += %Q(<ul class="level_0">#{concepts_list(c)}</ul>)
+    end
+    return h
+  end
+  children = item.readable_children
+  h += "<li>#{concept_mark(item, children.size)}"
+  h += link_to h(item.name), cms_navi_concept_path(item)
+  if children.size > 0
+    h += %Q(<ul id="concept_#{item.id}" class="level_#{item.level_no}">)
+    children.each do |c|
+      h += concepts_list(c)
+    end
+    h += "</ul>\n"
+  end
+  h += "</li>\n"
+end
+
+def concept_mark(item, children)
+  if children > 0
+    %Q(<a class="mark" href="#" onclick="$('concept_#{item.id}').toggle(); return false;">＋</a>)
+  else
+    %Q(<span class="mark">‐</span>)
+  end
+end
+
+%><div id="naviConcept"><%= concepts_list %></div>

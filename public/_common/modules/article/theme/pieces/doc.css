@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+/* =========================================================
+   Doc
+========================================================= */
+
+/* docTab
+----------------------------------------------- */
+* html .tabs {
+  margin-bottom: -7px;
+}
+
+*:first-child+html .tabs {
+  margin-bottom: -7px;
+}
+
+/*clearFix*/
+.tabs:after {  
+  content: ".";  
+  display: block;  
+  visibility: hidden;  
+  height: 0.1px;  
+  font-size: 0.1em;  
+  line-height: 0;  
+  clear: both;  
+}
+
+#docTab .tabs a {
+  display: inline;
+  float: left;
+  width: 16%;
+  margin-right: 2px;
+  padding: 6px 0;
+  border: 1px solid #ccc;
+  background-image: url(/_common/themes/tokushima/files/top/tag_base_1x360px.gif);
+  background-repeat: repeat-x;
+  background-position: 0% 10%;
+  background-color: #e0e7e7;
+  color: rgb(51,51,51);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+* html #docTab .tabs a {
+  width: 15%;
+}
+
+*:first-child+html #docTab .tabs a {
+  width: 15%;
+}
+
+#docTab .tabs a.bousai {
+  display: inline;
+  float: left;
+  width: 16%;
+  margin-right: 2px;
+  padding: 6px 0;
+  border: 1px solid #ccc;
+  background-image: url(/_common/themes/tokushima/files/top/tag_b_base_1x360px.gif);
+  background-repeat: repeat-x;
+  background-position: 0% 16%;
+  background-color: #e0e7e7;
+  color: rgb(217,33,0);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+}
+
+* html #docTab .tabs a.bousai {
+  width: 14%;
+  white-space:nowrap;
+}
+
+*:first-child+html #docTab .tabs a.bousai {
+  width: 14%;
+  white-space:nowrap;
+}
+
+#docTab .tabs a:hover {
+  background-position:0% 45%;
+  color: #00b;
+}
+
+#docTab .tabs a.bousai:hover {
+  background-position:0% 45%;
+  color: rgb(217,33,0);
+}
+
+#contentBody #docTab .tabs a.current{
+  background-position:0% 100%;
+  color:#fff;
+}
+
+#docTab .content {
+  clear: both;
+  position: relative;
+  top: -1px;
+  height: auto !important;
+  padding-top:5px;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+#docTab .content ul {
+  padding-left: 15px;
+}
+#docTab .content li {
+  line-height: 1.4;
+  padding-left: 10px;
+  background-image:url(/_common/themes/tokushima/files/top/icon/icon_square_black.gif);
+  background-repeat:no-repeat;
+  background-position:0 6px;
+  color: #000;
+}
+
+#docTab .cover{
+  margin-bottom:5px;
+}
+
+/*--topRSS--*/
+.topFeedRss {
+  overflow: hidden;
+  width: 40px;
+  height: 0px !important;
+  height /**/:13px; /*gokanmode*/
+  padding-top: 13px;
+  background-image: url(/_common/images/icons/feed_rss.gif);
+  background-repeat:no-repeat;
+  outline: 0;
+  vertical-align: middle;
+}
+
+/*--topsintyaku kiziitiran--*/
+#contentBody #docTab .more {
+  position: relative;
+  top: -1px;
+  padding: 10px 10px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc; 
+}
+
+#contentBody #docTab .more .left a {
+  display: block;
+}
+
+#contentBody #docTab .more .left {
+  display: block;
+  position: relative;
+  float: left;
+  z-index: 2;
+}
+
+
+#contentBody #docTab .more .right {
+  display: block;
+  position: relative;
+  text-align: right;
+  z-index: 1;
+}
+

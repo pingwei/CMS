@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+/* =========================================================
+   Category
+========================================================= */
+
+/* index
+----------------------------------------------- */
+.contentPrefCategory .categories {
+  width:100%;
+}
+
+.contentPrefCategory h3 {
+/*  background-image: url(/_common/themes/tokushima/files/icon_square.gif);*/
+}
+.contentPrefCategory .children {
+  margin: 0px 0px 10px 0px;
+  line-height: 1.5;
+}
+.contentPrefCategory .children a {
+  display: inline-block;
+  margin: 0px 0px 0px 10px;
+}
+
+.contentPrefCategory li {
+  line-height: 1.4;
+}
+
+.latest li {
+  padding-left: 10px;
+  background-image: url(/_common/themes/tokushima/files/bunya/icon_square_skyblue.gif);
+  background-repeat: no-repeat;
+  background-position: 0 7px;
+}
+
+.more {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.categories li {
+  padding-left: 10px;
+  background-image: url(/_common/themes/tokushima/files/bunya/icon_square_orange.gif);
+  background-repeat: no-repeat;
+  background-position: 0 7px;
+}
+
+.sections li {
+  padding-left: 10px;
+  background-image: url(/_common/themes/tokushima/files/bunya/icon_square_orange.gif);
+  background-repeat: no-repeat;
+  background-position: 0 7px;
+}
+
+
+/* show
+----------------------------------------------- */
+.contentPrefCategory .latest {
+  position: relative;
+}
+
+.contentPrefCategory .latest .feed {
+/*  float: right;
+  position: relative;
+  top: -25px;
+  right:10px;*/
+}
+
+.contentPrefCategory .latest .feed a {
+/*  display: none;
+  color: transparent;
+  text-decoration: none;*/
+}
+
+
+/*footer
+--------------------------------------------------*/
+.inquiry {
+  border-top: solid 1px #FF6600;
+
+}
+.inquiry h3 {
+  color: #FF3200;
+}
+

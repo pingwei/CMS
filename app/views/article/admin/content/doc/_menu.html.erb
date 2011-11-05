@@ -1,0 +1,6 @@
+<h2><%= @content.name %> ： 記事設定</h2>
+
+<div class="actionMenu">
+<%= action_menu :show %>
+<%= action_menu :edit    if safe{@content.editable?} %>
+</div>

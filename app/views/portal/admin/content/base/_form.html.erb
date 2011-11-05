@@ -1,0 +1,16 @@
+<%
+
+contents = Core.site.contents.find(:all, :conditions => {:model => 'Article::Doc'})
+options  = contents.collect{|c| [c.name, c.id]}
+
+%><p class="form">基本情報</p>
+
+<table class="show">
+  <%= content_base_form f, :container => :tr %>
+  <tr>
+    <th><%= @item.locale :doc_content_id %></th>
+    <td><%= f.array_select "in_settings[doc_content_id]", options, :include_blank => true %></td>
+  </tr>
+</table>
+
+<%= creator_form f %>

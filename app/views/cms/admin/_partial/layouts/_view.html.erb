@@ -1,0 +1,10 @@
+<% if defined?(container) && container != :tr %>
+<table class="show">
+<% end %>
+  <tr>
+    <th>レイアウト</th>
+    <td><%=h safe{@item.layout.title} %></td>
+  </tr>
+<% if defined?(container) && container != :tr %>
+</table>
+<% end %>

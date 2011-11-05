@@ -1,0 +1,22 @@
+<p class="form">基本情報</p>
+
+<table class="show">
+  <tr>
+    <th><%= @item.locale(:name) %></th>
+    <td><%=h @item.name %></td>
+  </tr><tr>
+    <th><%= @item.locale(:full_uri) %></th>
+    <td><%=h @item.full_uri %></td>
+  </tr><tr>
+    <th><%= @item.locale(:mobile_full_uri) %></th>
+    <td><%=h @item.mobile_full_uri %></td>
+  </tr><tr>
+    <th><%= @item.locale(:map_key) %></th>
+    <td><%=h @item.map_key %></td>
+  </tr><tr>
+    <th><%= @item.locale(:related_site) %></th>
+    <td><%=hbr @item.related_site %></td>
+  </tr>
+</table>
+
+<%= creator_view @item %>

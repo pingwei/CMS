@@ -1,0 +1,46 @@
+<!-- skip reading -->
+<div id="commonHeader" class="piece">
+<div class="pieceContainer">
+<div class="pieceBody">
+
+<span id="nocssread">
+<a href="#main">本文へ移動</a>
+</span>
+
+<script type="text/javascript" src="/_common/js/prototype.js"></script>
+<script type="text/javascript" src="/_common/js/cookiemanager.js"></script>
+<script type="text/javascript" src="/_common/js/navigation.js"></script>
+<script type="text/javascript">
+new Navigation({
+'theme' : { 'themeBlack' : 'black', 'themeBlue': 'blue', 'themeWhite' : 'white' },
+'fontSize': { 'fontSmall' : '0.60em', 'fontMiddle': '0.80em', 'fontLarge' : '1.00em' },
+'notice' : 'headerBody',
+'ruby' : 'navigationRuby',
+'talk' : 'navigationTalk',
+'player' : 'navigationTalkPlayer'
+});
+</script>
+
+｜文字サイズ｜
+<a href="#" id="fontSmall" name="fontSmall" title="小">小</a>
+<a href="#" id="fontMiddle" name="fontMiddle" title="中">中</a>
+<a href="#" id="fontLarge" name="fontLarge" title="大">大</a>
+
+｜背景色｜
+<a href="#" id="themeBlack" name="themeBlack" title="黒" class="black">黒</a>
+<a href="#" id="themeBlue" name="themeBlue" title="青" class="blue">青</a>
+<a href="#" id="themeWhite" name="themeWhite" title="白" class="white">白</a>
+
+｜
+<a href="#" id="navigationRuby" name="navigationRuby" title="ふりがなをつける">ふりがなをつける</a>
+｜
+<a href="#" id="navigationTalk" name="navigationTalk" title="よみあげる">よみあげる</a>
+<span id="navigationTalkPlayer"></span>
+
+<a href="#" class="riyou" title="ご利用案内">ご利用案内</a>
+
+
+</div>
+</div>
+</div>
+<!-- /skip reading -->

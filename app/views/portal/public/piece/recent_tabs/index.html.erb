@@ -1,0 +1,35 @@
+<script type="text/javascript" src="/_common/modules/article/js/doc_tabs.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
+//]]>
+</script>
+
+<div class="tabs">
+  <% @tabs.each do |tab| %>
+  <a href="javascript: Tab/<%= tab[:title] %>" onkeypress="" class="<%= tab[:class] %>"
+    onclick="return docTabs.show('<%=h tab[:name] %>')"><%= tab[:title] %></a><% end %>
+</div>
+
+<div class="wrapper">
+
+  <div class="content">
+    <% @tabs.each do |tab| %>
+    <ul class="<%=h tab[:name] %>" <%= 'style="display: none;"' unless tab[:current] %>>
+      <% tab[:docs].each do |doc| %><li><%= link_to h(doc.title), doc.public_uri, :target => '_blank' %>
+      <%= "（#{safe{doc.entry_updated.strftime('%Y年%_m月%_d日')}}　#{safe{doc.source_title}}）" %>
+      </li><% end %>
+    </ul><% end %>
+  </div>
+
+  <div class="links">
+    <% @tabs.each do |tab| %>
+    <div class="<%= tab[:name] %>" <%= 'style="display: none;"' unless tab[:current] %>>
+      <% if tab[:more] %>
+      <div class="more">
+        <a href="<%= tab[:more] %>">&gt;&gt;新着記事一覧</a></div>
+      <% end %>
+    </div><% end %>
+  </div>
+
+<!-- end .wrapper --></div>

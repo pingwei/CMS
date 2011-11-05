@@ -1,0 +1,20 @@
+<table class="show">
+  <tr>
+    <th><%= @item.locale(:state) %></th>
+    <td><%= safe{@item.status.name} %></td>
+  </tr><tr>
+    <th><%= @item.locale(:name) %></th>
+    <td><%=h @item.name %></td>
+  </tr><tr>
+    <th><%= @item.locale(:title) %> </th>
+    <td><%=h @item.title %></td>
+  </tr><tr>
+    <th><%= @item.locale(:uri) %> </th>
+    <td><%=h @item.uri %></td>
+  </tr><tr>
+    <th><%= @item.locale(:entry_count) %></th>
+    <td><%=h @item.entry_count %></td>
+  </tr>
+</table>
+
+<%= creator_view @item %>

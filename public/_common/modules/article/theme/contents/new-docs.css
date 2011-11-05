@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+/* =========================================================
+   Category
+========================================================= */
+
+/* index
+----------------------------------------------- */
+.contentPrefCategory h3 {
+  margin-bottom: 5px;
+  padding: 5px 35px;
+  background-color: #FFDBB8;
+  background-image: url(/_common/themes/tokushima/files/icon_square.gif);
+  background-repeat: no-repeat;
+  background-position: 1% 50%;
+}
+
+.contentPrefCategory .children {
+  margin: 0px 0px 10px 0px;
+  line-height: 1.5;
+}
+
+.contentPrefCategory .children a {
+  display: inline-block;
+  margin: 0px 0px 0px 10px;
+}
+
+.contentPrefCategory ul {
+  margin-bottom: 10px;
+  padding-left: 25px;
+  list-style-type: square;
+}
+
+.contentPrefCategory li {
+  line-height: 1.4;
+}
+
+/* show
+----------------------------------------------- */
+.contentPrefCategory .latest {
+  position: relative;
+}
+
+.contentPrefCategory .latest h3 {
+  padding-left: 30px;
+  background-image: url(/_common/themes/tokushima/files/icon_square_newbar_bunya.gif);
+  background-repeat: no-repeat;
+  background-position: 1% 50%;
+  background-color: #E86408;
+  color: #fff;
+}
+
+.contentPrefCategory .latest .feed {
+  position: relative;
+  top: -25px;
+  float: right;
+  right: 5px;
+}
+
+.contentPrefCategory .latest .feed a {
+  color: #fff;
+  text-decoration: none;
+}

@@ -1,0 +1,16 @@
+<%
+
+opt = @item.options
+value_form = opt ? f.select(:value, opt) : f.text_field
+
+%><table class="show">
+  
+  <tr>
+    <th>設定名</th>
+    <td><%=h @item.config_name %></td>
+  </tr><tr>
+    <th>値</th>
+    <td><%= value_form %></td>
+  </tr>
+
+</table>

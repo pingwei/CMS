@@ -1,0 +1,7 @@
+<div id="application" class="piece">
+<div class="pieceContainer">
+<div class="pieceBody">
+<a href="#"><img src="/_common/themes/joruri/top/images/bt-shinseisyo.gif" alt="申請書ダウンロード" title="申請書ダウンロード" /></a>
+</div>
+</div>
+</div>

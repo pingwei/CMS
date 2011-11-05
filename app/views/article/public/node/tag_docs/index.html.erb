@@ -1,0 +1,27 @@
+<div class="contentArticleTags">
+
+<% form_tag '', :method => :get, :class => 'search' do %>
+<table>
+  <tr>
+    <th>タグ</th>
+    <td><%= text_field_tag 's_tag', @tag, :style => 'width: 200px;' %></td>
+    <td class="submitters">
+      <%= submit_tag '検索',     :name => :search %>
+      <%= submit_tag 'リセット', :name => :reset %>
+    </td>
+  </tr>
+</table>
+<!-- end .search --><% end %>
+
+<%if params[:search] %>
+<div class="hit">検索結果 <span class="count"><%= "#{@docs.total_entries}" %></span>件</div>
+<% end %>
+
+<ul class="docs">
+  <% @docs.each do |doc| %>
+  <li><%= link_to h(doc.title), doc.public_uri %><%= doc.date_and_unit %></li><% end %>
+</ul>
+
+<%= paginate @docs %>
+
+</div>

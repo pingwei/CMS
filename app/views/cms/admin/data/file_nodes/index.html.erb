@@ -1,0 +1,23 @@
+<table class="index">
+  
+  <tr>
+    <th style="width: 60px; text-align: center;">詳細</th>
+    <th style="width: 25%;">フォルダ名</th>
+    <th style="width: ;">説明</th>
+    <th style="width: 100px; text-align: right;">ファイル数</th>
+    <th style="width: 120px; text-align: center;">作成日時</th>
+  </tr>
+  
+  <% for item in @items %>
+  <tr <%= cycle '', 'class="cycle"' %>>
+    <td style="text-align: center;"><%= link_to :show, url_for(:action => :show, :id => item) %></td>
+    <td><%=h item.name %></td>
+    <td><%=h item.title %></td>
+    <td style="text-align: right;"><%=h item.files.size %></td>
+    <td style="text-align: center;"><%= item.created_at.strftime('%Y-%m-%d %H:%M')%></td>
+  </tr>
+  <% end %>
+
+</table>
+
+<%= paginate @items %>

@@ -1,0 +1,19 @@
+<table class="show">
+  <%= concept_form f %>
+  
+  <% if @item.id %>
+  <tr>
+    <th><%= @item.locale(:name) %></th>
+    <td><%=h @item.name %></td>
+  </tr>
+  <% else %>
+  <tr>
+    <th style=""><%=@item.locale(:name) %><div class="note">※半角英数字のみ</div></th>
+    <td><%= f.text_field :name, :class => 'nameEn', :style => 'width: 400px;' %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <th style=""><%=@item.locale(:title) %></th>
+    <td><%= f.text_field :title, :class => 'name', :style => 'width: 400px;' %></td>
+  </tr>
+</table>

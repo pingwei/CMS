@@ -1,0 +1,33 @@
+<%
+
+return if item.maps.size == 0
+
+_map = item.find_map_by_name('1')
+return if _map.map_lat == '' || _map.map_lng == ''
+
+%><br />
+
+<p class="form">地図</p>
+
+<script type="text/javascript" src="/_common/modules/cms/js/map.js"></script>
+<% if Core.mode.to_s == 'publish' %>
+<script type="text/javascript">ArticleMap.init('<%= Page.site.map_key %>');</script>
+<% else %>
+<script type="text/javascript">ArticleMap.init('<%= Core.map_key %>');</script>
+<% end %>
+
+<script type="text/javascript">
+//<![CDATA[
+var map = new ArticleMap('map1', <%=h _map.map_lat %>, <%=h _map.map_lng %>, <%=h _map.map_zoom %>);
+<% if _map.is_point(1) %>map.addMarker(<%= _map.get_point_params(1) %>);<% end %>
+<% if _map.is_point(2) %>map.addMarker(<%= _map.get_point_params(2) %>);<% end %>
+<% if _map.is_point(3) %>map.addMarker(<%= _map.get_point_params(3) %>);<% end %>
+<% if _map.is_point(4) %>map.addMarker(<%= _map.get_point_params(4) %>);<% end %>
+<% if _map.is_point(5) %>map.addMarker(<%= _map.get_point_params(5) %>);<% end %>
+//]]>
+</script>
+
+<div style="padding: 0px 10px;">
+  <%= "#{h(_map.title)}<br />" unless _map.title.blank? %>
+  <div id="map1" style="width: 600px;height:300px"></div>
+</div>

@@ -1,0 +1,17 @@
+<script type="text/javascript">
+//<![CDATA[
+  function submitCmsNavigationSite(value) {
+    document.getElementById('cmsNavigationSite').submit();
+    return false;
+  }
+//]]>
+</script>
+
+<form id="cmsNavigationSite" method="get" action="/_admin">
+
+<%= select 'cms_navi', 'site',
+  Cms::Site.find(:all, :order => :id).collect{|i| [i.name, i.id]},
+  {:selected => Core.site.id, :include_blank => ''},
+  {:onchange => "return submitCmsNavigationSite(this.value)"} %>
+
+</form>

@@ -1,0 +1,14 @@
+<div id="footerAdBanner" class="piece">
+<div class="pieceContainer">
+<div class="pieceBody">
+<a href="#">
+<img src="/_common/themes/joruri/piece/images/bn-koukoku.gif" alt="広告バナー" title="広告バナー" /></a>
+<a href="#">
+<img src="/_common/themes/joruri/piece/images/bn-koukoku.gif" alt="広告バナー" title="広告バナー" /></a>
+<a href="#">
+<img src="/_common/themes/joruri/piece/images/bn-koukoku.gif" alt="広告バナー" title="広告バナー" /></a>
+<a href="#">
+<img src="/_common/themes/joruri/piece/images/bn-koukoku.gif" alt="広告バナー" title="広告バナー" /></a>
+</div>
+</div>
+</div>

@@ -1,0 +1,332 @@
+/* basic style
+----------------------------------------------- */
+body, body div {
+  background-color: #000000;
+  color: #ffffff;  
+}
+a {
+  color: #ffffff;
+}
+a:visited {
+  color: #ffffff;
+}
+a:hover {
+  color: #ffffff;
+}
+.docTab .content li {
+  color: #ffffff;
+}
+h1 {
+  color: #ffffff;
+}
+#contentBody .docTab .content li {
+  color: #ffffff;
+}
+
+/* header
+--------------------------------------------------- */
+#commonHeader,
+#commonHeader .pieceContainer,
+#commonHeader .pieceBody,
+#navigationNotice {
+  background-color: #ececec;
+  color: #000000;
+}
+
+/* banner style
+----------------------------------------------- */
+#bannerContainer, #CommonBanner, #commonBanner .lowerMenu {
+  background-color: #000000;
+}
+#commonBanner .logo {
+  background-color: transparent;
+}
+
+/* footer style
+----------------------------------------------- */
+#footerNavi .pieceBody,
+#footerNavi a,
+#footerNavi a:visited,
+#footerNavi a:hover {
+  color: #ffffff;
+}
+
+/* menu style
+----------------------------------------------- */
+#mayor .pieceBody,
+#ereaMap {
+  border: none;
+}
+#ereaMap .pieceBody {
+  background-color: #000000;
+  color: #ffffff;
+}
+#menu ul {
+  background-color: #000000;
+}
+#menu #population .pieceHeader {
+  background-color: #000000;
+  background-image: none;
+  border:  1px solid #ffffff;
+  line-height:1.4;
+  padding:4px 7px;
+}
+#population th.noBorder,
+#population th {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+}
+#population td.noBorder,
+#population td {
+  background-color: #000000;
+  border: 1px solid #ffffff;
+}
+/* links style
+----------------------------------------------- */
+#links ul {
+  background-color: #000000;
+}
+#calendar .pieceHeader {
+  background-color: #000000;
+  color: #fff;
+}
+#calendar .pieceBody {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-image:url(../../piece/images/bg-calendar-repeat.gif);
+  background-position: left top;
+  background-repeat: repeat-y;
+}
+#calendar .calendar {
+  width: 160px;
+  margin-left: 1px;
+}
+
+/* page-title piece
+----------------------------------------------- */
+#pageTitle .pieceBody {
+  border: 1px solid #ffffff;
+  background-image: none;
+}
+/* category
+----------------------------------------------- */
+.category {
+  background-color: #000000;
+}
+.contentArticleCategory h3 {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* unit
+----------------------------------------------- */
+table.department {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+}
+table.department td {
+  font-weight: bold;
+}
+table.unit tr.cycle {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.contentArticleUnit h3 {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* attribute
+----------------------------------------------- */
+#page-zokusei-index .attribute {
+  width: 48%;
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+}
+.contentArticleAttribute h3 {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+}
+/* area
+----------------------------------------------- */
+table.ward {
+  background-color: #000000;
+  color: #ffffff;
+}
+table.ward td {
+  font-weight: bold;
+}
+table.city tr.cycle {
+  background-color: #000000;
+  color: #ffffff;
+}
+/* calendar
+----------------------------------------------- */
+.contentArticleEventDocs h2 {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+}
+.attributeNyusatsu span,
+.attributeSaiyojoho span,
+.attributeKakusyushikakushiken span,
+.attributeBosyu span,
+.attributeEventjoho span,
+.attributeKyoka span {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* doc
+----------------------------------------------- */
+.contentArticleDoc .header {
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  background-color: #000000;
+}
+.contentArticleDoc .back a {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+}
+.contentArticleDoc .maps h2,
+.contentArticleDoc .rels h2,
+.contentArticleDoc .tags h2 {
+  border: 1px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  background-color: #000000;
+}
+.inquiry h2 {
+  color: #ffffff;
+}
+
+/* docs
+----------------------------------------------- */
+.contentPortalCategory h2.date,
+.contentPortalEntries h2.date,
+.contentArticleRecentDocs .docs h2 {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* tag
+----------------------------------------------- */
+.contentArticleTags .search {
+  border: none;
+  background-color: #000000;
+  color: #ffffff;
+}
+.contentArticleTags .hit {
+  border: 1px solid #ffffff;
+  background-image: none;
+  color: #ffffff;
+}
+
+/* sitemap
+----------------------------------------------- */
+.level1 li, ul.level3, ul.level2, .level2 li {
+  background-color: #000000;
+  color: #ffffff;
+}
+.level2 a, .level3 a {
+  color: #ffffff;
+}
+ul.sitemap li.level1,
+ul.sitemap ul.level2 {
+  background-color: #000000;
+}
+/* mayor
+----------------------------------------------- */
+#mayorSide {
+  background-color: #000000;
+}
+.contentTitle {
+  background-color: #000000;
+}
+.contentTitle .contentTitleBody,
+.contentTitle .contentTitleBody h2 {
+  margin: 0px;
+  border: none;
+  background-image: none;
+}
+
+/* lifeevent
+----------------------------------------------- */
+#lifeEventSide {
+  background-color: #000000;
+}
+#contentTitle .pieceContainer {
+  background-image: none;
+}
+#contentTitle .pieceBody {
+  border: 1px solid #ffffff;
+  background-image: none;
+}
+#lifeEvent td.pregnant p,
+#lifeEvent td.child p,
+#lifeEvent td.work p,
+#lifeEvent td.adult p,
+#lifeEvent td.moving p,
+#lifeEvent td.marriage p,
+#lifeEvent td.welfare p,
+#lifeEvent td.death p {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+}
+.lifeevents .lifeevent {
+  width: 48%;
+  border: 1px solid #ffffff;
+  background-color: #000000;
+}
+#page-lifeevent-index .contentPage .body h2 {
+  border: none;
+  background-color: transparent;
+}
+#page-lifeevent-ninshin #pageTitle h1,
+#page-lifeevent-kosodate #pageTitle h1,
+#page-lifeevent-shushoku #pageTitle h1,
+#page-lifeevent-seijin #pageTitle h1,
+#page-lifeevent-hikkoshi #pageTitle h1,
+#page-lifeevent-kekkon #pageTitle h1,
+#page-lifeevent-fukushi #pageTitle h1,
+#page-lifeevent-shibo #pageTitle h1 {
+  padding: 0px 0px 0px 10px;
+  background-image: none;
+}
+#page-lifeevent-ninshin #pageTitle .pieceBody,
+#page-lifeevent-kosodate #pageTitle .pieceBody,
+#page-lifeevent-shushoku #pageTitle .pieceBody,
+#page-lifeevent-seijin #pageTitle .pieceBody,
+#page-lifeevent-hikkoshi #pageTitle .pieceBody,
+#page-lifeevent-kekkon #pageTitle .pieceBody,
+#page-lifeevent-fukushi #pageTitle .pieceBody,
+#page-lifeevent-shibo #pageTitle .pieceBody {
+  padding: 0px 0px 0px 10px;
+  border: 1px solid #ffffff;
+  background-image: none;
+}
+#page-lifeevent-ninshin h2.lifeEventTitle,
+#page-lifeevent-kosodate h2.lifeEventTitle,
+#page-lifeevent-shushoku h2.lifeEventTitle,
+#page-lifeevent-seijin h2.lifeEventTitle,
+#page-lifeevent-hikkoshi h2.lifeEventTitle,
+#page-lifeevent-kekkon h2.lifeEventTitle,
+#page-lifeevent-fukushi h2.lifeEventTitle,
+#page-lifeevent-shibo h2.lifeEventTitle {
+  border-bottom: #ffffff solid 1px;
+  border-left: #ffffff solid 1px;
+}
+/* headerÅEfotter pege
+----------------------------------------------- */
+.contentPage .body h2 {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+}

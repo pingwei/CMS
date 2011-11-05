@@ -1,0 +1,27 @@
+<%
+
+return nil unless item.inquiry
+return nil unless item.inquiry.visible?
+
+%><br />
+
+<p class="form">連絡先</p>
+
+<table class="show">
+  <tr>
+    <th>課</th>
+    <td><%=h safe{item.inquiry.group.full_name} %></td>
+  </tr><tr>
+    <th>室・担当</th>
+    <td><%=h item.inquiry.charge %></td>
+  </tr><tr>
+    <th>電話番号</th>
+    <td><%=h item.inquiry.tel %></td>
+  </tr><tr>
+    <th>ファクシミリ</th>
+    <td><%=h item.inquiry.fax %></td>
+  </tr><tr>
+    <th>メールアドレス</th>
+    <td><%=h item.inquiry.email %></td>
+  </tr>
+</table>

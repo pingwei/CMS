@@ -1,0 +1,17 @@
+development:
+  title  : Joruri
+  uri    : http://192.168.0.2/
+  proxy  : 
+  map_key: 
+
+test:
+  title  : 
+  uri    : 
+  proxy  :
+  map_key: 
+
+production:
+  title  : 
+  uri    : 
+  proxy  : 
+  map_key: 

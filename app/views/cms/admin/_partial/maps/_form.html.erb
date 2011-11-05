@@ -1,0 +1,221 @@
+<%
+
+if Core.map_key.blank?
+  h  = %Q(<br /><p class="form">地図</p>)
+  h += %Q(<div style="margin: 10px;">地図を利用するには Google Maps API キー を設定してください。</div>)
+  return render :text => h
+end
+
+_map  = item.find_map_by_name('1')
+
+map_lat  = _map && _map.map_lat  != '' ? _map.map_lat : 34.074598
+map_lng  = _map && _map.map_lng  != '' ? _map.map_lng : 134.551411
+map_zoom = _map && _map.map_zoom != '' ? _map.map_zoom : 15
+
+_input = Proc.new do |name, col, options|
+  _name = f.object_name.to_s + "[_maps][#{name}][#{col}]"
+  value = _map ? _map.send(col) : ''
+  value = params[f.object_name] ? params[f.object_name][:_maps][name][col] : value
+  text_field_tag _name, value, options
+end
+
+_input_textarea = Proc.new do |name, col, options|
+  _name = f.object_name.to_s + "[_maps][#{name}][#{col}]"
+  value = _map ? _map.send(col) : ''
+  value = params[f.object_name] ? params[f.object_name][:_maps][name][col] : value
+  options[:id] = _name.gsub(/\]\[|\[|\]/, '_').gsub(/_$/, '')
+  text_area_tag _name, value, options
+end
+
+%><br />
+
+<p class="form">地図</p>
+
+<div style="margin: 10px;"><a id="map_disp" href="#" onclick="return $(this).toggleOpen('mapForm');">開く▼</a></div>
+
+<table id="mapForm" style="display: none;"><tr>
+<td style="width: 420px; vertical-align: top;">
+
+  <table class="show">
+    <tr>
+      <th>マップ設定</th>
+    </tr><tr>
+      <td>
+        名称&nbsp;
+          <%= _input.call '1', 'title', :style => 'width:310px;' %><br />
+          <br style="line-height: 2px;" />
+        位置&nbsp;
+          <%= _input.call '1', 'map_lat', :style => 'width:130px;' %> . <%= _input.call '1', 'map_lng', :style => 'width:130px;' %>
+          <a href="#" onclick="return mySyncroDisplayRange('centerDisp', 'map', 'zoomDisp', 'map_zoom');">≪取得</a><br />
+          <br style="line-height: 2px;" />
+        縮尺&nbsp;
+          <%= _input.call '1', 'map_zoom', :style => 'width:100px;' %>
+      </td>
+    </tr><tr>
+      <th>マーカー設定</th>
+    </tr><tr>
+      <td>
+        名称&nbsp;
+          <%= _input.call '1', 'point1_name', :style => 'width: 310px;', :wrap => 'off' %><br />
+          <br style="line-height: 2px;" />
+        位置&nbsp;
+          <%= _input.call '1', 'point1_lat', :style => 'width:130px;' %> . 
+          <%= _input.call '1', 'point1_lng', :style => 'width:130px;' %>
+          <a href="#" onclick="return myAddMarker('clickDisp', 'point1');">≪取得</a><br />
+    </td></tr><tr><td>
+        名称&nbsp;
+          <%= _input.call '1', 'point2_name', :style => 'width: 310px;', :wrap => 'off' %><br />
+          <br style="line-height: 2px;" />
+        位置&nbsp;
+          <%= _input.call '1', 'point2_lat', :style => 'width:130px;' %> . 
+          <%= _input.call '1', 'point2_lng', :style => 'width:130px;' %>
+          <a href="#" onclick="return myAddMarker('clickDisp', 'point2');">≪取得</a><br />
+    </td></tr><tr><td>
+        名称&nbsp;
+          <%= _input.call '1', 'point3_name', :style => 'width: 310px;', :wrap => 'off' %><br />
+          <br style="line-height: 2px;" />
+        位置&nbsp;
+          <%= _input.call '1', 'point3_lat', :style => 'width:130px;' %> . 
+          <%= _input.call '1', 'point3_lng', :style => 'width:130px;' %>
+          <a href="#" onclick="return myAddMarker('clickDisp', 'point3');">≪取得</a><br />
+    </td></tr><tr><td>
+        名称&nbsp;
+          <%= _input.call '1', 'point4_name', :style => 'width: 310px;', :wrap => 'off' %><br />
+          <br style="line-height: 2px;" />
+        位置&nbsp;
+          <%= _input.call '1', 'point4_lat', :style => 'width:130px;' %> . 
+          <%= _input.call '1', 'point4_lng', :style => 'width:130px;' %>
+          <a href="#" onclick="return myAddMarker('clickDisp', 'point4');">≪取得</a><br />
+    </td></tr><tr><td>
+        名称&nbsp;
+          <%= _input.call '1', 'point5_name', :style => 'width: 310px;', :wrap => 'off' %><br />
+          <br style="line-height: 2px;" />
+        位置&nbsp;
+          <%= _input.call '1', 'point5_lat', :style => 'width:130px;' %> . 
+          <%= _input.call '1', 'point5_lng', :style => 'width:130px;' %>
+          <a href="#" onclick="return myAddMarker('clickDisp', 'point5');">≪取得</a><br />
+      </td>
+    </tr>
+  </table>
+  
+</td>
+<td style="width: 10px;"></td>
+<td style="vertical-align: top;">
+
+  <script type="text/javascript" src="/_common/modules/cms/js/map.js"></script>
+  <script type="text/javascript">ArticleMap.init('<%= Core.map_key %>');</script>
+  <script type="text/javascript">
+  //<![CDATA[
+  var keySearchMarker = 'msaddr';
+  var gcg = new GClientGeocoder();
+  var map = new ArticleMap('map', <%=h map_lat %>, <%=h map_lng %>, <%=h map_zoom %>);
+  map.centerDisplay = 'centerDisp';
+  map.zoomDisplay   = 'zoomDisp';
+  map.clickDisplay  = 'clickDisp';
+  map.mapWidth       = 600;
+  map.mapHeight      = 300;
+  
+  <% if _map %>
+  <% if _map.is_point(1) %>map.addMarker(<%= _map.get_point_params(1) %> , 'point1');<% end %>
+  <% if _map.is_point(2) %>map.addMarker(<%= _map.get_point_params(2) %> , 'point2');<% end %>
+  <% if _map.is_point(3) %>map.addMarker(<%= _map.get_point_params(3) %> , 'point3');<% end %>
+  <% if _map.is_point(4) %>map.addMarker(<%= _map.get_point_params(4) %> , 'point4');<% end %>
+  <% if _map.is_point(5) %>map.addMarker(<%= _map.get_point_params(5) %> , 'point5');<% end %>
+  <% end %>
+  
+  function mySyncro(from, to) {
+    document.getElementById('item__maps_1_' + to + '_lat').value = document.getElementById(from + 'Lat').value;
+    document.getElementById('item__maps_1_' + to + '_lng').value = document.getElementById(from + 'Lng').value;
+    return false;
+  }
+  function mySyncroZoom(from, to) {
+    document.getElementById('item__maps_1_' + to).value = document.getElementById(from).value;
+    return false;
+  }
+  function mySyncroDisplayRange(fromC, toC, fromZ, toZ) {
+    document.getElementById('item__maps_1_' + toC + '_lat').value = document.getElementById(fromC + 'Lat').value;
+    document.getElementById('item__maps_1_' + toC + '_lng').value = document.getElementById(fromC + 'Lng').value;
+    
+    document.getElementById('item__maps_1_' + toZ).value = document.getElementById(fromZ).value;
+    return false;
+  }
+  function myAddMarker(from, to) {
+    map.removeMarker(keySearchMarker);
+    map.removeMarker(to);
+
+    map.addMarker(document.getElementById(from + 'Lat').value, document.getElementById(from + 'Lng').value, document.getElementById('item__maps_1_' + to +  '_name').value, to);
+    map.viewMarker(to);
+    
+    document.getElementById('item__maps_1_' + to + '_lat').value = document.getElementById(from + 'Lat').value;
+    document.getElementById('item__maps_1_' + to + '_lng').value = document.getElementById(from + 'Lng').value;
+    return false;
+  }
+  function mySearchAddr() {
+    map.removeMarker(keySearchMarker);
+    var addr = document.getElementById('keyAddr').value;
+    
+    gcg.getLatLng(addr,
+            function (point){
+                if (point) {
+                    document.getElementById('centerDispLat').value = point.lat();
+                    document.getElementById('centerDispLng').value = point.lng();
+                    map.setCenter(new GLatLng(point.lat(), point.lng()));
+                    
+                    
+                    document.getElementById('clickDispLat').value = point.lat();
+                    document.getElementById('clickDispLng').value = point.lng();
+                    map.addMarker(point.lat(), point.lng(), addr, keySearchMarker);
+                    map.viewMarker(keySearchMarker);
+                }
+            }
+    ); 
+  }
+  function myOnPressEnter(event) {
+    var key = 0;
+    if(event.keyCode != 0 && event.keyCode != 229) {
+      key = event.keyCode;
+    } else {
+      key = event.charCode;
+    }
+
+    if (key == 13) {
+      mySearchAddr();
+      event.returnValue=false;
+      return false;
+    }
+  }
+  
+  //]]>
+  </script>
+
+  <table class="show">
+  <tr>
+    <th>地名から検索</th>
+    <td>
+      <input id="keyAddr" name="keyAddr" type="text" value="" style="width: 150px" onKeyPress="return myOnPressEnter(event);" />
+      <input type="button" value="検索" style="width: 60px" onclick="return mySearchAddr();" /> 
+    </td>
+  </tr>
+  </table>
+  
+  <div id="map" style="margin: 5px 0px; width: 600px; height: 300px;"></div>
+  
+  <table class="show">
+  <tr>
+    <th>マップ中央の座標</th>
+    <td>
+      <input id="centerDispLat" name="centerDispLat" type="text" value="" style="width: 150px" /> .
+       <input id="centerDispLng" name="centerDispLng" type="text" value="" style="width: 150px" /></td>
+  </tr><tr>
+      <th>縮尺</th>
+      <td><input id="zoomDisp" name="zoomDisp" type="text" value="" style="width: 30px" /></td>
+  </tr><tr>
+    <th>クリックした座標</th>
+    <td>
+      <input id="clickDispLat" name="clickDispLat" type="text" value="" style="width: 150px" /> .
+      <input id="clickDispLng" name="clickDispLng" type="text" value="" style="width: 150px" /></td>
+  </tr>
+  </table>
+  
+</td>
+</tr></table>

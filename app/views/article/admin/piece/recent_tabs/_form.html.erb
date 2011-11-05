@@ -1,0 +1,20 @@
+<p class="form">基本情報</p>
+
+<table class="show">
+  <%= piece_base_form f, :container => :tr %>
+</table>
+
+<br />
+<p class="form">タブ設定</p>
+
+<div class="inlineForm">
+<table id="inlineFiles" class="show">
+  <tr>
+    <td style="padding: 0px 0px;">
+      <iframe src="<%= article_piece_recent_tab_tabs_path(:piece => @piece) %>" style="width: 100%; height: 400px;" frameborder="0"></iframe>
+    </td>
+  </tr>
+</table>
+</div>
+
+<%= creator_form f %>

@@ -1,0 +1,422 @@
+@charset "UTF-8";
+@import "../base/init.css";
+@import "../base/style.css";
+@import "../piece/style.css";
+
+/* =========================================================
+   TOP
+========================================================= */
+
+/* common banner
+----------------------------------------------- */
+#commonBanner h1 {
+  float: left;
+  width: 29%;
+  height: 70px;
+}
+#commonBanner h1 a {
+  display: block;
+  width: 100%;
+  height: 0px !important;
+  height /**/: 70px; /* gokanmode */
+  padding-top: 70px;
+  overflow: hidden;
+  outline: 0;
+}
+
+/* mayor
+----------------------------------------------- */
+#mayor {
+  margin-bottom: 5px;
+}
+#mayor .pieceHeader {
+  color: #ffffff;
+  font-size: 120%;
+  font-weight: bold;
+}
+#mayor .pieceBody {
+  padding: 5px;
+  border: 1px solid #001C66;
+}
+#mayor .pieceBody img {
+  float: right;
+  margin: 0px 5px 0px 5px;
+}
+#mayor ul {
+  padding: 0px;
+  background-color: transparent;
+}
+#mayor ul:after {
+  display: block;
+  clear: both;
+  height: 0.1px;
+  font-size: 0.1em;
+  line-height: 0;
+  content: ".";
+  visibility: hidden;
+}
+
+/* erea
+----------------------------------------------- */
+#ereaMap {
+  border: 1px solid #006058;
+}
+#menu #ereaMap .pieceHeader {
+  padding: 0px;
+  background-image: none;
+}
+#ereaMap .pieceBody {
+  padding: 5px;
+  background-color: #fffae8;
+}
+
+#ereaMap .pieceBody a {
+  padding: 0px 7px 0px 6px;
+  background-image: url(./images/ic-chiiki.gif);
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+/* docs
+----------------------------------------------- */
+#recentDocs li {
+  padding: 0px 0px 5px 10px;
+  background-image: url(./images/ic-list-shinchaku.gif);
+  background-repeat: no-repeat;
+  background-position: left 5px;
+}
+#recentDocs .pieceBody {
+  padding: 0px 5px 5px 5px;
+}
+
+/* recent Docs Title
+----------------------------------------------- */
+#recentDocsTitle .pieceHeader {
+  background-image: url(./images/bg-shinchaku-repeat.gif);
+  background-position: left top;
+  background-repeat: repeat-x;
+}
+#recentDocsTitle h2 {
+  height: 30px;
+  background-image: url(./images/tl-shinchaku.gif);
+  background-position: left top;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+}
+
+/* RSS Atom
+----------------------------------------------- */
+#recentDocs .feed {
+  float: right;
+  position: relative;
+  top: -27px;
+  right: 10px;
+  height: 13px;
+  background-color: transparent;
+}
+#recentDocs .feed a.feedRss {
+  display: inline-block;
+  width: 40px;
+  height: 13px;
+  background-image: url(./images/bt-rss.gif);
+  background-repeat: no-repeat;
+  text-indent: 50px;
+  overflow: hidden;
+}
+#recentDocs .feed a.feedAtom {
+  display: inline-block;
+  width: 40px;
+  height: 13px;
+  background-image: url(./images/bt-atom.gif);
+  background-repeat: no-repeat;
+  text-indent: 50px;
+  overflow: hidden;
+}
+
+/* For firefox2 */
+#recentDocs .feed a.feedAtom,y:-moz-any-link,
+#recentDocs .feed a.feedRss,x:-moz-any-link {
+  display: -moz-inline-box;
+  padding-top: 13px;
+}
+#recentDocs .links {
+  text-align: right;
+}
+
+/* footer-navi
+----------------------------------------------- */
+#footerNavi {
+  width: 100%;
+  background-color: #fff;
+}
+#footerNavi .pieceBody {
+  padding: 10px 0px;
+  color: #333333;
+}
+#footerNavi a {
+  color: #003399;
+}
+#footerNavi a:visited {
+  color: #660099;
+}
+#footerNavi a:hover {
+  color: #FF0000;
+}
+
+/* qr-code
+----------------------------------------------- */
+#qrCode {
+  margin-top: 5px;
+}
+#qrCode img {
+  float: left;
+  margin-right: 4px;
+}
+/* top-photo
+----------------------------------------------- */
+#topPhoto {
+  margin-bottom: 7px;
+}
+
+#topPhoto .pieceBody {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* category Ichiran
+----------------------------------------------- */
+#ArticleCategory {
+  clear: both;
+}
+#ArticleCategory .pieceHeader {
+  margin-bottom: 10px;
+  background-image: url(./images/bg-shinchaku-repeat.gif);
+  background-position: left top;
+  background-repeat: repeat-x;
+}
+#ArticleCategory .pieceHeader h2 {
+  height: 30px;
+  background-image: url(./images/tl-bunyabetsu.gif);
+  background-position: left top;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.categoryKurashi,
+.categoryFukushi,
+.categoryKyoikubunka,
+.categoryKanko,
+.categorySangyoshigoto,
+.categoryGyoseimachizukuri,
+.categoryBosaigai {
+  float: left;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 10px 0px;
+  background-color: #e3f5ff;
+  line-height: 1.5;
+}
+.categoryBosaigai {
+  background-color: #fbe7eb;
+}
+#ArticleCategory .category h2 {
+  float: left;
+  padding-left: 60px;
+  line-height: 50px;
+}
+#ArticleCategory .categoryKurashi h2 {
+  background-image: url(./images/ic-kurashi.gif);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+#ArticleCategory .categoryFukushi h2 {
+  background-image: url(./images/ic-fukushi.gif);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+#ArticleCategory .categoryKyoikubunka h2 {
+  background-image: url(./images/ic-kyoiku.gif);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+#ArticleCategory .categoryKanko h2 {
+  background-image: url(./images/ic-kanko.gif);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+#ArticleCategory .categorySangyoshigoto h2 {
+  background-image: url(./images/ic-sangyou.gif);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+#ArticleCategory .categoryGyoseimachizukuri h2 {
+  background-image: url(./images/ic-gyosei.gif);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+#ArticleCategory .categoryBosaigai h2 {
+  background-image: url(./images/ic-bosai.gif);
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+#ArticleCategory .category .children {
+  margin: 0px 10px 0px 180px;
+}
+#ArticleCategory .category .children div {
+  display: inline; 
+  padding-right: 10px;
+}
+#ArticleCategory .categoryFukushi,
+#ArticleCategory .categoryKyoikubunka,
+#ArticleCategory .categoryKanko,
+#ArticleCategory .categorySangyoshigoto,
+#ArticleCategory .categoryGyoseimachizukuri,
+#ArticleCategory .categoryBosaigai {
+  clear: both;
+}
+/* life event
+------------------------------------- */
+#lifeEvent {
+  clear: both;
+}
+#lifeEvent .pieceHeader {
+  margin-bottom: 10px;
+  background-image: url(./images/bg-shinchaku-repeat.gif);
+  background-position: left top;
+  background-repeat: repeat-x;
+}
+#lifeEvent .pieceHeader h2 {
+  height: 30px;
+  background-image: url(./images/tl-lifeevent.gif);
+  background-position: left top;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+#lifeEvent table {
+  width: 100%;
+}
+#lifeEvent td {
+  width: 25%;
+  text-align: center;
+  vertical-align: middle;
+}
+#lifeEvent td p {
+  padding: 8px 0px;
+  line-height: 1.5;
+}
+#lifeEvent td.pregnant p {
+  margin: 0px 6px 8px 0px;
+  background-color: #ffe7ff;
+}
+#lifeEvent td.child p {
+  margin: 0px 4px 8px 2px;
+  background-color: #ffecb9;
+}
+#lifeEvent td.work p {
+  margin: 0px 2px 8px 4px;
+  background-color: #c5efff;
+}
+#lifeEvent td.adult p {
+  margin: 0px 0px 8px 6px;
+  background-color: #cdede8;
+}
+#lifeEvent td.moving p {
+  margin: 0px 6px 8px 0px;
+  background-color: #e1f6be;
+}
+#lifeEvent td.marriage p {
+  margin: 0px 4px 8px 2px;
+  background-color: #eee9a9;
+}
+#lifeEvent td.welfare p {
+  margin: 0px 2px 8px 4px;
+  background-color: #f5dac5;
+}
+#lifeEvent td.death p {
+  margin: 0px 0px 8px 6px;
+  background-color: #f0dfef;
+}
+
+/* population
+----------------------------------------------- */
+#population.piece {
+  margin: 0px 0px 10px 0px;
+}
+#menu #population .pieceHeader {
+  padding: 4px 7px;
+  background-color: #002f9f;
+  background-image: none;
+  color: #ffffff;
+  line-height: 1.4;
+}
+#menu #population .pieceHeader h2{
+  font-size: 100%;
+  font-weight: normal;
+}
+*html #menu #population .pieceHeader h2{
+  font-size: 90%;
+}
+#population table {
+  width: 100%;
+}
+#population th {
+  padding: 5px 7px;
+  border-left: #002f9f 1px solid;
+  border-right: #999999 1px solid;
+  border-bottom: #999999 1px solid;
+  background-color: #f5f5f5;
+  font-weight: normal;
+  text-align: left;
+}
+#population td {
+  padding: 5px 7px;
+  border-right: #002f9f 1px solid;
+  border-bottom: #999999 1px solid;
+}
+#population th.noBorder {
+  border-left: #002f9f 1px solid;
+  border-right: #999999 1px solid;
+  border-bottom: #002f9f 1px solid;
+}
+#population td.noBorder {
+  border-right: #0086ca 1px solid;
+  border-bottom: #002f9f 1px solid;
+}
+/* topic
+----------------------------------------------- */
+#topic {
+  float: left;
+  width: 100%;
+  margin-bottom: 15px;
+}
+#topic .pieceHeader {
+  margin-bottom: 10px;
+  background-image: url(./images/bg-shinchaku-repeat.gif);
+  background-position: left top;
+  background-repeat: repeat-x;
+}
+#topic .pieceHeader h2 {
+  height: 30px;
+  background-image: url(./images/tl-shunnojoruri.gif);
+  background-position: left top;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+#topic img {
+  float: left;
+}
+#topic h3 {
+  margin-bottom: 5px;
+  padding-left: 180px;
+  color: #FF3366;
+  font-weight: bold;
+}
+#topic p {
+  padding-left: 180px;
+}
+#topic .next {
+  margin-top: 20px;
+  text-align: right;
+}

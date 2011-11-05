@@ -1,0 +1,186 @@
+1.1.0
+  CREATE TABLE cms_feeds (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    content_id int(11) DEFAULT NULL,
+    state text,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    `name` varchar(255) NOT NULL,
+    uri text,
+    title text,
+    feed_id varchar(255) DEFAULT NULL,
+    feed_type varchar(255) DEFAULT NULL,
+    feed_updated datetime DEFAULT NULL,
+    feed_title text,
+    link_alternate text,
+    entry_count int(11) DEFAULT NULL,
+    PRIMARY KEY (id)
+  );
+  CREATE TABLE cms_feed_entries (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    feed_id int(11) DEFAULT NULL,
+    content_id int(11) DEFAULT NULL,
+    state text,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    entry_id varchar(255) DEFAULT NULL,
+    entry_updated datetime DEFAULT NULL,
+    event_date date DEFAULT NULL,
+    title text,
+    summary mediumtext,
+    link_alternate text,
+    link_enclosure text,
+    categories text,
+    author_name text,
+    author_email varchar(255) DEFAULT NULL,
+    author_uri text,
+    PRIMARY KEY (id),
+    KEY feed_id (feed_id,content_id,entry_updated)
+  );
+  CREATE TABLE portal_categories (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    parent_id int(11) NOT NULL,
+    content_id int(11) DEFAULT NULL,
+    state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    level_no int(11) NOT NULL,
+    sort_no int(11) DEFAULT NULL,
+    layout_id int(11) DEFAULT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    title text,
+    entry_categories mediumtext,
+    PRIMARY KEY (id),
+    KEY parent_id (parent_id,content_id,state)
+  );
+  CREATE TABLE cms_content_settings (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    content_id int(11) NOT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    `value` text,
+    sort_no int(11) DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY content_id (content_id)
+  );
+  CREATE TABLE cms_piece_settings (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    piece_id int(11) NOT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    `value` text,
+    sort_no int(11) DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY piece_id (piece_id)
+  );
+  DROP TABLE cms_talk_tasks;
+  CREATE TABLE cms_talk_tasks (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    dependent varchar(64) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    path text,
+    content_hash varchar(255) DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY unid (unid,dependent)
+  );
+  DROP TABLE sys_publishers;
+  CREATE TABLE sys_publishers (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    dependent varchar(64) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    path varchar(255) DEFAULT NULL,
+    content_hash varchar(255) DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY unid (unid,dependent)
+  );
+  ALTER TABLE `sys_groups` ADD `unid` INT NULL AFTER `id`;
+
+1.0.8
+  ALTER TABLE `cms_pieces` ADD `view_title` VARCHAR( 255 ) NULL AFTER `title`;
+  CREATE TABLE `enquete_answers` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `content_id` int(11) DEFAULT NULL,
+    `form_id` int(11) DEFAULT NULL,
+    `state` varchar(15) DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
+    `ipaddr` varchar(255) DEFAULT NULL,
+    `user_agent` text,
+    PRIMARY KEY (`id`),
+    KEY `content_id` (`content_id`,`form_id`)
+  );
+  CREATE TABLE `enquete_answer_columns` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `answer_id` int(11) DEFAULT NULL,
+    `form_id` int(11) DEFAULT NULL,
+    `column_id` int(11) DEFAULT NULL,
+    `value` longtext,
+    PRIMARY KEY (`id`),
+    KEY `answer_id` (`answer_id`,`form_id`,`column_id`)
+  );
+  CREATE TABLE `enquete_forms` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `unid` int(11) DEFAULT NULL,
+    `content_id` int(11) DEFAULT NULL,
+    `state` varchar(15) DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL,
+    `sort_no` int(11) DEFAULT NULL,
+    `name` text,
+    `body` longtext,
+    `summary` text,
+    `sent_body` longtext,
+    PRIMARY KEY (`id`),
+    KEY `content_id` (`content_id`,`sort_no`)
+  );
+  CREATE TABLE `enquete_form_columns` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `unid` int(11) DEFAULT NULL,
+    `form_id` int(11) DEFAULT NULL,
+    `state` varchar(15) DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL,
+    `sort_no` int(11) DEFAULT NULL,
+    `name` text,
+    `body` text,
+    `column_type` varchar(255) DEFAULT NULL,
+    `column_style` varchar(255) DEFAULT NULL,
+    `required` int(11) DEFAULT NULL,
+    `options` longtext,
+    PRIMARY KEY (`id`),
+    KEY `form_id` (`form_id`,`sort_no`)
+  );
+
+1.0.7
+  ALTER TABLE `article_docs` ADD `agent_state` VARCHAR( 15 ) NULL AFTER `state`;
+
+1.0.6
+  CREATE TABLE `sys_ldap_synchros` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `parent_id` int(11) DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL,
+    `version` varchar(10) DEFAULT NULL,
+    `entry_type` varchar(15) DEFAULT NULL,
+    `code` varchar(255) DEFAULT NULL,
+    `sort_no` int(11) DEFAULT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    `name_en` varchar(255) DEFAULT NULL,
+    `email` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `version` (`version`,`parent_id`,`entry_type`)
+  );
+
+1.0.3
+  ALTER TABLE `cms_nodes` ADD `mobile_title` TEXT NULL AFTER `body`;
+  ALTER TABLE `cms_nodes` ADD `mobile_body` LONGTEXT NULL AFTER `mobile_title`;
+
+1.0.2
+  ALTER TABLE `cms_data_texts` ADD `site_id` INTEGER NULL AFTER `unid`;
