@@ -185,10 +185,10 @@ private
       @@current_node = nil
     when 'preview'
       site_id        = @@request_uri.gsub(/^\/_[a-z]+\/([0-9]+).*/, '\1').to_i
-      site_modile    = @@request_uri =~ /^\/_[a-z]+\/([0-9]+)m/
+      site_mobile    = @@request_uri =~ /^\/_[a-z]+\/([0-9]+)m/
       @@site         = Cms::Site.find(site_id)
       Page.site      = @@site
-      Page.mobile    = site_modile
+      Page.mobile    = site_mobile
       @@internal_uri = @@request_uri
     when 'public'
       @@site         = Cms::Site.find_by_script_uri(@@script_uri)

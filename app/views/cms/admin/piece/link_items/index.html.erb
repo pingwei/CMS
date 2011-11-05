@@ -5,7 +5,7 @@
     <th style="width: ;"><%= Cms::PieceLinkItem.new.locale(:name) %></th>
     <th style="width: 40%;"><%= Cms::PieceLinkItem.new.locale(:uri) %></th>
     <th style="width: 80px; text-align: right;"><%= Article::Area.new.locale(:sort_no) %></th>
-    <th style="width: 120px; text-align: center;">作成日時</th>
+    <th style="width: 120px; text-align: center;">更新日時</th>
     <th style="width: 60px; text-align: center;"><%= Article::Area.new.locale(:state) %></th>
   </tr>
   
@@ -15,7 +15,7 @@
     <td><%=h item.name %></td>
     <td><%=h item.uri %></td>
     <td style="text-align: right;"><%= item.sort_no %></td>
-    <td style="text-align: center;"><%= item.created_at.strftime('%Y-%m-%d %H:%M')%></td>
+    <td style="text-align: center;"><%= item.updated_at.strftime('%Y-%m-%d %H:%M')%></td>
     <td style="text-align: center;"><%= safe{item.status.name} %></td>
   </tr>
   <% end %>

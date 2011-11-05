@@ -45,7 +45,9 @@ class Cms::Admin::SitesController < Cms::Controller::Admin::Base
   
   def destroy
     @item = Cms::Site.new.find(params[:id])
-    _destroy @item
+    _destroy(@item) do
+      cookies.delete(:cms_site)
+    end
   end
 
 protected
@@ -81,9 +83,22 @@ protected
       :name         => '/',
       :title        => item.name
     })
-    if node.save
-      item.node_id = node.id
-      item.save
-    end
+    node.save(false)
+    
+    top = Cms::Node.new({
+      :site_id      => item.id,
+      :state        => 'public',
+      :published_at => Core.now,
+      :parent_id    => node.id,
+      :route_id     => node.id,
+      :model        => 'Cms::Page',
+      :directory    => 0,
+      :name         => 'index.html',
+      :title        => item.name
+    })
+    top.save(false)
+    
+    item.node_id = node.id
+    item.save
   end
 end

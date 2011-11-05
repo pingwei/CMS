@@ -330,3 +330,22 @@ ul.sitemap ul.level2 {
   border: 1px solid #ffffff;
   background-color: #000000;
 }
+/* emergency
+----------------------------------------------- */
+#emergency .pieceHeader,
+#emergencyApplication .pieceBody,
+#emergencyMailmagazine .pieceBody,
+#emergencyInquiry .pieceBody {
+  background-color: #000000;
+  color:#ffffff;
+}
+#emergency {
+border:2px solid #ffffff;
+}
+#emergency .pieceBody ul {
+border:none;
+}
+#emergencyInfo .pieceContainer {
+background-color:#000000;
+border:2px solid #ffffff;
+}

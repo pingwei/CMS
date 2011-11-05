@@ -6,9 +6,14 @@ class Cms::Site < ActiveRecord::Base
   include Sys::Model::Rel::Creator
   include Sys::Model::Auth::Manager
   
-  belongs_to :status,   :foreign_key => :state,      :class_name => 'Sys::Base::Status'
-  has_many   :contents, :foreign_key => :site_id,    :class_name => 'Cms::Content',
-    :order => 'name, id'
+  belongs_to :status,   :foreign_key => :state,
+    :class_name => 'Sys::Base::Status'
+  has_many   :concepts, :foreign_key => :site_id, :order => 'name, id',
+    :class_name => 'Cms::Concept', :dependent => :destroy
+  has_many   :contents, :foreign_key => :site_id, :order => 'name, id',
+    :class_name => 'Cms::Content'
+  has_many   :settings, :foreign_key => :site_id, :order => 'name, sort_no',
+    :class_name => 'Cms::SiteSetting'
   
   validates_presence_of :state, :name, :full_uri
   

@@ -139,13 +139,15 @@ class Cms::Node < ActiveRecord::Base
   end
   
   def make_candidates(args1, args2)
+    choiced = []
     choices = []
-    loop    = 0
     down    = lambda do |p, i|
+      next if choiced[p.id] != nil
+      choiced[p.id] = true
+      
       choices << [('　　' * i) + p.title, p.id]
       self.class.find(:all, eval("{#{args2}}")).each do |c|
         down.call(c, i + 1)
-        break if (loop += 1) > 500
       end
     end
     
@@ -165,8 +167,8 @@ class Cms::Node < ActiveRecord::Base
   def candidate_routes
     args1  = %Q( :conditions => ["id = ?", Core.site.root_node], )
     args1 += %Q( :order => :name)
-    args2  = %Q( :conditions => ["id != ? AND parent_id = ?", id, p.id], )
-    args2  = %Q( :conditions => ["parent_id = ?", p.id], ) if new_record?
+    args2  = %Q( :conditions => ["id != ? AND parent_id = ? AND directory = 1", id, p.id], )
+    args2  = %Q( :conditions => ["parent_id = ? AND directory = 1", p.id], ) if new_record?
     args2 += %Q( :order => :name)
     make_candidates(args1, args2)
   end

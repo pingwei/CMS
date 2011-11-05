@@ -30,7 +30,7 @@ module Sys::Model::Rel::Task
   def in_tasks=(values)
     _values = {}
     if values.class == Hash || values.class == HashWithIndifferentAccess
-      values.each {|key, val| _values[key] = val unless val.blank? }
+      values.each {|key, val| _values[key] = val }
     end
     @tasks = _values
   end
@@ -43,7 +43,7 @@ module Sys::Model::Rel::Task
     @tasks = nil
     
     values.each do |k, date|
-      name  = k.to_s
+      name = k.to_s
       
       if date == ''
         tasks.each do |task|

@@ -14,9 +14,10 @@ pubmsg  = "公開日時が設定されています。\n（ #{pubdate} ）\n直�
 <%= action_menu :edit if safe{@item.editable?} %>
 
 <% if params[:action] == 'show' %>
-<%= link_to(:recognize, {:do => :recognize}, :confirm => '承認してよろしいですか？') if @item.recognizable?(Core.user) %>
+<%= link_to :duplicate, {:do => :duplicate}, :confirm => "複製してよろしいですか？" %>
+<%= link_to(:recognize, {:do => :recognize}, :confirm => "承認してよろしいですか？") if @item.recognizable?(Core.user) %>
 <%= link_to(:publish, {:do => :publish}, :confirm => pubmsg) if @item.publishable? %>
-<%= link_to(:close, {:do => :close}, :confirm => '公開を終了してよろしいですか？') if @item.closable? %>
+<%= link_to(:close, {:do => :close}, :confirm => "公開を終了してよろしいですか？") if @item.closable? %>
 <% end %>
 <%= action_menu :destroy   if safe{@item.deletable?} %>
 

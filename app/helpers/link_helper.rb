@@ -36,6 +36,7 @@ module LinkHelper
       :show      => '詳細',
       :new       => '新規作成',
       :edit      => '編集',
+      :duplicate => '複製',
       :delete    => '削除',
       :destroy   => '削除',
       :open      => '公開',

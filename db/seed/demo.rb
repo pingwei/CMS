@@ -144,12 +144,15 @@ def create_cms_layout(params)
   Cms::Layout.create(params)
 end
 
-l_top      = create_cms_layout :concept_id => c_top.id  , :name => 'top'          , :title => 'トップページ'
-l_map      = create_cms_layout :concept_id => c_site.id , :name => 'sitemap'      , :title => 'サイトマップ'
-l_mayor    = create_cms_layout :concept_id => c_mayor.id, :name => 'mayor'        , :title => '市長の部屋'
-l_life     = create_cms_layout :concept_id => c_life.id , :name => 'lifeevent'    , :title => 'ライフイベント'
-l_life_top = create_cms_layout :concept_id => c_life.id , :name => 'lifeevent-top', :title => 'ライフイベントTOP'
-l_page     = create_cms_layout :concept_id => c_site.id , :name => 'page'         , :title => '詳細ページ'
+l_top      = create_cms_layout :concept_id => c_top.id  , :name => 'top'             , :title => 'トップページ'
+l_map      = create_cms_layout :concept_id => c_site.id , :name => 'sitemap'         , :title => 'サイトマップ'
+l_mayor    = create_cms_layout :concept_id => c_mayor.id, :name => 'mayor'           , :title => '市長の部屋'
+l_life     = create_cms_layout :concept_id => c_life.id , :name => 'lifeevent'       , :title => 'ライフイベント'
+l_life_top = create_cms_layout :concept_id => c_life.id , :name => 'lifeevent-top'   , :title => 'ライフイベントTOP'
+l_page     = create_cms_layout :concept_id => c_site.id , :name => 'page'            , :title => '詳細ページ'
+l_top_emg1 = create_cms_layout :concept_id => c_top.id  , :name => 'emergency-level1', :title => '大規模災害トップページ１'
+l_top_emg2 = create_cms_layout :concept_id => c_top.id  , :name => 'emergency-level2', :title => '大規模災害トップページ２'
+l_top_emg3 = create_cms_layout :concept_id => c_top.id  , :name => 'emergency-level3', :title => '大規模災害トップページ３'
 
 ## ---------------------------------------------------------
 ## cms/pieces
@@ -206,6 +209,18 @@ end
   [ c_top.id  , 'Cms::Free'      , 'mobile-search'        , 'モバイル：サイト内検索' ],
   [ c_site.id , 'Cms::Free'      , 'mobile-back-navi'     , 'モバイル：バックナビ' ],
   [ c_site.id , 'Cms::Free'      , 'mobile-mayor-navi'    , 'モバイル：市長室' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency'                 , '大規模災害表示ピース　緊急アナウンス ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-application'     , '大規模災害表示ピース　申請書ダウンロード ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-area-information', '大規模災害表示ピース　地域情報 ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-common-banner'   , '大規模災害表示ピース　サイトバナー ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-info'            , '大規模災害表示ピース　緊急情報 ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-inquiry'         , '大規模災害表示ピース　お問い合わせバナー ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-link-bousai'     , '大規模災害表示ピース　リンク集(防災関係機関) ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-link-kasen'      , '大規模災害表示ピース　リンク集(河川情報) ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-link-koutsuu'    , '大規模災害表示ピース　リンク集(交通情報) ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-link-lifeline'   , '大規模災害表示ピース　リンク集(ライフライン情報) ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-mailmagazine'    , '大規模災害表示ピース　メールマガジン ' ],
+  [ c_top.id  , 'Cms::Free'      , 'emergency-mode'            , '大規模災害表示ピース　モード表示' ],
 ].each do |c|
   create_cms_piece :concept_id => c[0], :model => c[1], :name => c[2], :title => c[3]
 end
@@ -252,6 +267,19 @@ p = create_cms_node :parent_id => 1   , :concept_id => c_life.id, :layout_id => 
     create_cms_node :parent_id => p.id, :concept_id => c_life.id, :layout_id => l_life.id    , :model => 'Cms::Page'     , :name => 'seijin.html'  , :title => '成人になったら', :body => file("nodes/life/seijin/body")
     create_cms_node :parent_id => p.id, :concept_id => c_life.id, :layout_id => l_life.id    , :model => 'Cms::Page'     , :name => 'shibo.html'   , :title => '死亡'          , :body => file("nodes/life/shibo/body")
     create_cms_node :parent_id => p.id, :concept_id => c_life.id, :layout_id => l_life.id    , :model => 'Cms::Page'     , :name => 'shushoku.html', :title => '就職・退職'    , :body => file("nodes/life/shushoku/body")
+
+## ---------------------------------------------------------
+## cms/site_settings
+
+def create_cms_site_setting(params)
+  params[:site_id]        ||= 1
+  Cms::SiteSetting.create(params)
+end
+
+create_cms_site_setting(:name => "emergency_layout", :value => l_top.id     , :sort_no => 0)
+create_cms_site_setting(:name => "emergency_layout", :value => l_top_emg1.id, :sort_no => 10)
+create_cms_site_setting(:name => "emergency_layout", :value => l_top_emg2.id, :sort_no => 20)
+create_cms_site_setting(:name => "emergency_layout", :value => l_top_emg3.id, :sort_no => 30)
 
 ## ---------------------------------------------------------
 ## other modules

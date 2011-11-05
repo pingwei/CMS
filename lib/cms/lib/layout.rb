@@ -25,18 +25,25 @@ module Cms::Lib::Layout
   
   def self.find_design_pieces(html, concepts)
     names = []
-    html.scan(/\[\[piece\/([0-9a-zA-Z\._-]+)\]\]/) {|name| names << name[0]}
+    #html.scan(/\[\[piece\/([0-9a-zA-Z\._-]+)\]\]/) {|name| names << name[0]}
+    html.scan(/\[\[piece\/([^\]]+)\]\]/) {|name| names << name[0]}
     
     items = {}
     names.uniq.each do |name|
+      
       item = Cms::Piece.new
       item.and :state, 'public'
-      item.and :name, name
-      cond = Condition.new do |c|
-        c.or :concept_id, 'IS', nil
-        c.or :concept_id, 'IN', concepts
+      if name =~ /#[0-9]+/ ## [[piece/name#id]]
+        item.and :id, name.gsub(/.*#/, '')
+        item.and :name, name.gsub(/#.*/, '')
+      else ## [[piece/name]]
+        item.and :name, name
+        cond = Condition.new do |c|
+          c.or :concept_id, 'IS', nil
+          c.or :concept_id, 'IN', concepts
+        end
+        item.and cond
       end
-      item.and cond
       items[name] = item if item = item.find(:first, :order => concepts_order(concepts))
     end
     return items

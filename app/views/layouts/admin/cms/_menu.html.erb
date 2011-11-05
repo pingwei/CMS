@@ -16,8 +16,8 @@ end
 %><%= menu_link :designer, :directory, 'ディレクトリ', cms_nodes_path(0)
 %><%= menu_link :designer, :tool     , 'ツール'      , '/_admin/cms/tool_rebuild'
 %><% end
-%><%= menu_link :manager , :site     , 'サイト'      , cms_sites_path
+%><%= menu_link :manager , :site     , 'サイト'      , cms_concepts_path(0)
 %><%= menu_link :manager , :user     , 'ユーザ'      , sys_groups_path(0)
-%><%= menu_link :manager , :setting  , '設定'        , cms_concepts_path(0)
+%><%= menu_link :manager , :setting  , '設定'        , sys_languages_path
 %>
 </div>

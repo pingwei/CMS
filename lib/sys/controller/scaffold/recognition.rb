@@ -14,9 +14,9 @@ protected
         format.xml  { head :ok }
       end
     else
-      flash.now[:notice] = "承認処理に失敗しました。"
+      flash[:notice] = "承認処理に失敗しました。"
       respond_to do |format|
-        format.html { render :action => :show }
+        format.html { redirect_to url_for(:action => :show) }
         format.xml  { render :xml => item.errors, :status => :unprocessable_entity }
       end
     end

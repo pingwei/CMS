@@ -350,6 +350,17 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "cms_pieces", ["concept_id", "name", "state"], :name => "concept_id"
 
+  create_table "cms_site_settings", :force => true do |t|
+    t.integer  "site_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name",       :limit => 32
+    t.text     "value"
+    t.integer  "sort_no"
+  end
+
+  add_index "cms_site_settings", ["site_id", "name"], :name => "concept_id"
+
   create_table "cms_sites", :force => true do |t|
     t.integer  "unid"
     t.string   "state",           :limit => 15

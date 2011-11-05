@@ -54,6 +54,10 @@ ActionController::Routing::Routes.draw do |map|
     ns.resources :navi_concepts,
       :controller  => "admin/navi/concepts",
       :path_prefix => "/_admin/#{mod}"
+    ns.resources :emergencies,
+      :controller  => "admin/emergencies",
+      :path_prefix => "/_admin/#{mod}",
+      :member      => {:change => :get}
     
     ## node
     ns.resources :node_directories,

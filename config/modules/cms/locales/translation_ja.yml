@@ -17,6 +17,12 @@ ja:
         related_site: "関連サイト"
         map_key: "地図APIキー"
 
+      cms/site_setting:
+        
+      cms/site_setting/emergency_layout:
+        value: "レイアウト"
+        sort_no: "並び順"
+        
       cms/content:
         state: "状態"
         concept_id: "コンセプト"

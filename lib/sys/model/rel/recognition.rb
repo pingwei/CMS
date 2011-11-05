@@ -51,6 +51,7 @@ module Sys::Model::Rel::Recognition
 
   def recognizable?(user = nil)
     return false unless recognition
+    return false unless state == "recognize"
     recognition.recognizable?(user)
   end
 
@@ -59,7 +60,7 @@ module Sys::Model::Rel::Recognition
     rs = recognition.recognize(user)
     
     if state == 'recognize' && recognition.recognized_all?
-      sql = "UPDATE #{self.class.table_name} SET state = 'recognized', recognized_at = 'Core.now' WHERE id = #{id}"
+      sql = "UPDATE #{self.class.table_name} SET state = 'recognized', recognized_at = '#{Core.now}' WHERE id = #{id}"
       self.state = 'recognized'
       self.recognized_at = Core.now
       self.class.connection.execute(sql)
@@ -83,14 +84,14 @@ private
     rec.recognizer_ids = in_recognizer_ids.strip
     rec.info_xml       = nil
     
-    if rec.id
-      rec.save
-    else
+    if rec.new_record?
       rec.id         ||= unid
       rec.created_at   = Core.now
       rec.updated_at   = Core.now
       rec.save_with_direct_sql
       rec = Sys::Recognition.find_by_id(rec.id)
+    else
+      rec.save
     end
     rec.reset_info
     

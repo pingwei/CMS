@@ -31,15 +31,15 @@ module ApplicationHelper
   def paginate(items, options = {})
     return '' unless items
     defaults = {
-      :params     => p,
-      :prev_label => '前のページ',
-      :next_label => '次のページ',
-      :separator  => '<span class="separator"> | </span' + "\n" + '>'
+      :params         => p,
+      :previous_label => '前のページ',
+      :next_label     => '次のページ',
+      :separator      => '<span class="separator"> | </span' + "\n" + '>'
     }
     if request.mobile?
-      defaults[:page_links] = false
-      defaults[:prev_label] = '&lt;&lt;*前へ'
-      defaults[:next_label] = '次へ#&gt;&gt;'
+      defaults[:page_links]     = false
+      defaults[:previous_label] = '&lt;&lt;*前へ'
+      defaults[:next_label]     = '次へ#&gt;&gt;'
     end
     links = will_paginate(items, defaults.merge!(options))
     return links if links.blank?

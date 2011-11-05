@@ -69,14 +69,16 @@ module Cms::Model::Rel::Inquiry
     values = @inquiry
     @inquiry = nil
     
-    _inq = inquiry || Cms::Inquiry.new
-    _inq.state    = values['state']
-    _inq.group_id = values['group_id']
-    _inq.charge   = values['charge']
-    _inq.tel      = values['tel']
-    _inq.fax      = values['fax']
+    _inq = inquiry  || Cms::Inquiry.new
+    _inq.created_at ||= Core.now
+    _inq.updated_at   = Core.now
+    _inq.state        = values['state']
+    _inq.group_id     = values['group_id']
+    _inq.charge       = values['charge']
+    _inq.tel          = values['tel']
+    _inq.fax          = values['fax']
     if inquiry_email_setting != "hidden"
-      _inq.email    = values['email']
+      _inq.email      = values['email']
     end
 
     if _inq.new_record?

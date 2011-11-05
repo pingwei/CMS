@@ -319,6 +319,53 @@ class Article::Doc < ActiveRecord::Base
     return true
   end
   
+  def duplicate
+    item = self.class.new(self.attributes)
+    item.id            = nil
+    item.unid          = nil
+    item.created_at    = nil
+    item.updated_at    = nil
+    item.recognized_at = nil
+    item.published_at  = nil
+    item.state         = 'draft'
+    item.name          = nil
+    item.title         = item.title.gsub(/^(【複製】)*/, "【複製】")
+    
+    item.in_recognizer_ids  = recognition.recognizer_ids if recognition
+    item.in_editable_groups = editable_group.group_ids.split(' ') if editable_group
+    item.in_tags            = tags.collect{|c| c.word} if tags.size > 0
+    
+    if inquiry != nil && inquiry.group_id == Core.user.group_id
+      item.in_inquiry = inquiry.attributes
+    else
+      item.in_inquiry = {:group_id => Core.user.group_id}
+    end
+    
+    if maps.size > 0
+      in_maps = {}
+      maps.each{|c| in_maps[c.name] = c.attributes.symbolize_keys }
+      item._maps = in_maps
+    end
+    
+    #if tasks.size > 0
+    #  in_tasks = {}
+    #  tasks.each{|c| in_tasks[c.name] = c.process_at.to_s(:db) if c.process_at }
+    #  item.in_tasks = in_tasks
+    #end
+    
+    return false unless item.save(false)
+    
+    files.each do |f|
+      file = Sys::File.new(f.attributes)
+      file.file        = Sys::Lib::File::NoUploadedFile.new(f.upload_path)
+      file.unid        = nil
+      file.parent_unid = item.unid
+      file.save
+    end
+    
+    return item
+  end
+  
   def default_map_position
     v = content.setting_value(:default_map_position)
     v.blank? ? super : v

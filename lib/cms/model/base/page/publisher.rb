@@ -21,9 +21,10 @@ module Cms::Model::Base::Page::Publisher
 
   def preview_uri(options = {})
     return nil unless public_uri
-    site = options[:site] || Page.site
-    mb   = options[:mobile] ? 'm' : nil
-    "#{Core.full_uri}_preview/#{format('%08d', site.id)}#{mb}#{public_uri}" 
+    site   = options[:site] || Page.site
+    mobile = options[:mobile] ? 'm' : nil
+    params = options[:layout_id] ? "?layout_id=#{options[:layout_id]}" : ""
+    "#{Core.full_uri}_preview/#{format('%08d', site.id)}#{mobile}#{public_uri}#{params}" 
   end
 
   def publish_uri(options = {})

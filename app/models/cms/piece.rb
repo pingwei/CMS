@@ -18,6 +18,8 @@ class Cms::Piece < ActiveRecord::Base
   
   validates_presence_of :state, :model, :name, :title
   validates_uniqueness_of :name, :scope => :concept_id
+  validates_format_of :name, :with => /^[0-9a-zA-Z\-_]+$/, :if => "!name.blank?",
+    :message => "は半角英数字、ハイフン、アンダースコアで入力してください。"
   
   after_save :save_settings
   

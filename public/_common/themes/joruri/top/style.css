@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import "../emergency/style.css";
 @import "../base/init.css";
 @import "../base/style.css";
 @import "../piece/style.css";

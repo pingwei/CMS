@@ -4,7 +4,7 @@
     <th style="width: 60px; text-align: center;">詳細</th>
     <th style="width: ;"><%= Cms::Content.new.locale(:name) %></th>
     <th style="width: 25%;">コンテンツ種別</th>
-    <th style="width: 120px; text-align: center;">作成日時</th>
+    <th style="width: 120px; text-align: center;">更新日時</th>
   </tr>
   
   <% for item in @items %>
@@ -12,7 +12,7 @@
     <td style="text-align: center;"><%= link_to :show, item.admin_content_uri %></td>
     <td><%= link_to h(item.name), item.admin_uri %></td>
     <td><%=h item.model_name(:short) %></td>
-    <td style="text-align: center;"><%= item.created_at.strftime('%Y-%m-%d %H:%M')%></td>
+    <td style="text-align: center;"><%= item.updated_at.strftime('%Y-%m-%d %H:%M')%></td>
   </tr>
   <% end %>
 

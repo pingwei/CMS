@@ -61,7 +61,9 @@ module Cms::Controller::Layout
     concepts = Cms::Lib::Layout.inhertited_concepts
     
     ## layout
-    if layout = Cms::Lib::Layout.inhertited_layout
+    if Core.set_mode('preview') && params[:layout_id]
+      Page.layout = Cms::Layout.find(params[:layout_id])
+    elsif layout = Cms::Lib::Layout.inhertited_layout
       Page.layout    = layout.clone
       Page.layout.id = layout.id
     else

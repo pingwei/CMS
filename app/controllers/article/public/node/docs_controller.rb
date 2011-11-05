@@ -48,18 +48,18 @@ class Article::Public::Node::DocsController < Cms::Controller::Public::Base
       related_sites = Page.site.related_sites(:include_self => true)
 
       ## Converts the TABLE tags.
-      body.gsub!(/<table[ ].*?>.*?<\/table>/iom) do |m|
-        '' #remove
+      while body =~ /(.*)<table.*?<\/table>/im
+        body.gsub!(/(.*)<table.*?<\/table>/im, '\1')
       end
-
+      
       ## Converts the images.
-      body.gsub!(/<img .*?src=".*?".*?>/iom) do |m|
+      body.gsub!(/<img.*?>/im) do |m|
         '' #remove
       end
 
       ## Converts the links.
-      body.gsub!(/<a .*?href=".*?".*?>.*?<\/a>/iom) do |m|
-        uri   = m.gsub(/<a .*?href="(.*?)".*?>.*?<\/a>/iom, '\1')
+      body.gsub!(/<a .*?href=".*?".*?>.*?<\/a>/im) do |m|
+        uri   = m.gsub(/<a .*?href="(.*?)".*?>.*?<\/a>/im, '\1')
         label = m.sub(/(<a .*?href=".*?".*?>)(.*?)(<\/a>)/i, '\2')
 
         if m =~ /^<a .*?class="iconFile.*?"/i
@@ -87,7 +87,7 @@ class Article::Public::Node::DocsController < Cms::Controller::Public::Base
         end
       end
 
-      ##Converts the phone number texts.
+      ## Converts the phone number texts.
       body.gsub!(/[\(]?(([0-9]{2}[-\(\)]+[0-9]{4})|([0-9]{3}[-\(\)]+[0-9]{3,4})|([0-9]{4}[-\(\)]+[0-9]{2}))[-\)]+[0-9]{4}/) do |m|
         "<a href='tel:#{m.gsub(/\D/, '\1')}'>#{m}</a>"
       end

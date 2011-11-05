@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+/* =========================================================
+   emergency
+========================================================= */
+#emergency{
+  margin-bottom:7px;
+}
+#emergency .pieceHeader {
+  background-color:#FF0000;
+  color:#FFFF6A;
+}
+#emergency .pieceHeader h2 {
+  font-size:120%;
+  font-weight:bold;
+  line-height:35px;
+  padding:0 0 0 15px;
+}
+#emergency .pieceBody ul {
+  border-color:#dd0000;
+  border-style:none solid solid;
+  border-width:medium 2px 2px;
+  padding:5px 5px 5px 15px;
+}
+
+/* =========================================================
+   emergencyInfo
+========================================================= */
+#emergencyInfo{
+  margin-bottom:7px;
+}
+#emergencyInfo .pieceContainer{
+  border:2px solid #4D4D4D;
+  background-color:#FFFF6A;
+  padding:5px;
+}
+#emergencyInfo .pieceHeader{
+  border-bottom:1px solid #000000;
+}
+#emergencyInfo .pieceHeader h2{
+font-weight:bold;
+padding-bottom:5px;
+padding-left:10px;
+}
+#emergencyInfo ul {
+padding:5px;
+}
+#emergencyInfo li {
+background-image:url(/_common/themes/joruri/emergency/files/icon_square_red.gif);
+background-position:0 6px;
+background-repeat:no-repeat;
+padding-left:10px;
+}
+/* =========================================================
+   emergencyMode
+========================================================= */
+#emergencyMode{
+  margin:5px 0px 0px 0px;
+}
+#emergencyMode .pieceContainer{
+  color:#dd0000;
+  border-top:1px solid #ff0000;
+  border-bottom:1px solid #ff0000;
+  padding:5px 0px 5px 0px;
+}
+#emergencyMode pieceBody{
+}

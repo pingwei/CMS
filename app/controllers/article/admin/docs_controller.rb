@@ -81,8 +81,6 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
       @item.fix_tmp_files(params[:_tmp])
       if @item.state == 'recognize'
         send_recognition_request_mail(@item)
-      else
-        @item.recognition.destroy if @item.recognition;
       end
     end
   end
@@ -103,8 +101,6 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
     _update(@item) do
       if @item.state == 'recognize'
         send_recognition_request_mail(@item)
-      else
-        @item.recognition.destroy if @item.recognition
       end
       @item.close if @item.published_at
     end
@@ -127,7 +123,23 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
     @item = Article::Doc.new.find(params[:id])
     _destroy @item
   end
-
+  
+  def duplicate(item)
+    if dupe_item = item.duplicate
+      flash[:notice] = '複製処理が完了しました。'
+      respond_to do |format|
+        format.html { redirect_to url_for(:action => :index) }
+        format.xml  { head :ok }
+      end
+    else
+      flash[:notice] = "複製処理に失敗しました。"
+      respond_to do |format|
+        format.html { redirect_to url_for(:action => :show) }
+        format.xml  { render :xml => item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
   def publish(item)
     _publish(item) do
       uri  = "#{item.public_uri}index.html.r"
