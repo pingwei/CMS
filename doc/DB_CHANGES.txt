@@ -1,3 +1,14 @@
+1.1.5
+  CREATE TABLE sys_unid_relations (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) NOT NULL,
+    rel_unid int(11) NOT NULL,
+    rel_type varchar(255) NOT NULL,
+    PRIMARY KEY (id),
+    KEY unid (unid),
+    KEY rel_unid (rel_unid)
+  );
+
 1.1.4
   ALTER TABLE `article_areas` ADD `concept_id` INT NULL AFTER `parent_id`;
   ALTER TABLE `article_attributes` ADD `concept_id` INT NULL AFTER `unid`;

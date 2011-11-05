@@ -79,13 +79,15 @@ class Cms::Concept < ActiveRecord::Base
   end
   
   def make_candidates(args1, args2)
+    choiced = []
     choices = []
-    loop    = 0
     down    = lambda do |p, i|
+      next if choiced[p.id] != nil
+      choiced[p.id] = true
+      
       choices << [('　　' * i) + p.name, p.id]
       self.class.find(:all, eval("{#{args2}}")).each do |c|
         down.call(c, i + 1)
-        break if (loop += 1) > 200
       end
     end
     

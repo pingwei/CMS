@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Cms::Public::Node::SitemapsController < Cms::Controller::Public::Base
   def index
-    @item = Core.current_node
+    @item = Page.current_node
     
     Page.current_item = @item
     Page.title        = @item.title

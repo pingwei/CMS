@@ -3,7 +3,7 @@ class Enquete::Public::Node::FormsController < Cms::Controller::Public::Base
   include Article::Controller::Feed
   
   def pre_dispatch
-    return http_error(404) unless @content = Core.current_node.content
+    return http_error(404) unless @content = Page.current_node.content
     #@docs_uri = @content.public_uri('Article::Doc')
   end
   
@@ -58,7 +58,7 @@ class Enquete::Public::Node::FormsController < Cms::Controller::Public::Base
       error_log("メール送信失敗 #{e}")
     end
     
-    redirect_to "#{Core.current_node.public_uri}#{@item.id}/sent"
+    redirect_to "#{Page.current_node.public_uri}#{@item.id}/sent"
   end
   
   def sent

@@ -6,7 +6,7 @@
   <%= concept_form f %>
   <tr>
     <th><%= @item.locale(:content_id) %></th>
-    <td><%= f.select(:content_id, Cms::Content.find(:all).collect{|i| [i.name, i.id]}, :include_blank => Cms::Lib::Modules.module_name(:cms)) %></td>
+    <td><%= f.select(:content_id, Core.site.contents.collect{|i| [i.name, i.id]}, :include_blank => Cms::Lib::Modules.module_name(:cms)) %></td>
   </tr><tr>
     <th><%= @item.locale(:model) %></th>
     <td><%= f.select :model, @models %></td>

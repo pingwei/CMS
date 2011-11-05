@@ -4,7 +4,7 @@ module Article::Controller::Feed
     if ['rss', 'atom'].index(params[:format])
       @skip_layout = true
       @site_uri    = Page.site.full_uri
-      @node_uri    = @site_uri.gsub(/\/$/, '') + Core.current_node.public_uri
+      @node_uri    = @site_uri.gsub(/\/$/, '') + Page.current_node.public_uri
       @req_uri     = @site_uri.gsub(/\/$/, '') + Core.request_uri
       @feed_name   = "#{Page.title} | #{Page.site.name}"
 
@@ -60,7 +60,7 @@ module Article::Controller::Feed
     xml.instruct! :xml, :version => 1.0, :encoding => 'UTF-8'
     xml.feed 'xmlns' => 'http://www.w3.org/2005/Atom' do
 
-      xml.id      "tag:#{Page.site.domain},#{Page.site.created_at.strftime('%Y')}:#{Core.current_node.public_uri}"
+      xml.id      "tag:#{Page.site.domain},#{Page.site.created_at.strftime('%Y')}:#{Page.current_node.public_uri}"
       xml.title   @feed_name
       xml.updated Time.now.strftime('%Y-%m-%dT%H:%M:%S%z').sub(/([0-9][0-9])$/, ':\1')
       xml.link    :rel => 'alternate', :href => @node_uri

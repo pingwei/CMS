@@ -12,7 +12,6 @@ class Core
   cattr_reader   :script_uri
   cattr_reader   :request_uri
   cattr_reader   :internal_uri
-  cattr_reader   :current_node
   cattr_accessor :ldap
   cattr_accessor :user
   cattr_accessor :user_group
@@ -34,7 +33,6 @@ class Core
     @@script_uri   = env['SCRIPT_URI'] || "http://#{env['HTTP_HOST']}#{env['PATH_INFO']}"
     @@request_uri  = nil
     @@internal_uri = nil
-    @@current_node = nil
     @@ldap         = nil
     @@user         = nil
     @@user_group   = nil
@@ -137,7 +135,7 @@ class Core
         n.and :parent_id, node.id
         n.and :name     , paths[i]
         n.public if @@mode != 'preview'
-        current = n.find(:first)
+        current = n.find(:first, :order => "id DESC") # at unique node name
       end
       break unless current
       
@@ -146,7 +144,7 @@ class Core
     end
     return nil unless node
     
-    @@current_node = node
+    Page.current_node = node
     @@internal_uri = "/_public/#{node.model.underscore.pluralize.gsub(/^(.*?\/)/, "\\1node_")}/#{rest}"
 #    return "/_public/#{node.model.underscore.pluralize.gsub(/^(.*?\/)/, "\\1node_")}/#{rest}"
   end
@@ -183,7 +181,6 @@ private
       @@site         = self.get_site_by_cookie
       Page.site      = @@site
       @@internal_uri = @@request_uri
-      @@current_node = nil
     when 'preview'
       site_id        = @@request_uri.gsub(/^\/_[a-z]+\/([0-9]+).*/, '\1').to_i
       site_mobile    = @@request_uri =~ /^\/_[a-z]+\/([0-9]+)m/
@@ -207,7 +204,6 @@ private
         @@site         = nil
         Page.site      = @@site
         @@internal_uri = @@request_uri
-        @@current_node = nil
       end
     end
   end

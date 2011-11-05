@@ -1,6 +1,6 @@
 <div class="enqueteForm">
 
-<% form_for :item, :url => "#{Core.current_node.public_uri}#{@item.id}/" do |f| %>
+<% form_for :item, :url => "#{Page.current_node.public_uri}#{@item.id}/" do |f| %>
 
 <%= error_messages_for "form" %>
 
@@ -37,6 +37,6 @@
 
 <% end %>
 
-<div class="back"><%= link_to "戻る", Core.current_node.public_uri %></div>
+<div class="back"><%= link_to "戻る", Page.current_node.public_uri %></div>
 
 </div>

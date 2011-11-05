@@ -9,7 +9,7 @@ module Sys::Model::Base::File
     mod.after_destroy :remove_internal_file
   end
   
-  @@_maxsize = 50# MegaMytes
+  @@_maxsize = 50# MegaBytes
   
   attr_accessor :file
   
@@ -216,7 +216,7 @@ module Sys::Model::Base::File
 private
   ## filter/aftar_save
   def upload_internal_file
-    unless @_file_data.blank?
+    if @_file_data != nil
       Util::File.put(upload_path, :data => @_file_data, :mkdir => true)
     end
     return true

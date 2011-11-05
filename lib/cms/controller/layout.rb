@@ -43,7 +43,7 @@ module Cms::Controller::Layout
       headers.delete("Cache-Control") #cache on
     end
     
-    Page.current_item = Core.current_node unless Page.current_item
+    Page.current_item = Page.current_node unless Page.current_item
     
     return true if @performed_redirect
     return true if @skip_layout

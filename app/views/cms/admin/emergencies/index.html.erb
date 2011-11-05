@@ -16,8 +16,8 @@
     <td style="text-align: right;"><%=h item.sort_no %></td>
     <td style="text-align: center;"><%= safe{item.layout.updated_at.strftime('%Y-%m-%d %H:%M')} %></td>
     <td style="text-align: center;"><% if @node %>
-      <%= link_to 'PC', @node.preview_uri(:layout_id => item.value), :target => '_blank' %>
-      <%= link_to '携帯', @node.preview_uri(:mobile => true, :layout_id => item.value), :target => '_blank' %>
+      <%= link_to 'PC', @node.preview_uri(:params => {:layout_id => item.value}), :target => '_blank' %>
+      <%= link_to '携帯', @node.preview_uri(:mobile => true, :params => {:layout_id => item.value}), :target => '_blank' %>
     <% end %></td>
     <td style="text-align: center;"><% if @node %>
       <% if @node.layout_id.to_s == item.value.to_s %>適用中<% else%>

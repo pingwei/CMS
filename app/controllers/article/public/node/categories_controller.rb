@@ -3,7 +3,7 @@ class Article::Public::Node::CategoriesController < Cms::Controller::Public::Bas
   include Article::Controller::Feed
 
   def pre_dispatch
-    return http_error(404) unless @content = Core.current_node.content
+    return http_error(404) unless @content = Page.current_node.content
     @docs_uri = @content.public_uri('Article::Doc')
     
     @page  = params[:page]
@@ -77,7 +77,7 @@ class Article::Public::Node::CategoriesController < Cms::Controller::Public::Bas
     @item_docs = Proc.new do |dep|
       doc = Article::Doc.new.public
       doc.agent_filter(request.mobile)
-      doc.and :content_id, Core.current_node.content.id
+      doc.and :content_id, Page.current_node.content.id
       doc.visible_in_list
       doc.category_is @item
       doc.unit_is dep
@@ -93,7 +93,7 @@ class Article::Public::Node::CategoriesController < Cms::Controller::Public::Bas
     
     doc = Article::Doc.new.public
     doc.agent_filter(request.mobile)
-    doc.and :content_id, Core.current_node.content.id
+    doc.and :content_id, Page.current_node.content.id
     doc.visible_in_list
     doc.category_is @item
     doc.unit_is @attr

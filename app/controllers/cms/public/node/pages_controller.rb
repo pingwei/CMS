@@ -1,8 +1,14 @@
 # encoding: utf-8
 class Cms::Public::Node::PagesController < Cms::Controller::Public::Base
   def index
-    @item = Cms::Model::Node::Page.find(Core.current_node.id)
+    @item = Cms::Model::Node::Page.find(Page.current_node.id)
     
+    if Core.mode == 'preview' && params[:node_id]
+      cond = {:id => params[:node_id], :parent_id => @item.parent_id, :name => @item.name}
+      return http_error(404) unless @item = Cms::Model::Node::Page.find(:first, :conditions => cond)
+    end
+    
+    Page.current_node = @item
     Page.current_item = @item
     Page.title        = @item.title
     

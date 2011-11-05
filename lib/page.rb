@@ -4,6 +4,7 @@ class Page
   cattr_accessor :layout
   cattr_accessor :content
   cattr_accessor :title
+  cattr_accessor :current_node
   cattr_accessor :current_item
   cattr_accessor :current_piece
   cattr_accessor :mobile
@@ -16,6 +17,7 @@ class Page
     @@layout        = nil
     @@content       = nil
     @@title         = nil
+    @@current_node  = nil
     @@current_item  = nil
     @@current_piece = nil
     @@mobile        = nil
@@ -54,7 +56,7 @@ class Page
   
   def self.title
     return @@title if @@title
-    return Core.current_node.title if Core.current_node
+    return Page.current_node.title if Page.current_node
     return @@site.name
   end
 

@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     ns.resources :nodes,
       :controller  => "admin/nodes",
       :path_prefix => "/_admin/#{mod}/:parent",
-      :collection  => [:models]
+      :collection  => [:search, :models]
     ns.resources :layouts,
       :controller  => "admin/layouts",
       :path_prefix => "/_admin/#{mod}"

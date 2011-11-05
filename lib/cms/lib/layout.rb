@@ -1,7 +1,7 @@
 module Cms::Lib::Layout
   def self.current_concept
     concept = defined?(Page.current_item.concept) ? Page.current_item.concept : nil
-    concept ||= Core.current_node.inherited_concept
+    concept ||= Page.current_node.inherited_concept
   end
   
   def self.inhertited_concepts
@@ -11,7 +11,7 @@ module Cms::Lib::Layout
   
   def self.inhertited_layout
     layout = defined?(Page.current_item.layout) ? Page.current_item.layout : nil
-    layout ||= Core.current_node.inherited_layout
+    layout ||= Page.current_node.inherited_layout
   end
   
   def self.concepts_order(concepts, options = {})

@@ -23,7 +23,9 @@ module Cms::Model::Base::Page::Publisher
     return nil unless public_uri
     site   = options[:site] || Page.site
     mobile = options[:mobile] ? 'm' : nil
-    params = options[:layout_id] ? "?layout_id=#{options[:layout_id]}" : ""
+    params = []
+    options[:params].each {|k, v| params << "#{k}=#{v}" } if options[:params]
+    params = params.size > 0 ? "?#{params.join('&')}" : ""
     "#{Core.full_uri}_preview/#{format('%08d', site.id)}#{mobile}#{public_uri}#{params}" 
   end
 
@@ -104,9 +106,5 @@ module Cms::Model::Base::Page::Publisher
   def close_page(options = {})
     publishers.destroy_all
     return true
-  end
-  
-  def rebuild_page(content, options = {})
-    publish_page(content, options)
   end
 end

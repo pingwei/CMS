@@ -4,6 +4,7 @@ class Cms::Admin::NodesController < Cms::Controller::Admin::Base
 
   def pre_dispatch
     return error_auth unless Core.user.has_auth?(:designer)
+    return redirect_to(cms_nodes_path(0)) if params[:reset]
     
     id      = params[:parent] == '0' ? Core.site.node_id : params[:parent]
     @parent = Cms::Node.new.find(id)
@@ -11,12 +12,14 @@ class Cms::Admin::NodesController < Cms::Controller::Admin::Base
 
   def index
     item = Cms::Node.new#.readable
+    item.and :site_id, Core.site.id
     item.and :parent_id, @parent.id
     item.and :directory, 1
     item.order params[:sort], 'name, id'
     @dirs = item.find(:all)
     
     item = Cms::Node.new#.readable
+    item.and :site_id, Core.site.id
     item.and :parent_id, @parent.id
     item.and :directory, 0
     item.order params[:sort], 'name, id'
@@ -24,7 +27,20 @@ class Cms::Admin::NodesController < Cms::Controller::Admin::Base
     
     _index @pages
   end
-
+  
+  def search
+    item = Cms::Node.new#.readable
+    item.and :site_id, Core.site.id
+    #item.and :directory, 0
+    item.search params
+    item.page params[:page], params[:limit]
+    item.order params[:sort], 'parent_id, name, id'
+    @items = item.find(:all)
+    
+    @skip_navi = true
+    render :action => :search
+  end
+  
   def show
     @item = Cms::Node.new.find(params[:id])
     return error_auth unless @item.readable?
@@ -48,6 +64,7 @@ class Cms::Admin::NodesController < Cms::Controller::Admin::Base
     @models = models(false)
     
     @item = Cms::Node.new(params[:item])
+    @item.site_id      = Core.site.id
     #@item.parent_id    = @parent.id
     @item.state        = 'closed'
     @item.published_at = Core.now

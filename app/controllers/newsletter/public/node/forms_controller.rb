@@ -2,14 +2,14 @@
 class Newsletter::Public::Node::FormsController < Cms::Controller::Public::Base
 
   def pre_dispatch
-    return http_error(404) unless content = Core.current_node.content
+    return http_error(404) unless content = Page.current_node.content
     @content = Newsletter::Content::Base.find_by_id(content.id)
   end
 
   def index
     if _receive
       # complete view
-      redirect_to "#{Core.current_node.public_uri}sent/#{@item.id}/#{@item.token}/"
+      redirect_to "#{Page.current_node.public_uri}sent/#{@item.id}/#{@item.token}/"
     else
       return false
     end
@@ -18,7 +18,7 @@ class Newsletter::Public::Node::FormsController < Cms::Controller::Public::Base
   def change
     if _receive
       # complete view
-      redirect_to "#{Core.current_node.public_uri}sent/#{@item.id}/#{@item.token}/"
+      redirect_to "#{Page.current_node.public_uri}sent/#{@item.id}/#{@item.token}/"
     else
       return false
     end

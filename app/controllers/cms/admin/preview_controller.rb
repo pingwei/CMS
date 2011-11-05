@@ -21,10 +21,11 @@ class Cms::Admin::PreviewController < Cms::Controller::Admin::Base
     opt    = routes.recognize_optimized(node, env)
     ctl    = opt[:controller]
     act    = opt[:action]
-    #opt    = opt.merge(params)
-    opt[:layout_id] = params[:layout_id] if params[:layout_id]
-    opt[:authenticity_token] = params[:authenticity_token] if params[:authenticity_token]
     
-    render_component :controller => ctl, :action => act, :params => opt
+    opt.each {|k,v| params[k] = v }
+    #opt[:layout_id] = params[:layout_id] if params[:layout_id]
+    #opt[:authenticity_token] = params[:authenticity_token] if params[:authenticity_token]
+    
+    render_component :controller => ctl, :action => act, :params => params
   end
 end

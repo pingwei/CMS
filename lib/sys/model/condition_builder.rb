@@ -30,10 +30,11 @@ module Sys::Model::ConditionBuilder
   end
   
   def and_keywords(words, *columns)
+    return self unless words =~ /[^ 　]/
     cond = Condition.new
     columns.each do |col|
       cond.or do |c|
-        words.to_s.split(/[ 　]+/).each_with_index do |w, i|
+        words.to_s.split(/[ 　]+/).uniq.each_with_index do |w, i|
           break if i >= 10
           qw = connection.quote_string(w).gsub(/([_%])/, '\\\\\1')
           c.and col, 'LIKE', "%#{qw}%"

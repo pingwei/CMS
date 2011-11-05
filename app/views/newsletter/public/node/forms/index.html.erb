@@ -4,7 +4,7 @@
 
 <h2>メールマガジンの登録はこちら</h2>
 
-<% form_for :item, :url => "#{Core.current_node.public_uri}" do |f| %>
+<% form_for :item, :url => "#{Page.current_node.public_uri}" do |f| %>
 
 <%= error_messages_for "item" %>
 
@@ -29,7 +29,7 @@
 <% end %>
 
 <div class="change">
-  <%= link_to 'メールマガジンの解除はこちら', "#{Core.current_node.public_uri}change/" %>
+  <%= link_to 'メールマガジンの解除はこちら', "#{Page.current_node.public_uri}change/" %>
 </div>
 
 </div>

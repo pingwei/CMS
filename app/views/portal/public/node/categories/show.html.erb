@@ -5,7 +5,7 @@
   <% if item[:date] %><%= "</ul>" if idx != 0  %>
   <%= %Q(<h2 class="date">#{item[:date]}</h2><ul>) if item[:date] %>
   <% end %><li><%=link_to h(item[:entry].title), item[:entry].public_uri, :target => item[:entry].link_target %><%= "（#{item[:entry].source_title}）" unless item[:entry].source_title.blank? %></li><% end %>
-  <% "</ul>" if @entries.size > 0 %>
+  <%= "</ul>" if @entries.size > 0 %>
 </div>
 
 <%= paginate @entries %>

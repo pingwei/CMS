@@ -79,7 +79,7 @@ class Newsletter::Request < ActiveRecord::Base
 
   def unsubscribe_uri
     return nil unless id && token
-    "#{Core.current_node.public_full_uri}unsubscribe/#{id}/#{token}/"
+    "#{::Page.current_node.public_full_uri}unsubscribe/#{id}/#{token}/"
   end
 
   def email
@@ -124,7 +124,7 @@ class Newsletter::Request < ActiveRecord::Base
     _body += "解除手続きを行ってください。\n"
     _body += "\n"
     _body += "■登録内容の変更はこちら\n"
-    _body += "#{Core.current_node.public_full_uri}change/\n"
+    _body += "#{::Page.current_node.public_full_uri}change/\n"
     _body += "\n"
     _body += "\n"
     # signature

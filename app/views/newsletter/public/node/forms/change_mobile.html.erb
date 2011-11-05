@@ -2,7 +2,7 @@
 
 <div class="h2">メールマガジンの解除はこちら</div>
 
-<% form_for :item, :url => "#{Core.current_node.public_uri}change/" do |f| %>
+<% form_for :item, :url => "#{Page.current_node.public_uri}change/" do |f| %>
 
 <%= error_messages_for "item" %>
 

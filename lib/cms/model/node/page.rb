@@ -20,6 +20,11 @@ class Cms::Model::Node::Page < Cms::Node
     self.state = 'public'
     self.published_at ||= Core.now
     return false unless save(false)
+    
+    if rep = replaced_page
+      rep.destroy
+    end
+    
     publish_page(content, :path => public_path, :uri => public_uri)
   end
   
@@ -30,5 +35,41 @@ class Cms::Model::Node::Page < Cms::Node
     return false unless save(false)
     close_page
     return true
+  end
+  
+  def duplicate(rel_type = nil)
+    item = self.class.new(self.attributes)
+    item.id            = nil
+    item.unid          = nil
+    item.created_at    = nil
+    item.updated_at    = nil
+    item.recognized_at = nil
+    #item.published_at  = nil
+    item.state         = 'draft'
+    
+    if rel_type == nil
+      item.name          = nil
+      item.title         = item.title.gsub(/^(【複製】)*/, "【複製】")
+    end
+    
+    item.in_recognizer_ids  = recognition.recognizer_ids if recognition
+    
+    if inquiry != nil && inquiry.group_id == Core.user.group_id
+      item.in_inquiry = inquiry.attributes
+    else
+      item.in_inquiry = {:group_id => Core.user.group_id}
+    end
+    
+    return false unless item.save(false)
+    
+    if rel_type == :replace
+      rel = Sys::UnidRelation.new
+      rel.unid     = item.unid
+      rel.rel_unid = self.unid
+      rel.rel_type = 'replace'
+      rel.save
+    end
+    
+    return item
   end
 end

@@ -7,6 +7,7 @@ class Cms::Node < ActiveRecord::Base
   include Cms::Model::Base::Node
   include Sys::Model::Tree
   include Sys::Model::Rel::Unid
+  include Sys::Model::Rel::UnidRelation
   include Sys::Model::Rel::Creator
   include Cms::Model::Rel::Site
   include Cms::Model::Rel::Concept
@@ -21,8 +22,9 @@ class Cms::Node < ActiveRecord::Base
     :order => :name, :dependent => :destroy
   
   validates_presence_of :parent_id, :state, :model, :name, :title
-  validates_uniqueness_of :name, :scope => :parent_id
-  validates_format_of :name, :with=> /^[0-9A-Za-z\.\-_\+@]/, :message=> :not_a_filename,
+  validates_uniqueness_of :name, :scope => :parent_id,
+    :if => %Q(!replace_page?)
+  validates_format_of :name, :with=> /^[0-9A-Za-z@\.\-_\+\s]+$/, :message=> :not_a_filename,
     :if => %Q(parent_id != 0)
   
   after_destroy :remove_file
@@ -184,6 +186,52 @@ class Cms::Node < ActiveRecord::Base
     end
     label = I18n.t name, :scope => [:activerecord, :attributes, 'cms/node']
     return label =~ /^translation missing:/ ? name.to_s.humanize : label
+  end
+  
+  def search(params)
+    params.each do |n, v|
+      next if v.to_s == ''
+
+      case n
+      when 's_state'
+        self.and :state, v
+      when 's_title'
+        self.and_keywords v, :title
+      when 's_body'
+        self.and_keywords v, :body
+      when 's_directory'
+        self.and :directory, v
+      when 's_keyword'
+        self.and_keywords v, :title, :body
+      end
+    end if params.size != 0
+
+    return self
+  end
+  
+  ## NodePage
+  def replace_page?
+    cond = {:unid => unid, :rel_type => "replace"}
+    Sys::UnidRelation.find(:first, :conditions => cond) ? true : nil
+  end
+  
+  def replaced_page?
+    cond = {:rel_unid => unid, :rel_type => "replace"}
+    Sys::UnidRelation.find(:first, :conditions => cond) ? true : nil
+  end
+  
+  def replace_page
+    return nil unless replaced_page?
+    cond = {:rel_unid => unid, :rel_type => "replace"}
+    rel = Sys::UnidRelation.find(:first, :conditions => cond)
+    self.class.find_by_unid(rel.unid)
+  end
+  
+  def replaced_page
+    return nil unless replace_page?
+    cond = {:unid => unid, :rel_type => "replace"}
+    rel = Sys::UnidRelation.find(:first, :conditions => cond)
+    self.class.find_by_unid(rel.rel_unid)
   end
   
 protected

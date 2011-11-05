@@ -46,7 +46,7 @@ ja:
         recognize3_date: "Recognize3日"
         recognize4_date: "Recognize4日"
         recognize5_date: "Recognize5日"
-        name: "名前"
+        name: "記事URL番号"
         title: "タイトル"
         head: "ヘッダー"
         body: "内容"

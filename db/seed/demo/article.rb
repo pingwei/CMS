@@ -80,118 +80,121 @@ Article::Unit.update_all({:web_state => 'public', :layout_id => l_unit.id}, ["pa
 ## ---------------------------------------------------------
 ## article/categories
 
-def create(parent, level_no, sort_no, layout, content, name, title)
-  Article::Category.create :parent_id => (parent == 0 ? 0 : parent.id),
+def create(concept, parent, level_no, sort_no, layout, content, name, title)
+  Article::Category.create :concept_id => concept.id,
+    :parent_id => (parent == 0 ? 0 : parent.id),
     :level_no => level_no, :sort_no => sort_no, :state => 'public',
     :layout_id => layout.id, :content_id => content.id, :name => name, :title => title
 end
 
-p = create 0, 1, 1 , l_gn1 , doc, 'kurashi'          , 'くらし'
-    create p, 2, 1 , l_gn1 , doc, 'shohiseikatsu'    , '消費生活'
-    create p, 2, 2 , l_gn1 , doc, 'shakaikoken'      , '社会貢献・NPO'
-    create p, 2, 3 , l_gn1 , doc, 'bohan'            , '防犯・安全'
-    create p, 2, 4 , l_gn1 , doc, 'sumai'            , 'すまい'
-    create p, 2, 5 , l_gn1 , doc, 'jinken'           , '人権・男女共同参画'
-    create p, 2, 6 , l_gn1 , doc, 'kankyo'           , '環境'
-    create p, 2, 7 , l_gn1 , doc, 'zei'              , '税'
-    create p, 2, 8 , l_gn1 , doc, 'kosodate'         , '子育て'
-    create p, 2, 9 , l_gn1 , doc, 'dobutsu'          , '動物・ペット'
-    create p, 2, 10, l_gn1 , doc, 'recycle'          , 'リサイクル・廃棄物'
-p = create 0, 1, 2 , l_gn2 , doc, 'fukushi'          , '健康・福祉'
-    create p, 2, 1 , l_gn2 , doc, 'kenkou'           , '健康'
-    create p, 2, 2 , l_gn2 , doc, 'iryo'             , '医療'
-    create p, 2, 3 , l_gn2 , doc, 'koreisha'         , '高齢者・介護'
-    create p, 2, 4 , l_gn2 , doc, 'chikifukushi'     , '地域福祉'
-    create p, 2, 5 , l_gn2 , doc, 'shogaifukushi'    , '障害福祉'
-p = create 0, 1, 3 , l_gn3 , doc, 'kyoikubunka'      , '教育・文化'
-    create p, 2, 1 , l_gn3 , doc, 'kyoiku'           , '教育'
-    create p, 2, 2 , l_gn3 , doc, 'bunka'            , '文化・スポーツ'
-    create p, 2, 3 , l_gn3 , doc, 'seishonen'        , '青少年'
-    create p, 2, 4 , l_gn3 , doc, 'shogaigakushu'    , '障害学習'
-    create p, 2, 5 , l_gn3 , doc, 'gakko'            , '学校・文化施設'
-    create p, 2, 6 , l_gn4 , doc, 'kokusaikoryu'     , '国際交流'
-p = create 0, 1, 4 , l_gn4 , doc, 'kanko'            , '観光・魅力'
-    create p, 2, 1 , l_gn4 , doc, 'event'            , '観光・イベント'
-    create p, 2, 2 , l_gn4 , doc, 'meisho'           , '名所・景観'
-    create p, 2, 3 , l_gn4 , doc, 'bussanhin'        , '物産品'
-    create p, 2, 4 , l_gn4 , doc, 'taikenspot'       , '体験スポット'
-p = create 0, 1, 5 , l_gn5 , doc, 'sangyoshigoto'    , '産業・しごと'
-    create p, 2, 1 , l_gn5 , doc, 'shigoto'          , '産業・しごと'
-    create p, 2, 2 , l_gn5 , doc, 'koyo'             , '雇用・労働'
-    create p, 2, 3 , l_gn5 , doc, 'shogyo'           , '商業・サービス業'
-    create p, 2, 4 , l_gn5 , doc, 'kigyoshien'       , '企業支援・企業立地'
-    create p, 2, 5 , l_gn5 , doc, 'shigen'           , '資源・エネルギー'
-    create p, 2, 6 , l_gn5 , doc, 'johotsushin'      , '情報通信・研究開発・科学技術'
-    create p, 2, 7 , l_gn5 , doc, 'kenchiku'         , '建築・土木'
-    create p, 2, 8 , l_gn5 , doc, 'shikaku'          , '資格・免許・研修'
-    create p, 2, 9 , l_gn5 , doc, 'sangyo'           , '産業'
-    create p, 2, 10, l_cate, doc, 'kigyo'            , '起業'
-    create p, 2, 11, l_gn5 , doc, 'ujiturn'          , 'UJIターン'
-    create p, 2, 12, l_gn5 , doc, 'chikikeizai'      , '地域経済'
-p = create 0, 1, 6 , l_gn6 , doc, 'gyoseimachizukuri', '行政・まちづくり'
-    create p, 2, 1 , l_gn6 , doc, 'gyosei'           , '行政・まちづくり'
-    create p, 2, 2 , l_gn6 , doc, 'koho'             , '広報・公聴'
-    create p, 2, 3 , l_gn6 , doc, 'gyoseikaikaku'    , '行政改革'
-    create p, 2, 4 , l_gn6 , doc, 'zaisei'           , '財政・宝くじ'
-    create p, 2, 5 , l_gn6 , doc, 'shingikai'        , '審議会'
-    create p, 2, 6 , l_gn6 , doc, 'tokei'            , '統計・監査'
-    create p, 2, 7 , l_gn6 , doc, 'jorei'            , '条例・規則'
-    create p, 2, 8 , l_gn6 , doc, 'soshiki'          , '組織'
-    create p, 2, 9 , l_gn6 , doc, 'jinji'            , '人事・採用'
-    create p, 2, 10, l_gn6 , doc, 'nyusatsu'         , '入札・調達'
-    create p, 2, 11, l_gn6 , doc, 'machizukuri'      , 'まちづくり・都市計画'
-    create p, 2, 12, l_gn6 , doc, 'doro'             , '道路・施設'
-    create p, 2, 13, l_gn6 , doc, 'kasen'            , '河川・砂防'
-    create p, 2, 14, l_gn6 , doc, 'kuko'             , '空港・港湾'
-    create p, 2, 15, l_gn6 , doc, 'denki'            , '電気・水道'
-    create p, 2, 16, l_gn6 , doc, 'ikem'             , '意見・募集'
-    create p, 2, 17, l_gn6 , doc, 'johokokai'        , '情報公開・個人情報保護'
-    create p, 2, 18, l_gn6 , doc, 'johoka'           , '情報化'
-    create p, 2, 19, l_gn6 , doc, 'shinsei'          , '申請・届出・行政サービス'
-    create p, 2, 20, l_gn6 , doc, 'kokyojigyo'       , '公共事業・公営企業'
-p = create 0, 1, 7 , l_gn7 , doc, 'bosaigai'         , '防災'
-    create p, 2, 1 , l_gn7 , doc, 'bosai'            , '防災'
-    create p, 2, 2 , l_gn7 , doc, 'saigai'           , '災害'
-    create p, 2, 3 , l_gn7 , doc, 'kishojoho'        , '気象情報'
-    create p, 2, 4 , l_gn7 , doc, 'kotsu'            , '交通'
-    create p, 2, 5 , l_gn7 , doc, 'shokunoanzen'     , '食の安全'
+p = create c_cate, 0, 1, 1 , l_gn1 , doc, 'kurashi'          , 'くらし'
+    create c_cate, p, 2, 1 , l_gn1 , doc, 'shohiseikatsu'    , '消費生活'
+    create c_cate, p, 2, 2 , l_gn1 , doc, 'shakaikoken'      , '社会貢献・NPO'
+    create c_cate, p, 2, 3 , l_gn1 , doc, 'bohan'            , '防犯・安全'
+    create c_cate, p, 2, 4 , l_gn1 , doc, 'sumai'            , 'すまい'
+    create c_cate, p, 2, 5 , l_gn1 , doc, 'jinken'           , '人権・男女共同参画'
+    create c_cate, p, 2, 6 , l_gn1 , doc, 'kankyo'           , '環境'
+    create c_cate, p, 2, 7 , l_gn1 , doc, 'zei'              , '税'
+    create c_cate, p, 2, 8 , l_gn1 , doc, 'kosodate'         , '子育て'
+    create c_cate, p, 2, 9 , l_gn1 , doc, 'dobutsu'          , '動物・ペット'
+    create c_cate, p, 2, 10, l_gn1 , doc, 'recycle'          , 'リサイクル・廃棄物'
+p = create c_cate, 0, 1, 2 , l_gn2 , doc, 'fukushi'          , '健康・福祉'
+    create c_cate, p, 2, 1 , l_gn2 , doc, 'kenkou'           , '健康'
+    create c_cate, p, 2, 2 , l_gn2 , doc, 'iryo'             , '医療'
+    create c_cate, p, 2, 3 , l_gn2 , doc, 'koreisha'         , '高齢者・介護'
+    create c_cate, p, 2, 4 , l_gn2 , doc, 'chikifukushi'     , '地域福祉'
+    create c_cate, p, 2, 5 , l_gn2 , doc, 'shogaifukushi'    , '障害福祉'
+p = create c_cate, 0, 1, 3 , l_gn3 , doc, 'kyoikubunka'      , '教育・文化'
+    create c_cate, p, 2, 1 , l_gn3 , doc, 'kyoiku'           , '教育'
+    create c_cate, p, 2, 2 , l_gn3 , doc, 'bunka'            , '文化・スポーツ'
+    create c_cate, p, 2, 3 , l_gn3 , doc, 'seishonen'        , '青少年'
+    create c_cate, p, 2, 4 , l_gn3 , doc, 'shogaigakushu'    , '障害学習'
+    create c_cate, p, 2, 5 , l_gn3 , doc, 'gakko'            , '学校・文化施設'
+    create c_cate, p, 2, 6 , l_gn4 , doc, 'kokusaikoryu'     , '国際交流'
+p = create c_cate, 0, 1, 4 , l_gn4 , doc, 'kanko'            , '観光・魅力'
+    create c_cate, p, 2, 1 , l_gn4 , doc, 'event'            , '観光・イベント'
+    create c_cate, p, 2, 2 , l_gn4 , doc, 'meisho'           , '名所・景観'
+    create c_cate, p, 2, 3 , l_gn4 , doc, 'bussanhin'        , '物産品'
+    create c_cate, p, 2, 4 , l_gn4 , doc, 'taikenspot'       , '体験スポット'
+p = create c_cate, 0, 1, 5 , l_gn5 , doc, 'sangyoshigoto'    , '産業・しごと'
+    create c_cate, p, 2, 1 , l_gn5 , doc, 'shigoto'          , '産業・しごと'
+    create c_cate, p, 2, 2 , l_gn5 , doc, 'koyo'             , '雇用・労働'
+    create c_cate, p, 2, 3 , l_gn5 , doc, 'shogyo'           , '商業・サービス業'
+    create c_cate, p, 2, 4 , l_gn5 , doc, 'kigyoshien'       , '企業支援・企業立地'
+    create c_cate, p, 2, 5 , l_gn5 , doc, 'shigen'           , '資源・エネルギー'
+    create c_cate, p, 2, 6 , l_gn5 , doc, 'johotsushin'      , '情報通信・研究開発・科学技術'
+    create c_cate, p, 2, 7 , l_gn5 , doc, 'kenchiku'         , '建築・土木'
+    create c_cate, p, 2, 8 , l_gn5 , doc, 'shikaku'          , '資格・免許・研修'
+    create c_cate, p, 2, 9 , l_gn5 , doc, 'sangyo'           , '産業'
+    create c_cate, p, 2, 10, l_cate, doc, 'kigyo'            , '起業'
+    create c_cate, p, 2, 11, l_gn5 , doc, 'ujiturn'          , 'UJIターン'
+    create c_cate, p, 2, 12, l_gn5 , doc, 'chikikeizai'      , '地域経済'
+p = create c_cate, 0, 1, 6 , l_gn6 , doc, 'gyoseimachizukuri', '行政・まちづくり'
+    create c_cate, p, 2, 1 , l_gn6 , doc, 'gyosei'           , '行政・まちづくり'
+    create c_cate, p, 2, 2 , l_gn6 , doc, 'koho'             , '広報・公聴'
+    create c_cate, p, 2, 3 , l_gn6 , doc, 'gyoseikaikaku'    , '行政改革'
+    create c_cate, p, 2, 4 , l_gn6 , doc, 'zaisei'           , '財政・宝くじ'
+    create c_cate, p, 2, 5 , l_gn6 , doc, 'shingikai'        , '審議会'
+    create c_cate, p, 2, 6 , l_gn6 , doc, 'tokei'            , '統計・監査'
+    create c_cate, p, 2, 7 , l_gn6 , doc, 'jorei'            , '条例・規則'
+    create c_cate, p, 2, 8 , l_gn6 , doc, 'soshiki'          , '組織'
+    create c_cate, p, 2, 9 , l_gn6 , doc, 'jinji'            , '人事・採用'
+    create c_cate, p, 2, 10, l_gn6 , doc, 'nyusatsu'         , '入札・調達'
+    create c_cate, p, 2, 11, l_gn6 , doc, 'machizukuri'      , 'まちづくり・都市計画'
+    create c_cate, p, 2, 12, l_gn6 , doc, 'doro'             , '道路・施設'
+    create c_cate, p, 2, 13, l_gn6 , doc, 'kasen'            , '河川・砂防'
+    create c_cate, p, 2, 14, l_gn6 , doc, 'kuko'             , '空港・港湾'
+    create c_cate, p, 2, 15, l_gn6 , doc, 'denki'            , '電気・水道'
+    create c_cate, p, 2, 16, l_gn6 , doc, 'ikem'             , '意見・募集'
+    create c_cate, p, 2, 17, l_gn6 , doc, 'johokokai'        , '情報公開・個人情報保護'
+    create c_cate, p, 2, 18, l_gn6 , doc, 'johoka'           , '情報化'
+    create c_cate, p, 2, 19, l_gn6 , doc, 'shinsei'          , '申請・届出・行政サービス'
+    create c_cate, p, 2, 20, l_gn6 , doc, 'kokyojigyo'       , '公共事業・公営企業'
+p = create c_cate, 0, 1, 7 , l_gn7 , doc, 'bosaigai'         , '防災'
+    create c_cate, p, 2, 1 , l_gn7 , doc, 'bosai'            , '防災'
+    create c_cate, p, 2, 2 , l_gn7 , doc, 'saigai'           , '災害'
+    create c_cate, p, 2, 3 , l_gn7 , doc, 'kishojoho'        , '気象情報'
+    create c_cate, p, 2, 4 , l_gn7 , doc, 'kotsu'            , '交通'
+    create c_cate, p, 2, 5 , l_gn7 , doc, 'shokunoanzen'     , '食の安全'
 
 ## ---------------------------------------------------------
 ## article/attributes
 
-def create(sort_no, layout, content, name, title)
-  Article::Attribute.create(:sort_no => sort_no, :layout_id => layout.id, :content_id => content.id,
-    :state => 'public', :name => name, :title => title)
+def create(concept, sort_no, layout, content, name, title)
+  Article::Attribute.create :concept_id => concept.id,
+    :sort_no => sort_no, :layout_id => layout.id, :content_id => content.id,
+    :state => 'public', :name => name, :title => title
 end
 
-create 1, l_attr, doc, 'nyusatsu'     , '入札・調達・売却・契約'
-create 2, l_attr, doc, 'saiyo'        , '採用情報'
-create 3, l_attr, doc, 'shikakushiken', '各種資格試験'
-create 4, l_attr, doc, 'bosyu'        , '募集（コンクール、委員等）'
-create 5, l_attr, doc, 'event'        , 'イベント情報'
-create 6, l_attr, doc, 'kyoka'        , '許可・認可・届出・申請'
+create c_attr, 1, l_attr, doc, 'nyusatsu'     , '入札・調達・売却・契約'
+create c_attr, 2, l_attr, doc, 'saiyo'        , '採用情報'
+create c_attr, 3, l_attr, doc, 'shikakushiken', '各種資格試験'
+create c_attr, 4, l_attr, doc, 'bosyu'        , '募集（コンクール、委員等）'
+create c_attr, 5, l_attr, doc, 'event'        , 'イベント情報'
+create c_attr, 6, l_attr, doc, 'kyoka'        , '許可・認可・届出・申請'
 
 ## ---------------------------------------------------------
 ## article/areas
 
-def create(parent, level_no, sort_no, layout, content, name, title)
-  Article::Area.create(:parent_id => (parent == 0 ? 0 : parent.id), :level_no => level_no, :sort_no => sort_no,
+def create(concept, parent, level_no, sort_no, layout, content, name, title)
+  Article::Area.create :concept_id => concept.id,
+    :parent_id => (parent == 0 ? 0 : parent.id), :level_no => level_no, :sort_no => sort_no,
     :layout_id => layout.id, :content_id => content.id, :state => 'public',
-    :name => name, :title => title)
+    :name => name, :title => title
 end
 
-p = create 0, 1, 1, l_area, doc, 'north'       , '北区'
-    create p, 2, 1, l_area, doc, 'yokomecho'   , '横目町'
-    create p, 2, 2, l_area, doc, 'wakaotokocho', '若男町'
-p = create 0, 1, 2, l_area, doc, 'west'        , '西区'
-    create p, 2, 1, l_area, doc, 'sankokucho'  , '三曲町'
-    create p, 2, 2, l_area, doc, 'dogushicho'  , '胴串町'
-p = create 0, 1, 3, l_area, doc, 'east'        , '東区'
-    create p, 2, 1, l_area, doc, 'tachiyakucho', '立役町'
-    create p, 2, 2, l_area, doc, 'nashiwaricho', '梨割町'
-p = create 0, 1, 4, l_area, doc, 'south'       , '南区'
-    create p, 2, 1, l_area, doc, 'hikitamacho' , '引玉町'
-    create p, 2, 2, l_area, doc, 'besshicho'   , '別師町'
+p = create c_area, 0, 1, 1, l_area, doc, 'north'       , '北区'
+    create c_area, p, 2, 1, l_area, doc, 'yokomecho'   , '横目町'
+    create c_area, p, 2, 2, l_area, doc, 'wakaotokocho', '若男町'
+p = create c_area, 0, 1, 2, l_area, doc, 'west'        , '西区'
+    create c_area, p, 2, 1, l_area, doc, 'sankokucho'  , '三曲町'
+    create c_area, p, 2, 2, l_area, doc, 'dogushicho'  , '胴串町'
+p = create c_area, 0, 1, 3, l_area, doc, 'east'        , '東区'
+    create c_area, p, 2, 1, l_area, doc, 'tachiyakucho', '立役町'
+    create c_area, p, 2, 2, l_area, doc, 'nashiwaricho', '梨割町'
+p = create c_area, 0, 1, 4, l_area, doc, 'south'       , '南区'
+    create c_area, p, 2, 1, l_area, doc, 'hikitamacho' , '引玉町'
+    create c_area, p, 2, 2, l_area, doc, 'besshicho'   , '別師町'
 
 ## ---------------------------------------------------------
 ## article/docs

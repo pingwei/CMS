@@ -37,13 +37,12 @@ module Article::Model::Rel::Doc::Category
         cate += c.public_children
       end
     end
-    cate = cate.uniq
     
-    cond = Condition.new
-    cate.each do |c|
-      cond.or :category_ids, 'REGEXP', "(^| )#{c.id}( |$)"
+    ids = cate.collect{|c| c.id}.uniq
+    if ids.size > 0
+      self.and :category_ids, 'REGEXP', "(^| )(#{ids.join('|')})( |$)"
     end
-    self.and cond
+    return self
   end
 
 end

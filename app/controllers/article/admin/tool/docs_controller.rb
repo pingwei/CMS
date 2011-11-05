@@ -20,7 +20,7 @@ class Article::Admin::Tool::DocsController < Cms::Controller::Admin::Base
       begin
         uri  = "#{item.public_uri}"
         path = item.public_path
-        if item.rebuild_page(render_public_as_string(uri, :site => item.content.site), :path => path)
+        if item.rebuild(render_public_as_string(uri, :site => item.content.site), :path => path)
           item.publish_page(render_public_as_string("#{uri}/index.html.r", :site => item.content.site),
             :path => "#{path}.r", :dependent => true)
           results[0] += 1

@@ -3,7 +3,7 @@ class Article::Public::Node::RecentDocsController < Cms::Controller::Public::Bas
   include Article::Controller::Feed
   
   def index
-    @content = Core.current_node.content
+    @content = Page.current_node.content
     
     doc = Article::Doc.new.public
     doc.agent_filter(request.mobile)

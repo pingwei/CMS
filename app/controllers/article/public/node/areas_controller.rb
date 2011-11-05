@@ -3,7 +3,7 @@ class Article::Public::Node::AreasController < Cms::Controller::Public::Base
   include Article::Controller::Feed
   
   def pre_dispatch
-    return http_error(404) unless @content = Core.current_node.content
+    return http_error(404) unless @content = Page.current_node.content
     
     @page  = params[:page]
     @limit = 50

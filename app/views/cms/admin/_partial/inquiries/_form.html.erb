@@ -42,7 +42,7 @@ group  = Sys::Group.find_by_id(item.in_inquiry['group_id']) || Core.user_group
 <tr>
   <th>メールアドレス <% if @item.inquiry_presence?(:email) %><span class="note">※</span><% end %></th>
   <td><span <%= error?('連絡先（メールアドレス）') %>>
-    <%= f.array_text_field "in_inquiry[email]", :class => 'name' %></span></td>
+    <%= f.array_text_field "in_inquiry[email]", :class => 'email' %></span></td>
 </tr>
 <% end %>
 </table>

@@ -11,7 +11,7 @@ class Article::Public::Node::EventDocsController < Cms::Controller::Public::Base
     return http_error(404) if @calendar.errors
     
     ## calendar
-    base_uri = Core.current_node.public_uri
+    base_uri = Page.current_node.public_uri
     @calendar.year_uri  = "#{base_uri}:year/"
     @calendar.month_uri = "#{base_uri}:year/:month/"
     @calendar.day_uri   = "#{base_uri}:year/:month/#day:day"
@@ -39,7 +39,7 @@ class Article::Public::Node::EventDocsController < Cms::Controller::Public::Base
     prev   = nil
     item = Article::Doc.new.public
     item.agent_filter(request.mobile)
-    item.and :content_id, Core.current_node.content.id
+    item.and :content_id, Page.current_node.content.id
     item.event_date_is(:year => @calendar.year, :month => @calendar.month)
     docs = item.find(:all, :order => 'event_date')
     return true if render_feed(docs)

@@ -37,13 +37,12 @@ module Article::Model::Rel::Doc::Area
         area += c.public_children
       end
     end
-    area = area.uniq
     
-    cond = Condition.new
-    area.each do |c|
-      cond.or :area_ids, 'REGEXP', "(^| )#{c.id}( |$)"
+    ids = area.collect{|c| c.id}.uniq
+    if ids.size > 0
+      self.and :area_ids, 'REGEXP', "(^| )(#{ids.join('|')})( |$)"
     end
-    self.and cond
+    return self
   end
 
 end

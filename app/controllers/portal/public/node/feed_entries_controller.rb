@@ -3,7 +3,7 @@ class Portal::Public::Node::FeedEntriesController < Cms::Controller::Public::Bas
   include Portal::Controller::Feed
 
   def pre_dispatch
-    return http_error(404) unless content = Core.current_node.content
+    return http_error(404) unless content = Page.current_node.content
     @content = Portal::Content::Base.find_by_id(content.id)
   end
 
@@ -23,6 +23,7 @@ class Portal::Public::Node::FeedEntriesController < Cms::Controller::Public::Bas
     prev   = nil
     @items = []
     @entries.each do |entry|
+      next unless entry.entry_updated
       date = entry.entry_updated.strftime('%y%m%d')
       @items << {
         :date => (date != prev ? entry.entry_updated.strftime('%Y年%-m月%-d日') : nil),

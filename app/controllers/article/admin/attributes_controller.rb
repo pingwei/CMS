@@ -4,6 +4,7 @@ class Article::Admin::AttributesController < Cms::Controller::Admin::Base
   def pre_dispatch
     return error_auth unless @content = Cms::Content.find(params[:content])
     default_url_options :content => @content
+    @parent = 0
   end
   
   def index

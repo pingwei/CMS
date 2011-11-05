@@ -3,7 +3,7 @@ class Portal::Public::Node::EventEntriesController < Cms::Controller::Public::Ba
   include Portal::Controller::Feed
 
   def pre_dispatch
-    return http_error(404) unless content = Core.current_node.content
+    return http_error(404) unless content = Page.current_node.content
     @content = Portal::Content::Base.find_by_id(content.id)
   end
 
@@ -16,7 +16,7 @@ class Portal::Public::Node::EventEntriesController < Cms::Controller::Public::Ba
     return http_error(404) if @calendar.errors
 
     ## calendar
-    base_uri = Core.current_node.public_uri
+    base_uri = Page.current_node.public_uri
     @calendar.year_uri  = "#{base_uri}:year/"
     @calendar.month_uri = "#{base_uri}:year/:month/"
     @calendar.day_uri   = "#{base_uri}:year/:month/#day:day"
@@ -46,6 +46,7 @@ class Portal::Public::Node::EventEntriesController < Cms::Controller::Public::Ba
     item.agent_filter(request.mobile)
     item.and "#{Cms::FeedEntry.table_name}.content_id", @content.id
     item.event_date_is(:year => @calendar.year, :month => @calendar.month)
+    item.page 0, 1000
     entries = item.find_with_own_docs(@content.doc_content, :events, :year => @calendar.year, :month => @calendar.month)
 
     return true if render_feed(entries)

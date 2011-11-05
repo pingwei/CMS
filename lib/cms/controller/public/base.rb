@@ -7,7 +7,7 @@ class Cms::Controller::Public::Base < Sys::Controller::Public::Base
   after_filter :render_public_layout
   
   def initialize_params
-    params.delete(:page)
+    #params.delete(:page)
     if Page.uri =~ /\.p[0-9]+\.html$/
       page = Page.uri.gsub(/.*\.p([0-9]+)\.html$/, '\\1')
       params[:page] = page.to_i if page !~ /^0+$/

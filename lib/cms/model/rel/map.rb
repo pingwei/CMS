@@ -41,7 +41,7 @@ module Cms::Model::Rel::Map
     @_sent_save_maps = true
     
     @maps.each do |key, in_map|
-      name = in_map['name'] || "1"
+      name = in_map[:name] || "1"
       map  = self.find_map_by_name(name) || Cms::Map.new({:unid => unid, :name => name})
       map.title       = in_map[:title]
       map.map_lat     = in_map[:map_lat]

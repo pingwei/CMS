@@ -62,6 +62,38 @@ class Cms::Admin::Node::PagesController < Cms::Admin::Node::BaseController
     _close(item, :location => cms_nodes_path)
   end
   
+  def duplicate(item)
+    if dupe_item = item.duplicate
+      flash[:notice] = '複製処理が完了しました。'
+      respond_to do |format|
+        format.html { redirect_to(cms_nodes_path) }
+        format.xml  { head :ok }
+      end
+    else
+      flash[:notice] = "複製処理に失敗しました。"
+      respond_to do |format|
+        format.html { redirect_to url_for(:action => :show) }
+        format.xml  { render :xml => item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  def duplicate_for_replace(item)
+    if dupe_item = item.duplicate(:replace)
+      flash[:notice] = '複製処理が完了しました。'
+      respond_to do |format|
+        format.html { redirect_to(cms_nodes_path) }
+        format.xml  { head :ok }
+      end
+    else
+      flash[:notice] = "複製処理に失敗しました。"
+      respond_to do |format|
+        format.html { redirect_to url_for(:action => :show) }
+        format.xml  { render :xml => item.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
 protected
   def send_recognition_request_mail(item, users = nil)
     mail_fr = Core.user.email

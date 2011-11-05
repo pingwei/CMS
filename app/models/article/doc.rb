@@ -32,6 +32,7 @@ class Article::Doc < ActiveRecord::Base
   attr_accessor :link_checker
   
   validates_presence_of :title
+  validates_uniqueness_of :name, :scope => :content_id
   
   validates_presence_of :state, :recent_state, :list_state, :language_id,
     :if => %Q(state == "recognize")
@@ -322,6 +323,13 @@ class Article::Doc < ActiveRecord::Base
     return true
   end
   
+  def rebuild(content, options)
+    return false unless public?
+    @save_mode = :publish
+    publish_page(content, options)
+    publish_files ## dust remains
+  end
+  
   def duplicate
     item = self.class.new(self.attributes)
     item.id            = nil
@@ -345,9 +353,13 @@ class Article::Doc < ActiveRecord::Base
     end
     
     if maps.size > 0
-      in_maps = {}
-      maps.each{|c| in_maps[c.name] = c.attributes.symbolize_keys }
-      item._maps = in_maps
+      _maps = {}
+      maps.each do |m|
+        _maps[m.name] = m.in_attributes.symbolize_keys
+        _maps[m.name][:markers] = {}
+        m.markers.each_with_index{|mm, key| _maps[m.name][:markers][key] = mm.attributes.symbolize_keys}
+      end
+      item.in_maps = _maps
     end
     
     #if tasks.size > 0

@@ -2,7 +2,7 @@
 
 <% @items.each do |item| %>
 <div class="form">
-  <div class="h2 name"><%= link_to h(item.name), "#{Core.current_node.public_uri}#{item.id}/" %></div>
+  <div class="h2 name"><%= link_to h(item.name), "#{Page.current_node.public_uri}#{item.id}/" %></div>
   <% if !item.summary.blank? %><div class="summary"><%= item.summary %></div><% end %>
 </div>
 <% end %>
