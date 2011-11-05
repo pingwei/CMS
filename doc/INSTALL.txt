@@ -1,4 +1,4 @@
-## Joruri v1.1.3 インストールマニュアル                     2011.02.07
+## Joruri v1.1.4 インストールマニュアル                     2011.03.31
 
 **********************************************************************
  1 想定環境
@@ -72,7 +72,7 @@ iptablesを停止し、自動起動を無効にします。
 必要なパッケージをダウンロードします。
 
   # cd /usr/local/src/
-  # wget http://joruri.org/download/joruri-1.1.3.tar.gz
+  # wget http://joruri.org/download/joruri-1.1.4.tar.gz
   # wget http://image_magick.veidrodis.com/image_magick/ImageMagick-6.4.7-8.tar.gz
   # wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p378.tar.gz
   # wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz
@@ -89,7 +89,7 @@ Joruriユーザを作成します。
 Joruriソースコードを設置します。
 
   # mkdir /var/share
-  # tar xvzf joruri-1.1.3.tar.gz -C /var/share
+  # tar xvzf joruri-1.1.4.tar.gz -C /var/share
   # chown -R joruri:joruri /var/share/joruri
 
 **********************************************************************

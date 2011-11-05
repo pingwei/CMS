@@ -16,29 +16,18 @@ class GtalkFilter
   
   def execute(text)
     x = ''
-    p = ''
     c = exec_chaone('、')
     
     text = NKF.nkf('-w', text)
     text.split(/。/).each do |s|
       s.split(/、/).each do |w|
-        w = '、' + w
-        if (p.split(//u).size + w.split(//u).size) > 60
-          x += exec_chaone(p)
-          p = w
-        else
-          p += w
-        end
+        t = exec_chaone(w)
+        x += c + t if t !~ /pos="unk"/
       end
-      if p != ''
-        x += exec_chaone(p)
-        p = ''
-      end
-      x += c
     end
     
-    x = "<S>#{x}</S>"
-    return NKF.nkf('-e', x)
+    x.gsub!(/\n+/, "\n")
+    return NKF.nkf('-We', "<S>#{x}</S>")
   end
   
   def exec_chaone(str)
@@ -48,6 +37,7 @@ class GtalkFilter
     return '' if $? != 0 || res.slice(0, 1) != '<'
     res.sub!('<S>', '')
     res.sub!('</S>', '')
+    res.sub!('<S/>', '')
     return res
   rescue Exception => e
     ''

@@ -67,43 +67,50 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
   def create
     @item = Article::Doc.new(params[:item])
     @item.content_id = @content.id
-    @item.state      = params[:commit_recognize] ? 'recognize' : 'draft'
+    @item.state      = "draft"
+    @item.state      = "recognize" if params[:commit_recognize]
+    @item.state      = "public"    if params[:commit_public]
     
     @checker = Sys::Lib::Form::Checker.new
     if params[:link_check] == "1"
       @checker.check_link @item.body
       return render :action => :new
-    elsif @item.state == 'recognize'
+    elsif @item.state =~ /(recognize|public)/
       @item.link_checker = @checker if params[:link_check] != "0"
     end
     
     _create @item do
       @item.fix_tmp_files(params[:_tmp])
-      if @item.state == 'recognize'
-        send_recognition_request_mail(@item)
-      end
+      send_recognition_request_mail(@item) if @item.state == 'recognize'
+      publish_by_update(@item) if @item.state == 'public'
     end
   end
 
   def update
     @item = Article::Doc.new.find(params[:id])
     @item.attributes = params[:item]
-    @item.state      = params[:commit_recognize] ? 'recognize' : 'draft'
+    @item.state      = "draft"
+    @item.state      = "recognize" if params[:commit_recognize]
+    @item.state      = "public"    if params[:commit_public]
 
     @checker = Sys::Lib::Form::Checker.new
     if params[:link_check] == "1"
       @checker.check_link @item.body
       return render :action => :edit
-    elsif @item.state == 'recognize'
+    elsif @item.state =~ /(recognize|public)/
       @item.link_checker = @checker if params[:link_check] != "0"
     end
     
     _update(@item) do
-      if @item.state == 'recognize'
-        send_recognition_request_mail(@item)
-      end
-      @item.close if @item.published_at
+      send_recognition_request_mail(@item) if @item.state == 'recognize'
+      publish_by_update(@item) if @item.state == 'public'
+      @item.close if !@item.public?
     end
+  end
+  
+  def destroy
+    @item = Article::Doc.new.find(params[:id])
+    _destroy @item
   end
 
   def recognize(item)
@@ -117,11 +124,6 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
         end
       end
     end
-  end
-  
-  def destroy
-    @item = Article::Doc.new.find(params[:id])
-    _destroy @item
   end
   
   def duplicate(item)
@@ -140,25 +142,33 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
     end
   end
   
+  def publish_ruby(item)
+    uri  = "#{item.public_uri}index.html.r"
+    path = "#{item.public_path}.r"
+    item.publish_page(render_public_as_string(uri, :site => item.content.site), :path => path, :dependent => :ruby)
+  end
+  
   def publish(item)
-    _publish(item) do
-      uri  = "#{item.public_uri}index.html.r"
-      path = "#{item.public_path}.r"
-      item.publish_page(render_public_as_string(uri, :site => item.content.site), :path => path, :dependent => :ruby)
-    end
+    _publish(item) { publish_ruby(item) }
   end
 
+  def publish_by_update(item)
+    if item.publish(render_public_as_string(item.public_uri))
+      publish_ruby(item)
+      flash[:notice] = "公開処理が完了しました。"
+    else
+      flash[:notice] = "公開処理に失敗しました。"
+    end
+  end
+  
 protected
   def send_recognition_request_mail(item, users = nil)
     mail_fr = Core.user.email
     mail_to = nil
     subject = "#{item.content.name}（#{item.content.site.name}）：承認依頼メール"
     message = "#{Core.user.name}さんより「#{item.title}」についての承認依頼が届きました。\n" +
-      "次の手順により，承認作業を行ってください。\n" +
-      "\n" +
-      "１．PC用記事のプレビューにより文書を確認\n" +
-      "#{item.preview_uri}\n" +
-      "\n" +
+      "次の手順により，承認作業を行ってください。\n\n" +
+      "１．PC用記事のプレビューにより文書を確認\n#{item.preview_uri}\n\n" +
       "２．次のリンクから承認を実施\n" +
       "#{url_for(:action => :show, :id => item)}\n"
     
@@ -176,9 +186,8 @@ protected
     
     subject = "#{item.content.name}（#{item.content.site.name}）：最終承認完了メール"
     message = "「#{item.title}」についての承認が完了しました。\n" +
-              "次のＵＲＬをクリックして公開処理を行ってください。\n" +
-              "\n" +
-              "#{url_for(:action => :show, :id => item)}"
+      "次のＵＲＬをクリックして公開処理を行ってください。\n\n" +
+      "#{url_for(:action => :show, :id => item)}"
     
     send_mail(mail_fr, mail_to, subject, message)
   end

@@ -1,14 +1,5 @@
 # encoding: utf-8
 class Cms::Lib::Navi::Gtalk
-#  def self.check_category(str)
-#    require 'shell'
-#    sh = Shell.cd("#{Rails.root}/ext/gtalk")
-#    chasenrc = '../config/chasenrc_gtalk'
-#    format = '%P /'
-#    command  = "echo \"#{str}\" | chasen -i w -r #{chasenrc} -F '#{format}'"
-#    return sh.system(command).to_s.force_encoding('utf-8').gsub(/\/.*/, '').strip
-#  end
-  
   def self.make_text(content)
     text = self.html_to_string(content.toutf8)
     return self.to_gtalk_string(text)
@@ -49,12 +40,12 @@ class Cms::Lib::Navi::Gtalk
     cnf.close
     
     require 'shell'
-    sh = Shell.cd("#{Rails.root}/ext/gtalk")
-    
-    res = sh.system("./gtalk -C ./ssm.conf < #{cnf.path}").to_s
+    dir = "#{Rails.root}/ext/gtalk"
+    sh  = Shell.cd(dir)
+    sh.transact { system("#{dir}/gtalk -C #{dir}/ssm.conf < #{cnf.path} >/dev/null 2>&1").to_s }
     
     if FileTest.exists?(wav.path)
-      res = sh.system("lame --scale 5 #{wav.path} #{mp3.path}").to_s
+      sh.transact { system("lame --scale 5 #{wav.path} #{mp3.path} >/dev/null 2>&1").to_s }
     end
     
     [cnf.path, wav.path, "#{wav.path}.info"].each do |file|
@@ -140,12 +131,14 @@ private
   def self.to_gtalk_string(text)
     require 'cgi'
     text = CGI.unescapeHTML(text)
+    
     text.gsub!(/([0-9]日)(\(|（)(月|火|水|木|金|土|日)(\)|）)/, '\1、\3曜日、')
     text.gsub!(/(\r\n|\n|\r|\t| )+/m, '、')
     text.gsub!(/&[0-9a-zA-Z]+;/im, '')
     text.tr!("0-9a-zA-Z", "０-９ａ-ｚＡ-Ｚ")
+    text.tr!("a-zA-Z", "ａ-ｚＡ-Ｚ")
     text.gsub!(/[!"\#\$%&'\(\)=~\|\{\`\+\*\}_\?\>\<\/\]:;\[\^,\\]/, '、')
-    text.gsub!(/（|）|「|」|／|：|～|｜|・|，/, "、")
+    text.gsub!(/／|：|～|｜|・|，|　/, "、")
     text.tr!("-", "－")
     text.gsub!(/[.．]/, "、ドット、")
     text.gsub!(/[@＠]/, "、アットマーク、")
@@ -154,7 +147,6 @@ private
     text.gsub!(/、+/, "、")
     text.gsub!(/^(、|。)+/, "")
     text.gsub!(/(、|。)+$/, "")
-    text = "、" + text + "、"
     return text
   end
 end

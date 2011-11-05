@@ -6,7 +6,21 @@ module Cms::Model::Rel::Map
     mod.after_save :save_maps
   end
   
-  attr_accessor :_maps
+  attr_accessor :in_maps
+  
+  def in_maps
+    unless val = read_attribute(:in_maps)
+      val = []
+      maps.each {|map| val << map.in_attributes}
+      write_attribute(:in_maps, val)
+    end
+    read_attribute(:in_maps)
+  end
+
+  def in_maps=(values)
+    @maps = values
+    write_attribute(:in_maps, @maps)
+  end
   
   def default_map_position
     "34.074598,134.551411" # tokushima
@@ -21,62 +35,44 @@ module Cms::Model::Rel::Map
   end
   
   def save_maps
-    return true  unless _maps
+    return true  unless @maps
     return false unless unid
     return false if @_sent_save_maps
     @_sent_save_maps = true
     
-    _maps.each do |k, values|
-      name  = k.to_s
+    @maps.each do |key, in_map|
+      name = in_map['name'] || "1"
+      map  = self.find_map_by_name(name) || Cms::Map.new({:unid => unid, :name => name})
+      map.title       = in_map[:title]
+      map.map_lat     = in_map[:map_lat]
+      map.map_lng     = in_map[:map_lng]
+      map.map_zoom    = in_map[:map_zoom]
+      next unless map.save
       
-      if values == ''
-        maps.each do |map|
-          map.destroy if map.name == name
-        end
-      else
-        items = []
-        maps.each do |map|
-          if map.name == name
-            items << map
+      if in_map[:markers]
+        markers = map.markers
+        saved   = 0
+        in_map[:markers].each do |key, in_marker|
+          marker = markers[saved] || Cms::MapMarker.new(:map_id => map.id)
+          marker.sort_no = saved
+          marker.name = in_marker[:name]
+          marker.lat  = in_marker[:lat]
+          marker.lng  = in_marker[:lng]
+          if !marker.changed? || marker.save
+            saved += 1
           end
         end
         
-        if items.size > 1
-          items.each {|map| map.destroy}
-          items = []
-        end
-        
-        if items.size == 0
-          map = Cms::Map.new({:unid => unid, :name => name})
-        else
-          map = items[0]
-        end
-        
-        map.title       = values[:title]
-        map.map_lat     = values[:map_lat]
-        map.map_lng     = values[:map_lng]
-        map.map_zoom    = values[:map_zoom]
-        map.point1_name = values[:point1_name]
-        map.point1_lat  = values[:point1_lat]
-        map.point1_lng  = values[:point1_lng]
-        map.point2_name = values[:point2_name]
-        map.point2_lat  = values[:point2_lat]
-        map.point2_lng  = values[:point2_lng]
-        map.point3_name = values[:point3_name]
-        map.point3_lat  = values[:point3_lat]
-        map.point3_lng  = values[:point3_lng]
-        map.point4_name = values[:point4_name]
-        map.point4_lat  = values[:point4_lat]
-        map.point4_lng  = values[:point4_lng]
-        map.point5_name = values[:point5_name]
-        map.point5_lat  = values[:point5_lat]
-        map.point5_lng  = values[:point5_lng]
-        
-        map.save
+        del_markers = markers.slice(saved, markers.size)
+        del_markers.each do |m|
+          m.destroy if map.new_marker_format?
+        end if !del_markers.blank?
       end
+      
+      map.convert_to_new_marker_format
     end
     
-    maps(true)
+    #maps(true)
     return true
   end
 end

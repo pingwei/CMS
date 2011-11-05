@@ -1,5 +1,7 @@
 class Cms::Admin::Node::BaseController < Cms::Controller::Admin::Base
   include Sys::Controller::Scaffold::Base
+  include Sys::Controller::Scaffold::Recognition
+  include Sys::Controller::Scaffold::Publication
   
   before_filter :pre_dispatch_node
   
@@ -40,6 +42,7 @@ class Cms::Admin::Node::BaseController < Cms::Controller::Admin::Base
   def update
     @item = model.new.find(params[:id])
     @item.attributes = params[:item]
+    @item.state      = params[:commit_public] ? 'public' : 'closed'
     
     _update @item do
       @item.close_page if !@item.public?

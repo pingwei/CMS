@@ -1,4 +1,8 @@
-<div class="navi">
+<%
+
+return render(:text => "") unless Core.ldap.connection
+
+%><div class="navi">
 
 <%= link_to "LDAP", sys_ldap_groups_path(0) %>
 

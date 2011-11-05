@@ -2,6 +2,9 @@
 
 <table class="show">
   <tr>
+    <th><%= @item.locale(:concept_id) %></th>
+    <td><%=h safe{@item.concept.name} %></td>
+  </tr><tr>
     <th><%= @item.locale(:node_id) %></th>
     <td><%=h safe{@item.node.name} %></td>
   </tr><tr>

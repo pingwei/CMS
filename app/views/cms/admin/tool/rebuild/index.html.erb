@@ -1,7 +1,7 @@
 <%
 
 concepts = Cms::Concept.new.readable_children
-cond     = {:model => 'Article::Doc', :site_id => Core.site.id} ##
+cond     = ["model LIKE '%::Doc' AND model != 'Newsletter::Doc' AND site_id = ?", Core.site.id] ##
 contents = Cms::Content.find(:all, :conditions => cond, :order => :name).collect{|c| [c.name, c.id]}
 
 %>

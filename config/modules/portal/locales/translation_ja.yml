@@ -39,3 +39,7 @@ ja:
         title: "タブ名"
         more: "一覧リンク"
         sort_no: "並び順"
+      portal/piece/recent_tab:
+        list_count: "表示件数"
+        more_label: "一覧リンク文字"
+        

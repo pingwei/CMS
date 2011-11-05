@@ -3,6 +3,7 @@ class Cms::Controller::Public::Base < Sys::Controller::Public::Base
   layout  'base'
   before_filter :initialize_params
   before_filter :pre_dispatch
+  after_filter :render_public_variables
   after_filter :render_public_layout
   
   def initialize_params
@@ -15,5 +16,9 @@ class Cms::Controller::Public::Base < Sys::Controller::Public::Base
   
   def pre_dispatch
     ## each processes before dispatch
+  end
+  
+  def render_public_variables
+    
   end
 end

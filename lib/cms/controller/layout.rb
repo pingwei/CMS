@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Cms::Controller::Layout
   @skip_layout = nil
   @no_cache    = nil
@@ -160,8 +161,14 @@ module Cms::Controller::Layout
 #      end
 #    end
     
+    body = last_convert_body(body)
+    
     ## render the true layout
     render :text => body.force_encoding('utf-8'), :layout => 'layouts/public/base'
+  end
+  
+  def last_convert_body(body)
+    body
   end
   
   def piece_container_html(piece, body)

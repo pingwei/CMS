@@ -41,7 +41,10 @@ class Cms::KanaDictionary < ActiveRecord::Base
     end
     format   = '%P /'
     command  = "echo \"#{str}\" | chasen -i w -r #{chasenrc} -F '#{format}'"
-    return @sh.system(command).to_s.force_encoding('utf-8').gsub(/\/.*/, '').strip
+    
+    res = nil
+    @sh.transact { res = system("#{command}").to_s }
+    return res.to_s.force_encoding('utf-8').gsub(/\/.*/, '').strip
   end
   
   def convert_to_dic

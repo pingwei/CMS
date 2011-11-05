@@ -3,10 +3,6 @@
 
 <table class="show">
   <%= node_base_view @item, :container => :tr %>
-  <tr>
-    <th><%= @item.locale(:name) %></th>
-    <td><%= safe{@item.name} %></td>
-  </tr>
 </table>
 
 <table class="show" style="margin: 0px;">
@@ -31,4 +27,6 @@
 <% end %>
 
 <%= inquiry_view @item %>
+<%= task_view @item %>
+<%= recognizer_view @item %>
 <%= creator_view @item %>

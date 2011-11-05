@@ -6,15 +6,16 @@
     <th>タグ</th>
     <td><%= text_field_tag 's_tag', @tag, :style => 'width: 200px;' %></td>
     <td class="submitters">
-      <%= submit_tag '検索',     :name => :search %>
-      <%= submit_tag 'リセット', :name => :reset %>
+      <%= submit_tag '検索',     :name => :search, :class => "send" %>
+      <%= submit_tag 'リセット', :name => :reset, :class => "reset" %>
     </td>
   </tr>
 </table>
 <!-- end .search --><% end %>
 
 <%if params[:search] %>
-<div class="hit">検索結果 <span class="count"><%= "#{@docs.total_entries}" %></span>件</div>
+<div class="hit">
+  <span class="label">検索結果</span><span class="count"><%= "#{@docs.total_entries}" %></span><span class="unit">件</span></div>
 <% end %>
 
 <ul class="docs">

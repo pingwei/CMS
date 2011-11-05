@@ -10,11 +10,11 @@ class Portal::FeedEntry < Cms::FeedEntry
       @source_title = nil #Core.site.name
     end
   end
-  
+
   def link_target
     feed ? "_blank" : nil
   end
-  
+
   def public_uri
     if name
       return nil unless node = content.doc_node
@@ -48,22 +48,18 @@ class Portal::FeedEntry < Cms::FeedEntry
     docs_sql = "SELECT content_id, name, NULL as feed_id, published_at AS entry_updated, title, event_date, attribute_ids, body AS summary, NULL AS link_alternate " +
                "FROM #{_doc_tbl}"
 
-    if doc_content
-      case list_type
-        when :docs
-          docs_sql += make_docs_where doc_content, list_type, _sql_params, options
-          _tmp_order = "#{_tmp_table_alias}.entry_updated DESC"
-        when :events
-          docs_sql += make_events_where doc_content, list_type, _sql_params, options
-          _tmp_order = "#{_tmp_table_alias}.event_date"
-        when :groups
-          docs_sql += make_groups_sql doc_content, list_type, _sql_params, options
-          _tmp_order = "#{_tmp_table_alias}.entry_updated DESC"
-        else
-          docs_sql += " WHERE 1 = 0"
-      end
-    else
-      docs_sql += " WHERE 1 = 0"
+    case list_type
+      when :docs
+        docs_sql += doc_content ? make_docs_where(doc_content, list_type, _sql_params, options) : " WHERE 1 = 0"
+        _tmp_order = "#{_tmp_table_alias}.entry_updated DESC"
+      when :events
+        docs_sql += doc_content ? make_events_where(doc_content, list_type, _sql_params, options) : " WHERE 1 = 0"
+        _tmp_order = "#{_tmp_table_alias}.event_date"
+      when :groups
+        docs_sql += doc_content ? make_groups_sql(doc_content, list_type, _sql_params, options) : " WHERE 1 = 0"
+        _tmp_order = "#{_tmp_table_alias}.entry_updated DESC"
+      else
+        docs_sql += " WHERE 1 = 0"
     end
 
     #union

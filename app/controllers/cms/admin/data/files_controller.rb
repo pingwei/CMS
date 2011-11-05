@@ -56,6 +56,7 @@ class Cms::Admin::Data::FilesController < Cms::Controller::Admin::Base
   def update
     @item = Cms::DataFile.new.find(params[:id])
     @item.attributes = params[:item]
+    @item.node_id    = nil if @item.concept_id_changed?
     @item.skip_upload
     _update @item
   end

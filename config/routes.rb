@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
 
   ## Modules
   Dir::entries("#{Rails.root}/config/modules").each do |mod|
-    next if mod =~ /^\.+$/
+    next if mod =~ /^\./
     file = "#{Rails.root}/config/modules/#{mod}/routes.rb"
     load(file) if FileTest.exist?(file)
   end

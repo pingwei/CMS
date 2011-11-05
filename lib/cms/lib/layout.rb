@@ -30,10 +30,9 @@ module Cms::Lib::Layout
     
     items = {}
     names.uniq.each do |name|
-      
       item = Cms::Piece.new
       item.and :state, 'public'
-      if name =~ /#[0-9]+/ ## [[piece/name#id]]
+      if name =~ /#[0-9]+$/ ## [[piece/name#id]]
         item.and :id, name.gsub(/.*#/, '')
         item.and :name, name.gsub(/#.*/, '')
       else ## [[piece/name]]

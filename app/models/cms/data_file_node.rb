@@ -11,11 +11,12 @@ class Cms::DataFileNode < ActiveRecord::Base
   has_many :files, :foreign_key => :node_id, :class_name => 'Cms::DataFile', :primary_key => :id
   
   validates_presence_of :name
+  validates_uniqueness_of :name, :scope => :concept_id
   validate :validate_name
   
   after_destroy :remove_files
   
-  def label(separator = "/")
+  def label(separator = " : ")
     label = name
     unless title.blank?
       label += "#{separator}#{title}"
@@ -27,22 +28,8 @@ class Cms::DataFileNode < ActiveRecord::Base
     if !name.blank?
       if name !~ /^[0-9a-zA-Z_\-]+$/
         errors.add :name, "は半角英数字を入力してください。"
-      elsif duplicated?
-        errors.add :name, "は既に登録されています。（#{name}）"
       end
     end
-  end
-  
-  def duplicated?
-    dir = self.class.new
-    dir.and :id, '!=', id if id
-    dir.and :name, name
-    if concept_id
-      dir.and :concept_id, concept_id
-    else
-      dir.and :concept_id, 'IS', nil
-    end
-    return dir.find(:first) != nil
   end
   
 private

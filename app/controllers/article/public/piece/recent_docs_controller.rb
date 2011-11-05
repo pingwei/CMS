@@ -5,7 +5,7 @@ class Article::Public::Piece::RecentDocsController < Sys::Controller::Public::Ba
     @node = @content.recent_node
     
     limit = Page.current_piece.setting_value(:list_count)
-    limit = (limit.to_s =~ /^[0-9]+$/) ? limit.to_i : 10
+    limit = (limit.to_s =~ /^[1-9][0-9]*$/) ? limit.to_i : 10
     
     doc = Article::Doc.new.public
     doc.agent_filter(request.mobile)

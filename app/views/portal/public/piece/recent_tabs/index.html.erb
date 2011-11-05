@@ -1,14 +1,14 @@
 <script type="text/javascript" src="/_common/modules/article/js/doc_tabs.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
+var feedTabs<%= Page.current_piece.id %> = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
 //]]>
 </script>
 
 <div class="tabs">
   <% @tabs.each do |tab| %>
-  <a href="javascript: Tab/<%= tab[:title] %>" onkeypress="" class="<%= tab[:class] %>"
-    onclick="return docTabs.show('<%=h tab[:name] %>')"><%= tab[:title] %></a><% end %>
+  <a href="javascript: Tab/<%= tab[:name] %>" onkeypress="" class="<%= tab[:class] %>"
+    onclick="return feedTabs<%= Page.current_piece.id %>.show('<%=h tab[:name] %>')"><%= tab[:title] %></a><% end %>
 </div>
 
 <div class="wrapper">
@@ -16,8 +16,8 @@ var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
   <div class="content">
     <% @tabs.each do |tab| %>
     <ul class="<%=h tab[:name] %>" <%= 'style="display: none;"' unless tab[:current] %>>
-      <% tab[:docs].each do |doc| %><li><%= link_to h(doc.title), doc.public_uri, :target => doc.link_target %>
-      <%= "（#{safe{doc.entry_updated.strftime('%Y年%_m月%_d日')}}" %><%= "　#{doc.source_title}" if doc.source_title %>）
+      <% tab[:docs].each do |doc| %><li><%= link_to h(doc.title), doc.public_uri, :target => doc.link_target
+       %><%= "（#{safe{doc.entry_updated.strftime('%Y年%-m月%-d日')}}" %><%= "　#{doc.source_title}" if doc.source_title %>）
       </li><% end %>
     </ul><% end %>
   </div>
@@ -27,7 +27,7 @@ var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
     <div class="<%= tab[:name] %>" <%= 'style="display: none;"' unless tab[:current] %>>
       <% if tab[:more] %>
       <div class="more">
-        <a href="<%= tab[:more] %>">&gt;&gt;新着記事一覧</a></div>
+        <a href="<%= tab[:more] %>"><%=h @more_label %></a></div>
       <% end %>
     </div><% end %>
   </div>

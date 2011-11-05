@@ -1,14 +1,14 @@
 <script type="text/javascript" src="/_common/modules/article/js/doc_tabs.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
+var docTabs<%= Page.current_piece.id %> = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
 //]]>
 </script>
 
 <div class="tabs">
   <% @tabs.each do |tab| %>
-  <a href="javascript: Tab/<%= tab[:title] %>" onkeypress="" class="<%= tab[:class] %>"
-    onclick="return docTabs.show('<%=h tab[:name] %>')"><%= tab[:title] %></a><% end %>
+  <a href="javascript: Tab/<%= tab[:name] %>" onkeypress="" class="<%= tab[:class] %>"
+    onclick="return docTabs<%= Page.current_piece.id %>.show('<%=h tab[:name] %>')"><%= tab[:title] %></a><% end %>
 </div>
 
 <div class="wrapper">
@@ -20,7 +20,7 @@ var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
       </li><% end %>
     </ul><% end %>
   </div>
-  
+
   <div class="links">
     <% @tabs.each do |tab| %>
     <div class="<%= tab[:name] %>" <%= 'style="display: none;"' unless tab[:current] %>>
@@ -29,7 +29,7 @@ var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
         <a href="<%= ::File.join(tab[:more], 'index.rss') %>" class="rss">RSS</a>
         <a href="<%= ::File.join(tab[:more], 'index.atom') %>" class="atom">Atom</a></div>
       <div class="more">
-        <a href="<%= tab[:more] %>">&gt;&gt;新着記事一覧</a></div>
+        <a href="<%= tab[:more] %>"><%=h @more_label %></a></div>
       <% end %>
     </div><% end %>
   </div>

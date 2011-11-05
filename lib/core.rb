@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Core
   ## Core attributes.
   cattr_reader   :now

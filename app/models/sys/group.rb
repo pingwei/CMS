@@ -1,8 +1,8 @@
 # encoding: utf-8
 class Sys::Group < ActiveRecord::Base
   include Sys::Model::Base
-  include Sys::Model::Base::Config
   include Cms::Model::Base::Page
+  include Sys::Model::Base::Config
   include Cms::Model::Base::Page::Publisher
   include Cms::Model::Base::Page::TalkTask
   include Sys::Model::Rel::Unid

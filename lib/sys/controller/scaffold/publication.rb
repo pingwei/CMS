@@ -16,10 +16,11 @@ module Sys::Controller::Scaffold::Publication
 protected
   def _publish(item, options = {}, &block)
     if item.publishable? && item.publish(render_public_as_string(item.public_uri))
+      location       = options[:location] || url_for(:action => :index)
       flash[:notice] = options[:notice] || '公開処理が完了しました。'
       yield if block_given?
       respond_to do |format|
-        format.html { redirect_to url_for(:action => :index) }
+        format.html { redirect_to(location) }
         format.xml  { head :ok }
       end
     else
@@ -33,10 +34,11 @@ protected
 
   def _rebuild(item, options = {}, &block)
     if item.rebuildable? && item.rebuild
+      location       = options[:location] || url_for(:action => :index)
       flash[:notice] = options[:notice] || '再構築処理が完了しました。'
       yield if block_given?
       respond_to do |format|
-        format.html { redirect_to url_for(:action => :index) }
+        format.html { redirect_to(location) }
         format.xml  { head :ok }
       end
     else
@@ -50,10 +52,11 @@ protected
 
   def _close(item, options = {}, &block)
     if item.closable? && item.close
+      location       = options[:location] || url_for(:action => :index)
       flash[:notice] = options[:notice] || '非公開処理が完了しました。'
       yield if block_given?
       respond_to do |format|
-        format.html { redirect_to url_for(:action => :index) }
+        format.html { redirect_to(location) }
         format.xml  { head :ok }
       end
     else

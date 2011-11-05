@@ -53,6 +53,8 @@ ja:
         mobile_title: "携帯タイトル"
         mobile_body: "携帯本文"
         attribute_id: "属性"
+        recent_state: "新着記事表示"
+        list_state: "記事一覧表示"
         inquiry_charge: "お問い合わせ担当"
         inquiry_tel: "お問い合わせ電話"
         inquiry_fax: "お問い合わせファックス"
@@ -80,3 +82,6 @@ ja:
         sort_no: "並び順"
       article/piece/recent_doc:
         list_count: "表示件数"
+      article/piece/recent_tab:
+        list_count: "表示件数"
+        more_label: "一覧リンク文字"

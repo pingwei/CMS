@@ -2,6 +2,7 @@
 
 chFile = "$(item_name).value = $(item_file).value.replace(/\\\\/g, '/').replace(/.*\\//, '');"
 chFile += "$(item_title).value = $(item_file).value.replace(/\\\\/g, '/').replace(/.*\\//, '');"
+chFile += "if ($(item_name).value.match(/[^0-9a-z\\.\\-_\\+@]/i)) alert('保存ファイル名を半角英数字で入力してください。');"
 
 %><table class="show" style="margin-top:0px;">
   

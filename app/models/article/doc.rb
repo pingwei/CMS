@@ -68,7 +68,9 @@ class Article::Doc < ActiveRecord::Base
   end
   
   def states
-    [['下書き保存','draft'], ['承認待ち','recognize']]
+    s = [['下書き保存','draft'],['承認待ち','recognize']]
+    s << ['公開保存','public'] if Core.user.has_auth?(:manager)
+    s
   end
 
   def agent_states
@@ -195,7 +197,7 @@ class Article::Doc < ActiveRecord::Base
       conditions.each {|c| condition.or(c) if c.where }
     end
     
-    self.and condition if conditions.size > 0
+    self.and condition if condition.where
     self
   end
   
@@ -295,17 +297,10 @@ class Article::Doc < ActiveRecord::Base
 
     return self
   end
-  
-  def close_page(options = {})
-    return false unless super
-    publishers.destroy_all if publishers.size > 0
-    FileUtils.rm_f(::File.dirname(public_path))
-    return true
-  end
 
   def publish(content)
     @save_mode = :publish
-    self.state          = 'public'
+    self.state = 'public'
     self.published_at ||= Core.now
     return false unless save(false)
     publish_page(content, :path => public_path, :uri => public_uri)
@@ -314,8 +309,16 @@ class Article::Doc < ActiveRecord::Base
   def close
     @save_mode = :close
     self.state = 'closed' if self.state == 'public'
+    #self.published_at = nil
     return false unless save(false)
     close_page
+    return true
+  end
+  
+  def close_page(options = {})
+    return false unless super
+    publishers.destroy_all if publishers.size > 0
+    FileUtils.rm_f(::File.dirname(public_path))
     return true
   end
   

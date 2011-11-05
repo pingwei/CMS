@@ -1,10 +1,6 @@
 <% if defined?(container) && container != :tr %>
 <table class="show">
 <% end %>
-  <tr>
-    <th><%=h @item.locale(:state) %></th>
-    <td><%= f.radio_buttons :state, @item.states, :class => 'status' %></td>
-  </tr>
   <%= concept_and_layout_form f %>
   <tr>
     <th><%= item.locale(:content_id) %></th>
@@ -26,6 +22,9 @@
   <%= f.hidden_field(:route_id, :value => 0) %>
   <% end %>
   <tr>
+    <th><%= item.locale(:name) %></th>
+    <td><%= f.text_field :name, :class => 'nameEn' %></td>
+  </tr><tr>
     <th><%= item.locale(:title) %></th>
     <td><%= f.text_field :title, :class => 'title' %></td>
   </tr>

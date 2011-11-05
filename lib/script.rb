@@ -1,11 +1,14 @@
 class Script
+  cattr_reader :lock_key
   cattr_reader :options
   
   def self.run(path, options = nil)
-    @@options = options
+    ENV['INPUTRC'] ||= "/etc/inputrc"
     
-    lock_key = 'script_' + path.gsub(/\W/, "_")
-    if lock(lock_key) == false
+    @@lock_key = 'script_' + path.gsub(/\W/, "_")
+    @@options  = options
+    
+    if self.lock == false
       puts "[ #{Time.now.strftime('%Y-%m-%d %H:%M:%S')} ]: Script.run('#{path}') already running."
       return true
     end
@@ -18,12 +21,12 @@ class Script
     rescue => e
       puts "ScriptError: #{e}"
     end
-    unlock(lock_key)
+    self.unlock
   end
   
 protected
-  def self.lock(lock_key)
-    file = "#{Rails.root}/tmp/#{lock_key}"
+  def self.lock(lock_key = @@lock_key)
+    file = "#{Rails.root}/tmp/lock/#{lock_key}"
     if ::File.exist?(file)
       locked = ::File.stat(file).mtime.to_i
       return false if Time.now.to_i < locked + (60*60*2)
@@ -35,8 +38,13 @@ protected
     return false
   end
   
-  def self.unlock(lock_key)
-    file = "#{Rails.root}/tmp/#{lock_key}"
+  def self.unlock(lock_key = @@lock_key)
+    file = "#{Rails.root}/tmp/lock/#{lock_key}"
     ::File.unlink(file)
+  end
+  
+  def self.keep_lock(lock_key = @@lock_key)
+    file = "#{Rails.root}/tmp/lock/#{lock_key}"
+    FileUtils.touch(file) rescue nil
   end
 end

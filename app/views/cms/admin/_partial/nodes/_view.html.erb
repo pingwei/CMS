@@ -26,6 +26,9 @@
   </tr>
   <% end %>
   <tr>
+    <th><%= @item.locale(:name) %></th>
+    <td><%=h safe{@item.name} %></td>
+  </tr><tr>
     <th><%= @item.locale(:title) %></th>
     <td><%=h safe{@item.title} %></td>
   </tr>

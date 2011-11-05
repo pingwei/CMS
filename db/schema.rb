@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "article_areas", :force => true do |t|
     t.integer  "unid"
     t.integer  "parent_id",                :null => false
+    t.integer  "concept_id"
     t.integer  "content_id"
     t.string   "state",      :limit => 15
     t.datetime "created_at"
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "article_attributes", :force => true do |t|
     t.integer  "unid"
+    t.integer  "concept_id"
     t.integer  "content_id"
     t.string   "state",      :limit => 15
     t.datetime "created_at"
@@ -44,6 +46,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "article_categories", :force => true do |t|
     t.integer  "unid"
     t.integer  "parent_id",                :null => false
+    t.integer  "concept_id"
     t.integer  "content_id"
     t.string   "state",      :limit => 15
     t.datetime "created_at"
@@ -119,8 +122,8 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "cms_contents", :force => true do |t|
     t.integer  "unid"
-    t.integer  "concept_id"
     t.integer  "site_id",                              :null => false
+    t.integer  "concept_id"
     t.string   "state",          :limit => 15
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -280,6 +283,18 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "point5_lng"
   end
 
+  create_table "cms_map_markers", :force => true do |t|
+    t.integer  "map_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sort_no"
+    t.string   "name"
+    t.string   "lat"
+    t.string   "lng"
+  end
+  
+  add_index "cms_map_markers", ["map_id"], :name => "map_id"
+  
   create_table "cms_nodes", :force => true do |t|
     t.integer  "unid"
     t.integer  "concept_id"
@@ -512,6 +527,70 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "email"
   end
 
+  create_table "photo_genres", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "parent_id",                :null => false
+    t.integer  "content_id"
+    t.string   "state",      :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "level_no",                 :null => false
+    t.integer  "sort_no"
+    t.integer  "layout_id"
+    t.string   "name"
+    t.text     "title"
+  end
+
+  create_table "photo_categories", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "parent_id",                :null => false
+    t.integer  "content_id"
+    t.string   "state",      :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "level_no",                 :null => false
+    t.integer  "sort_no"
+    t.integer  "layout_id"
+    t.string   "name"
+    t.text     "title"
+  end
+
+  create_table "photo_docs", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "content_id"
+    t.string   "state",         :limit => 15
+    t.string   "agent_state",   :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "recognized_at"
+    t.datetime "published_at"
+    t.integer  "language_id"
+    t.string   "genre_ids"
+    t.string   "category_ids"
+    t.string   "rel_doc_ids"
+    t.text     "notice_state"
+    t.text     "recent_state"
+    t.text     "list_state"
+    t.text     "event_state"
+    t.date     "event_date"
+    t.string   "name"
+    t.text     "title"
+    t.text     "head",          :limit => 2147483647
+    t.text     "body",          :limit => 2147483647
+    t.text     "mobile_title"
+    t.text     "mobile_body",   :limit => 2147483647
+  end
+
+  add_index "photo_docs", ["content_id", "published_at", "event_date"], :name => "content_id"
+
+  create_table "photo_tags", :force => true do |t|
+    t.integer  "unid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.text     "word"
+  end
+  
   create_table "portal_categories", :force => true do |t|
     t.integer  "unid"
     t.integer  "parent_id",                              :null => false
@@ -576,7 +655,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "name_en"
     t.string   "tel"
     t.string   "outline_uri"
-    t.text     "email"
+    t.string   "email"
   end
 
   create_table "sys_languages", :force => true do |t|
@@ -694,10 +773,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "ldap_version"
     t.integer  "auth_no",                                 :null => false
     t.string   "name"
-    t.text     "name_en"
+    t.string   "name_en"
     t.string   "account"
-    t.text     "password"
-    t.text     "email"
+    t.string   "password"
+    t.string   "email"
     t.text     "remember_token"
     t.datetime "remember_token_expires_at"
   end

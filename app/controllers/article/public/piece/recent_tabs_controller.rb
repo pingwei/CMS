@@ -8,7 +8,13 @@ class Article::Public::Piece::RecentTabsController < Sys::Controller::Public::Ba
   end
   
   def index
+    @more_label = @piece.setting_value(:more_label)
+    @more_label = ">>新着記事一覧" if @more_label.blank?
+    
     @tabs = []
+    
+    limit = Page.current_piece.setting_value(:list_count)
+    limit = (limit.to_s =~ /^[1-9][0-9]*$/) ? limit.to_i : 10
     
     Article::Piece::RecentTabXml.find(:all, @piece, :order => :sort_no).each do |tab|
       next if tab.name.blank?
@@ -22,7 +28,7 @@ class Article::Public::Piece::RecentTabsController < Sys::Controller::Public::Ba
       doc.and :content_id, @content.id
       doc.visible_in_recent
       doc.group_is(tab)
-      doc.page 1, 10
+      doc.page 1, limit
       docs = doc.find(:all, :order => 'published_at DESC')
       
       @tabs << {

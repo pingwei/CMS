@@ -37,17 +37,63 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
       ## modules' page
       if item.model != 'Cms::Directory'
         begin
+          model = item.model.underscore.pluralize.gsub(/^(.*?)\//, '\1/script/')
+          next unless eval("#{model.camelize}Controller").publishable?
+          
           publish_page(item, :uri => item.public_uri, :site => item.site, :path => item.public_path)
-          model = item.model.underscore.pluralize
-          res   = render_component_as_string :controller => model.gsub(/^(.*?)\//, '\1/script/'),
-            :action => "publish", :params => {:node => item}
+          res   = render_component_as_string :controller => model, :action => "publish", :params => {:node => item}
         rescue Exception => e
           error_log(e)
           next
         end
+        next
       end
       
       publish_node(item)
     end
+  end
+  
+  def publish_by_task
+    begin
+      item = params[:item]
+      if item.state == 'recognized' && item.model == "Cms::Page"
+        puts "-- Publish: #{item.class}##{item.id}"
+        item = Cms::Model::Node::Page.find(item.id)
+        uri  = "#{item.public_uri}"
+        path = "#{item.public_path}"
+        
+        if !item.publish(render_public_as_string(uri, :site => item.site))
+          raise item.errors.full_messages
+        end
+        if item.published? || !::File.exist?("#{path}.r")
+          item.publish_page(render_public_as_string("#{uri}.r", :site => item.site),
+            :path => "#{path}.r", :dependent => :ruby)
+        end
+        
+        puts "OK: Published"
+        params[:task].destroy
+      end
+    rescue => e
+      puts "Error: #{e}"
+    end
+    return render(:text => "OK")
+  end
+  
+  def close_by_task
+    begin
+      item = params[:item]
+      if item.state == 'public' && item.model == "Cms::Page"
+        puts "-- Close: #{item.class}##{item.id}"
+        item = Cms::Model::Node::Page.find(item.id)
+        
+        item.close
+        
+        puts "OK: Closed"
+        params[:task].destroy
+      end
+    rescue => e
+      puts "Error: #{e}"
+    end
+    return render(:text => "OK")
   end
 end

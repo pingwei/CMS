@@ -80,12 +80,6 @@ ja:
         mobile_title: "携帯タイトル"
         mobile_body: "携帯本文"
 
-      cms/node/page:
-        name: "ファイル名"
-
-      cms/node/sitemap:
-        name: "ファイル名"
-
       cms/kana_dictionary:
         name: "名称"
         body: "辞書データ"
@@ -99,6 +93,7 @@ ja:
         module: "モジュール"
 
       cms/data_file:
+        concept_id: "コンセプト"
         node_id: "フォルダ"
         file: "ファイル"
         name: "保存ファイル名"
@@ -106,6 +101,7 @@ ja:
         size: "サイズ"
 
       cms/data_file_node:
+        concept_id: "コンセプト"
         name: "フォルダ名"
         title: "説明"
 
@@ -119,3 +115,10 @@ ja:
         feed_title: "フィード文書名"
         link_alternate: "代替URL"
         entry_count: "記事取込数"
+      
+      ## node
+      cms/model/node/page:
+        name: "ファイル名"
+      cms/model/node/sitemap:
+        name: "ファイル名"
+

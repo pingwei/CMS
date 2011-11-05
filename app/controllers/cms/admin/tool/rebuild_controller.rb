@@ -18,7 +18,8 @@ class Cms::Admin::Tool::RebuildController < Cms::Controller::Admin::Base
       Core.messages << "再構築： コンテンツ"
       
       item = Cms::Content.new
-      item.and :model, 'Article::Doc'
+      item.and :model, 'LIKE', '%::Doc'
+      item.and :model, '!=', 'Newsletter::Doc'
       item.and :site_id, Core.site.id
       item.and :id, @item.content_id if !@item.content_id.blank?
       items = item.find(:all)

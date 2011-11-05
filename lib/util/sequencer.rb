@@ -8,7 +8,7 @@ class Util::Sequencer
       raise "error: sequencer locked"
     end
     
-    if seq = Sys::Sequence.versioned(version.to_s).find_by_name(name)
+    if seq = Sys::Sequence.versioned(version.to_s).find_by_name(name.to_s)
       seq.value += 1
       seq.save
     else

@@ -2,6 +2,10 @@ class Cms::Controller::Script::Publication < ApplicationController
   include Cms::Controller::Layout
   before_filter :initialize_publication
   
+  def self.publishable?
+    true
+  end
+  
   def initialize_publication
     if @node = params[:node]
       @site   = @node.site
@@ -37,16 +41,33 @@ class Cms::Controller::Script::Publication < ApplicationController
   end
   
   def publish_more(item, params = {})
-    limit = 1
+    stopp = nil
+    limit = Joruri.config.application["cms.publish_more_pages"].to_i rescue 0
+    limit = (limit < 1 ? 1 : 1 + limit)
     file  = params[:file] || 'index'
     first = params[:first] || 1
     first.upto(limit) do |p|
       page = (p == 1 ? "" : ".p#{p}") 
       uri  = "#{params[:uri]}#{file}#{page}.html"
       path = "#{params[:path]}#{file}#{page}.html"
-      rs   = publish_page(item, :uri => uri, :site => params[:site], :path => path, :dependent => params[:dependent])
-      return item.published?
-      #break unless rs
+      dep  = "#{params[:dependent]}#{page}"
+      rs   = publish_page(item, :uri => uri, :site => params[:site], :path => path, :dependent => dep)
+      unless rs
+        stopp = p
+        break
+      end
+      #return item.published? ## file updated
+    end
+    
+    ## remove over files
+    first = stopp ? stopp : (limit + 1)
+    first.upto(9999) do |p|
+      dep = "#{params[:dependent]}.p#{p}"
+      pub = Sys::Publisher.find(:first, :conditions => {:unid => item.unid, :dependent => dep})
+      break unless pub
+      pub.destroy
+      pub = Sys::Publisher.find(:first, :conditions => {:unid => item.unid, :dependent => "#{dep}/ruby"})
+      pub.destroy if pub
     end
   end
 end

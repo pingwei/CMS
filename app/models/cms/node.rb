@@ -22,6 +22,8 @@ class Cms::Node < ActiveRecord::Base
   
   validates_presence_of :parent_id, :state, :model, :name, :title
   validates_uniqueness_of :name, :scope => :parent_id
+  validates_format_of :name, :with=> /^[0-9A-Za-z\.\-_\+@]/, :message=> :not_a_filename,
+    :if => %Q(parent_id != 0)
   
   after_destroy :remove_file
   
@@ -31,7 +33,7 @@ class Cms::Node < ActiveRecord::Base
   end
   
   def states
-    [['公開','public'],['非公開','closed']]
+    [['非公開保存','closed'],['公開保存','public']]
   end
   
   def self.find_by_uri(path, site_id)
@@ -171,6 +173,17 @@ class Cms::Node < ActiveRecord::Base
     args2  = %Q( :conditions => ["parent_id = ? AND directory = 1", p.id], ) if new_record?
     args2 += %Q( :order => :name)
     make_candidates(args1, args2)
+  end
+  
+  def locale(name)
+    model = self.class.to_s.underscore
+    label = ''
+    if model != 'cms/node'
+      label = I18n.t name, :scope => [:activerecord, :attributes, model]
+      return label if label !~ /^translation missing:/
+    end
+    label = I18n.t name, :scope => [:activerecord, :attributes, 'cms/node']
+    return label =~ /^translation missing:/ ? name.to_s.humanize : label
   end
   
 protected

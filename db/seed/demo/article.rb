@@ -235,5 +235,8 @@ d = create doc.id, 14, 1  , 6  , nil  , 'hidden' , nil     ,'サンプル記事�
     Article::Tag.create :unid => d.unid, :name => 0, :word => '入札'
 d = create doc.id, 3, 4, 12, nil, 'hidden', nil,'サンプル記事　地図'
     create_inquiry(d.unid)
-    Cms::Map.create :unid => d.unid, :name => '1', :map_lat=> '34.07367062652467', :map_lng => '134.5530366897583',
-    :map_zoom =>'15', :point1_name => 'ジョールリ市', :point1_lat => '34.0720505', :point1_lng => '134.552594'
+    Cms::Map.create :unid => d.unid, :name => "1",
+      :map_lat=> '34.07367062652467', :map_lng => '134.5530366897583', :map_zoom =>'15'
+    Cms::MapMarker.create :map_id => 1, :sort_no => 1,
+      :name => "ジョールリ市", :lat => "34.0720505", :lng => "134.552594"
+

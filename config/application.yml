@@ -1,0 +1,7 @@
+sys:
+  #暗号化パスワード
+  crypt_pass: pass
+
+cms:
+  #ページ数付きページ書き出し数
+  publish_more_pages: 0

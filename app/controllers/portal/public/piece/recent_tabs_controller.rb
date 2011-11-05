@@ -4,17 +4,22 @@ class Portal::Public::Piece::RecentTabsController < Sys::Controller::Public::Bas
 
   def pre_dispatch
     @piece   = Page.current_piece
-    @piece   = Portal::Piece::FeedEntry.find(@piece.id)
     @content = @piece.content
   end
 
   def index
-    @content = Portal::Content::FeedEntry.find(Page.current_piece.content_id)
-
+    @content    = Portal::Content::FeedEntry.find(Page.current_piece.content_id)
+    @more_label = @piece.setting_value(:more_label)
+    @more_label = ">>新着記事一覧" if @more_label.blank?
+    
+    limit = Page.current_piece.setting_value(:list_count)
+    limit = (limit.to_s =~ /^[1-9][0-9]*$/) ? limit.to_i : 10
+    
     @tabs = []
     base_content = Portal::Content::Base.find_by_id(@content.id)
 
-    Portal::Piece::RecentTabXml.find(:all, @piece, :order => :sort_no).each do |tab|
+    feed = Portal::Piece::FeedEntry.find(@piece.id)
+    Portal::Piece::RecentTabXml.find(:all, feed, :order => :sort_no).each do |tab|
       next if tab.name.blank?
 
       current   = (@tabs.size == 0) ? true : nil
@@ -26,7 +31,7 @@ class Portal::Public::Piece::RecentTabsController < Sys::Controller::Public::Bas
       entry = Portal::FeedEntry.new.public
       entry.agent_filter(request.mobile)
       entry.and "#{Cms::FeedEntry.table_name}.content_id", @content.id
-      entry.page 1, 10
+      entry.page 1, limit
       list = tab.category_items
       if list.size > 0
         entry.category_is list[0]

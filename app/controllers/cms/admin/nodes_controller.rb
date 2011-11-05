@@ -49,16 +49,17 @@ class Cms::Admin::NodesController < Cms::Controller::Admin::Base
     
     @item = Cms::Node.new(params[:item])
     #@item.parent_id    = @parent.id
-    @item.state        = 'public'
+    @item.state        = 'closed'
     @item.published_at = Core.now
     @item.directory    = (@item.model_type == :directory)
-    @item.name         = 'tmp' # for validation
+    @item.name         = "tmp" # for validation
+    @item.title        = @item.model_name.gsub(/.*\//, '')
     
     _create(@item) do
       @item.name = nil # for validation
       @item.save(false)
       respond_to do |format|
-        format.html { return redirect_to(@item.edit_admin_uri) }
+        format.html { return redirect_to(@item.admin_uri) }
       end
     end
   end

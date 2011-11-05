@@ -3,10 +3,6 @@
 
 <table class="show">
   <%= node_base_form f, :container => :tr %>
-  <tr>
-    <th><%= @item.locale(:name) %></th>
-    <td><%= f.text_field :name, :class => 'id' %></td>
-  </tr>
 </table>
 
 <table class="show" style="margin: 0px;">
@@ -88,13 +84,9 @@ function setText(element, text ) {
   </tr>
 </table>
 
-<table id="inlineFiles" border=0; class="show" style="display: none;">
-  <tr>
-    <td style="padding: 0px 0px;">
-      <iframe src="/_admin/cms/0/inline_data_files/" style="width: 100%; height: 340px;" frameborder="0"></iframe>
-    </td>
-  </tr>
-</table>
+<div style="display: none;" class="inlineForm" id="inlineFiles">
+  <iframe src="/_admin/cms/0/inline_data_files/" style="width: 100%; height: 340px;" frameborder="0"></iframe>
+</div>
 
 <br /><p class="form">携帯向け</p>
 
@@ -109,4 +101,6 @@ function setText(element, text ) {
 </table>
 
 <%= inquiry_form f %>
+<%= task_form f %>
+<%= recognizer_form f %>
 <%= creator_form f %>

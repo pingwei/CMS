@@ -17,8 +17,11 @@ class Sys::Script::TasksController < ApplicationController
         
         model = unid.model.underscore.pluralize
         item  = eval(unid.model).find_by_unid(unid.id)
-        res   = render_component_as_string :controller => model.gsub(/^(.*?)\//, '\1/script/'),
-          :action => task.name, :params => {:unid => unid, :task => task, :item => item}
+        
+        task_ctr = model.gsub(/^(.*?)\//, '\1/script/')
+        task_act = "#{task.name}_by_task"
+        task_prm = {:unid => unid, :task => task, :item => item}
+        render_component_as_string :controller => task_ctr, :action => task_act, :params => task_prm
       rescue => e
         puts "Error: #{e}"
       end

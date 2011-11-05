@@ -20,21 +20,25 @@ class ActionView::Helpers::FormBuilder
     pre = pos == 0 ? method : method.slice(0, pos)
     suf = pos == 0 ? "" : method.slice(pos, method.size)
     
-    idx = suf.gsub(/[\[\]]/, '') #TODO/only 1 level.
+    arr  = nil
+    post = nil
     if @template.params[@object_name] && @template.params[@object_name][pre]
-      return @template.params[@object_name][pre][idx]
+      post = true
+      arr = @template.params[@object_name][pre]
     else
-      return nil unless var = @template.instance_variable_get("@#{@object_name}").send(pre)
-      if var.class == Hash
-        #script = "var = var" + suf.gsub("[", "['").gsub("]", "']").gsub(/\['([0-9]+)'\]$/, '[\\1]')
-        #eval("#{script} rescue nil")
-        var = var[idx]
-      else
-        var = var[idx.to_i]
-      end
-      var.respond_to?(:force_encoding) ? var.force_encoding(Encoding::UTF_8) : var
-      return var
+      arr = @template.instance_variable_get("@#{@object_name}").send(pre)
     end
+    return nil unless arr
+    
+    value  = nil
+    script = "value = arr"
+    suf.scan(/\[(.*?)\]/).each do |m|
+      script += (post == nil && m[0] =~ /^[0-9]$/ ? "[#{m[0]}]" : "['#{m[0]}']")
+    end
+    eval("#{script} rescue nil")
+    value.force_encoding(Encoding::UTF_8) if value.respond_to?(:force_encoding)
+    
+    return value
   end
   
   def array_text_field(method, options = {})

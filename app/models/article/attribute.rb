@@ -6,6 +6,7 @@ class Article::Attribute < ActiveRecord::Base
   include Cms::Model::Base::Page::TalkTask
   include Sys::Model::Rel::Unid
   include Sys::Model::Rel::Creator
+  include Cms::Model::Rel::Concept
   include Cms::Model::Auth::Content
   
   belongs_to :status,  :foreign_key => :state,      :class_name => 'Sys::Base::Status'

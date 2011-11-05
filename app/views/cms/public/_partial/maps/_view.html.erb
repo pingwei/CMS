@@ -1,12 +1,12 @@
 <%
 
-return '' if item.maps.size == 0
+map     = item.maps.find(:first)
+markers = map ? map.markers : []
+return render(:text => "") unless map
+return render(:text => "") if map.map_lat.blank? || map.map_lng.blank?
 
 map_key = Core.mode =~ /^(public|preview)$/ ? Page.site.map_key : Core.map_key
 map_key = Core.map_key if Core.request_uri =~ /^\/_preview\//
-
-_map = item.find_map_by_name('1')
-return '' if _map.map_lat == '' || _map.map_lng == ''
 
 %><div class="maps">
   <h2>地図</h2>
@@ -14,14 +14,12 @@ return '' if _map.map_lat == '' || _map.map_lng == ''
   <script type="text/javascript">ArticleMap.init('<%= map_key %>');</script>
   <script type="text/javascript">
   //<![CDATA[
-  var map = new ArticleMap('map1', <%=h _map.map_lat %>, <%=h _map.map_lng %>, <%=h _map.map_zoom %>);
-  <% if _map.is_point(1) %>map.addMarker(<%= _map.get_point_params(1) %>);<% end %>
-  <% if _map.is_point(2) %>map.addMarker(<%= _map.get_point_params(2) %>);<% end %>
-  <% if _map.is_point(3) %>map.addMarker(<%= _map.get_point_params(3) %>);<% end %>
-  <% if _map.is_point(4) %>map.addMarker(<%= _map.get_point_params(4) %>);<% end %>
-  <% if _map.is_point(5) %>map.addMarker(<%= _map.get_point_params(5) %>);<% end %>
+  var map = new ArticleMap('map1', <%=h map.map_lat %>, <%=h map.map_lng %>, <%=h map.map_zoom %>);
+  <% markers.each do |marker| %>
+  map.addMarker(<%= marker.js_params %>);
+  <% end %>
   //]]>
   </script>
-  <%= "<h3>#{_map.title}</h3>" if !_map.title.blank? %>
+  <%= "<h3>#{map.title}</h3>" if !map.title.blank? %>
   <div id="map1" class="map" style="width: 600px; height: 300px"></div>
 </div>

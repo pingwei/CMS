@@ -5,7 +5,7 @@
     <th>レイアウト</th>
     <td>
       <% if @item.layout %><%=h safe{@item.layout.title} %>
-      <% elsif @item.inherited_layout %>（<%=h safe{@item.inherited_layout.title} %>）<% end %>
+      <% elsif defined?(@item.inherited_layout) %>（<%=h safe{@item.inherited_layout.title} %>）<% end %>
     </td>
   </tr>
 <% if defined?(container) && container != :tr %>

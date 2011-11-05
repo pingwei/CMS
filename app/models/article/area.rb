@@ -6,6 +6,7 @@ class Article::Area < ActiveRecord::Base
   include Sys::Model::Tree
   include Sys::Model::Rel::Unid
   include Sys::Model::Rel::Creator
+  include Cms::Model::Rel::Concept
   include Cms::Model::Auth::Content
   
   belongs_to :status ,  :foreign_key => :state,      :class_name => 'Sys::Base::Status'

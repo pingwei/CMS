@@ -175,7 +175,8 @@ class Sys::User < ActiveRecord::Base
 
   ## Authenticates a user by their account name and unencrypted password.  Returns the user or nil.
   def self.authenticate(in_account, in_password, encrypted = false)
-    in_password = Util::String::Crypt.decrypt(in_password) if encrypted
+    crypt_pass  = Joruri.config.application["sys.crypt_pass"]
+    in_password = Util::String::Crypt.decrypt(in_password, crypt_pass) if encrypted
     
     user = nil
     self.new.enabled.find(:all, :conditions => {:account => in_account, :state => 'enabled'}).each do |u|
@@ -198,7 +199,8 @@ class Sys::User < ActiveRecord::Base
 
   def encrypt_password
     return if password.blank?
-    Util::String::Crypt.encrypt(password)
+    crypt_pass  = Joruri.config.application["sys.crypt_pass"]
+    Util::String::Crypt.encrypt(password, crypt_pass)
   end
   
   def remember_token?
@@ -214,7 +216,8 @@ class Sys::User < ActiveRecord::Base
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    #save(false)
+    update_attributes :remember_token_expires_at => nil, :remember_token => nil
   end
 
 protected
