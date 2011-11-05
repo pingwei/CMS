@@ -20,7 +20,7 @@
     <td style="text-align: center;"><%= link_to :show, url_for(:action => :show, :id => item) %></td>
     <td style="text-align: right;"><%=h item.id %></td>
     <td><%=h item.title %></td>
-    <td><%=h item.creator.user.name_with_id if item.creator && item.creator.user %></td>
+    <td><%=h item.creator.user.name_with_account if item.creator && item.creator.user %></td>
     <td style="text-align: center;"><%= safe{item.updated_at.strftime("%Y-%m-%d %H:%M")} %></td>
     <td style="text-align: center;"><%=h item.status.name %></td>
     <td style="text-align: center;">

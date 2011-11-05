@@ -135,7 +135,7 @@ class Core
         n.and :parent_id, node.id
         n.and :name     , paths[i]
         n.public if @@mode != 'preview'
-        current = n.find(:first, :order => "id DESC") # at unique node name
+        current = n.find(:first, :order => "id ASC") # at unique node name
       end
       break unless current
       

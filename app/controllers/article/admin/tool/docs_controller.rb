@@ -30,12 +30,19 @@ class Article::Admin::Tool::DocsController < Cms::Controller::Admin::Base
         end
       rescue => e
         results[1] += 1
-        errors << "失敗： #{item.id},#{item.title},#{e}"
+        errors << "エラー： #{item.id}, #{item.title}, #{e}"
+        error_log("Rebuild Error: #{e}")
       end
     end
     
     Core.messages << "-- 成功 #{results[0]}件"
     Core.messages << "-- 失敗 #{results[1]}件"
+    
+    max_errors = 2
+    if (num = errors.size) > max_errors
+      errors  = errors.slice(0, max_errors)
+      errors << "（他 #{num-max_errors}件 のエラー）"
+    end
     Core.messages += errors
     
     render :text => "OK"

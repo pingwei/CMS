@@ -7,6 +7,12 @@ module Cms::Controller::Layout
     Core.publish = true unless options[:preview]
     mode = Core.set_mode('preview')
     
+    qp = {}
+    if path =~ /\?/
+      qp   = Rack::Utils.parse_query(path.gsub(/.*\?/, ''))
+      path = path.gsub(/\?.*/, '')
+    end
+  
     Page.initialize
     Page.site   = options[:site] || Core.site
     Page.uri    = path
@@ -17,6 +23,7 @@ module Cms::Controller::Layout
       node   = Core.search_node(path)
       env    = {}
       opt    = routes.recognize_optimized(node, env)
+      opt    = qp.merge(opt)
       ctl    = opt[:controller]
       act    = opt[:action]
       opt[:authenticity_token] = params[:authenticity_token] if params[:authenticity_token]

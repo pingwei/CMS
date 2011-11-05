@@ -58,7 +58,12 @@ class Cms::Admin::Tool::RebuildController < Cms::Controller::Admin::Base
     end
     
     if !Core.messages.empty?
-      flash[:notice] = '再構築が終了しました。<br />' + Core.messages.join('<br />')
+      max_messages = 3000
+      messages = Core.messages.join('<br />')
+      if messages.size > max_messages
+        messages = ApplicationController.helpers.truncate(messages, :length => max_messages)
+      end
+      flash[:notice] = '再構築が終了しました。<br />' + messages
       redirect_to :action => :index
     end
   end

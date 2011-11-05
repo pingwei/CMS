@@ -18,8 +18,9 @@ class Sys::User < ActiveRecord::Base
   attr_accessor :in_group_id
   #attr_accessor :group, :group_id, :in_group_id
   
-  validates_presence_of :state, :account, :name, :ldap
   validates_uniqueness_of :account
+  validates_presence_of :state, :account, :name, :ldap
+  validates_presence_of :in_group_id, :if => %Q(in_group_id == '')
   
   after_save :save_group, :if => %Q(@_in_group_id_changed)
 
@@ -167,7 +168,7 @@ class Sys::User < ActiveRecord::Base
 
   def self.find_managers
     cond = {:state => 'enabled', :auth_no => 5}
-    self.find(:all, :conditions => cond, :order => :id)
+    self.find(:all, :conditions => cond, :order => :account)
   end
   
   ## -----------------------------------

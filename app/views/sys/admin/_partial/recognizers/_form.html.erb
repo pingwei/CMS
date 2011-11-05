@@ -1,11 +1,16 @@
 <%
 
 users = []
+users << Core.user if Core.user.has_auth?(:manager)
+Sys::User.find_managers.each do |u|
+  users << u
+end if Joruri.config.application["sys.recognizers_include_admin"]
 Core.user_group.users.each do |u|
   next unless u.state == 'enabled'
-  next if u == Core.user && !Core.user.has_auth?(:manager)
+  next if u.id == Core.user.id
   users << u
 end
+users = users.uniq
 user_ids = users.collect{|u| u.id.to_s}
 
 max     = 5
@@ -22,8 +27,8 @@ item.in_recognizer_ids = e2_list.join(' ')
 e1_opt  = []
 e2_opt  = []
 users.each {|u| e2_list.index(u.id.to_s) ? e2_opt << u : e1_opt << u }
-e1_opt  = options_for_select(e1_opt.collect{|u| [u.name_with_id, u.id]})
-e2_opt  = options_for_select(e2_opt.collect{|u| [u.name_with_id, u.id]})
+e1_opt  = options_for_select(e1_opt.collect{|u| [u.name_with_account, u.id]})
+e2_opt  = options_for_select(e2_opt.collect{|u| [u.name_with_account, u.id]})
 
 style   = "width: 240px; height: 140px;"
 e1_tag  = select_tag(e1_name, e1_opt, :multiple => true, :onDblClick => e1_evt, :style => style)

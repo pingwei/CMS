@@ -10,7 +10,7 @@ return '' if item.recognizers.size == 0
     <td>
       <% item.recognizers.each do |user| %>
       <% date = item.recognition.info(user.id).recognized_at %>
-      <%= safe{user.name_with_id} %> / <%= date.blank? ? "未承認" : "承認日時 #{date}" %><br />
+      <%= safe{user.name_with_account} %> / <%= date.blank? ? "未承認" : "承認日時 #{date}" %><br />
       <% end %>
     </td>
   </tr>

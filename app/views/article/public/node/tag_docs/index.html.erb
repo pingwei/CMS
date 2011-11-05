@@ -13,7 +13,7 @@
 </table>
 <!-- end .search --><% end %>
 
-<%if params[:search] %>
+<%if @tag.to_s != '' %>
 <div class="hit">
   <span class="label">検索結果</span><span class="count"><%= "#{@docs.total_entries}" %></span><span class="unit">件</span></div>
 <% end %>

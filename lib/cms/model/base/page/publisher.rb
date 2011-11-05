@@ -72,9 +72,9 @@ module Cms::Model::Base::Page::Publisher
   
   def publish_page(content, options = {})
     @published = nil
+    return false if content.nil?
     save(false) if unid.nil? # path for Article::Unit
     return false if unid.nil?
-    return false if content.nil?
     
     path = (options[:path] || public_path).gsub(/\/$/, "/index.html")
     hash = content ? Digest::MD5.new.update(content).to_s : nil

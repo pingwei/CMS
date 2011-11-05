@@ -9,7 +9,7 @@
 </div>
 <!-- end .search --><% end %>
 
-<%if params[:search] %>
+<%if @tag.to_s != '' %>
 <div class="hit">検索結果 <span class="count"><%= "#{@docs.total_entries}" %></span>件</div>
 <br />
 <% end %>

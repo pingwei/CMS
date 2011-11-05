@@ -23,7 +23,7 @@ class Article::Content::Setting < Cms::ContentSetting
     case name
     when 'default_recognizers'
       users = Sys::User.new.enabled.find(:all, :order => :account)
-      return users.collect{|c| [c.name_with_id, c.id.to_s]}
+      return users.collect{|c| [c.name_with_account, c.id.to_s]}
     end
     super
   end
@@ -33,7 +33,7 @@ class Article::Content::Setting < Cms::ContentSetting
       case name
       when 'default_recognizers'
         user = Sys::User.find_by_id(value)
-        return user.name_with_id if user
+        return user.name_with_account if user
       end
     end
     super

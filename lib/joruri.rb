@@ -1,13 +1,14 @@
 # encoding: utf-8
 module Joruri
   def self.version
-    "1.1.6"
+    "1.1.7"
   end
   
   def self.default_config
     { "application" => {
-      "sys.crypt_pass" => "joruri",
-      "cms.publish_more_pages" => 0
+      "sys.crypt_pass"                => "joruri",
+      "sys.recognizers_include_admin" => false,
+      "cms.publish_more_pages"        => 0
     }}
   end
   
