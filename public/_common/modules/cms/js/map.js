@@ -1,144 +1,102 @@
 //<script type="text/javascript">
 
-function ArticleMap(id, lat, lng, zoom) {
-  this.id            = id;
-  this.lat           = lat;
-  this.lng           = lng;
-  this.zoom          = zoom;
-  this.centerDisplay = '';
-  this.zoomDisplay   = '';
-  this.clickDisplay  = '';
-  this.clickAddMarker = null;
-  this.markers       = new Array();
+function MapEditor(map) {
+  this.map        = map;
+  this.markers    = {}
+  this.centerDisp = 'centerDisp';
+  this.zoomDisp   = 'zoomDisp';
+  this.clickDisp  = 'clickDisp';
+  this.clicked    = null;
   
-  this.mapWidth      = '600';
-  this.mapHeight     = '300';
+  this.syncMap = function() {
+    var pos = this.map.getCenter();
+    if (pos) {
+      document.getElementById(this.centerDisp + 'Lat').value = pos.lat();
+      document.getElementById(this.centerDisp + 'Lng').value = pos.lng();
+    }
+    document.getElementById(this.zoomDisp).value = this.map.getZoom();
+  }
   
-  this.lastAddMarker = null;
+  this.setMapInfo = function(name) {
+    var pos = this.map.getCenter();
+    if (pos) {
+      document.getElementById(name + 'Lat').value = pos.lat();
+      document.getElementById(name + 'Lng').value = pos.lng();
+    }
+    document.getElementById(name + 'Zoom').value = this.map.getZoom();
+  }
   
-  var _this = this;
-  ArticleMap.addEvent(window, 'load', function(){ _this.render() });
-  
-  this.addMarker = function(lat, lng, msg, key) {
-    if (key == 'undefined' || !key) {
-      this.markers.push({ marker: new GMarker(new google.maps.LatLng(lat, lng)), msg: msg });
-    } else {
-      this.markers[key] = { marker: new GMarker(new google.maps.LatLng(lat, lng)), msg: msg };
+  this.syncClick = function(event) {
+    if (this.clicked) {
+      this.clicked.setMap();
+    }
+    if (event) {
+      document.getElementById(this.clickDisp + 'Lat').value = event.latLng.lat();
+      document.getElementById(this.clickDisp + 'Lng').value = event.latLng.lng();
+      this.clicked = new google.maps.Marker({
+        position: event.latLng,
+        map: this.map,
+        icon: 'http://maps.google.co.jp/mapfiles/ms/icons/ltblue-dot.png'
+      });
     }
   }
   
-  this.render = function() {
-    if (!GBrowserIsCompatible()) {
+  this.search = function(name, event) {
+    if (event) {
+      var key = (event.keyCode != 0 && event.keyCode != 229) ? event.keyCode : event.charCode;
+      if (key != 13) return;
+    }
+    var geocoder = new google.maps.Geocoder();
+    var address  = document.getElementById(name).value;
+    var _this    = this;
+    geocoder.geocode({'address': address},
+      function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          _this.map.setCenter(results[0].geometry.location);
+          //var marker = new google.maps.Marker({
+          //    map: _this.map, 
+          //    position: results[0].geometry.location
+          //});
+        } else {
+          alert("座標を取得できませんでした。");
+        }
+      }
+    );
+  }
+  
+  this.setMarker = function(name) {
+    if (!this.clicked) {
+      alert("座標を指定してください。");
       return;
     }
-    this.map = new GMap2(document.getElementById(this.id), {size:new GSize(this.mapWidth, this.mapHeight)});
-    this.map.addControl(new GLargeMapControl());
-    //this.map.addControl(new GMapTypeControl());
-    this.map.setCenter(new GLatLng(this.lat, this.lng), this.zoom);
+    var pos = this.clicked.getPosition();
+    document.getElementById(name + 'Lat').value = pos.lat();
+    document.getElementById(name + 'Lng').value = pos.lng();
     
-    for (arrKey in this.markers) {
-      if (typeof(this.markers[arrKey]) == 'object') {
-          this.renderMarker(this.markers[arrKey]['marker'], this.markers[arrKey]['msg']);
-      }
+    if (this.markers[name]) {
+      this.markers[name].setMap();
     }
-    
-    var t = this;
-    if (this.centerDisplay != '') {
-      t.syncro(t.centerDisplay, t.map.getCenter());
-      GEvent.addListener(this.map, 'moveend', function(){
-        t.syncro(t.centerDisplay, t.map.getCenter());
-      });
-    }
-    if (this.zoomDisplay != '') {
-      document.getElementById(t.zoomDisplay).value = t.map.getZoom();
-      GEvent.addListener(this.map, 'zoomend', function(oldLevel, newLevel) {
-        document.getElementById(t.zoomDisplay).value = newLevel;
-      });
-    }
-    if (this.clickDisplay != '') {
-      GEvent.addListener(this.map, 'click', function(overlay, point) {
-        t.syncro(t.clickDisplay, point);
-      });
-    }
-
-    if (this.clickAddMarker) {
-      google.maps.Event.addListener(this.map, "click", function(overlay, point){
-        if(overlay==null){
-          if (this.lastAddMarker) {
-            //last added marker delete
-            //t.map.removeOverlay(this.lastAddMarker);
-          }
-          var m = new GMarker(point);
-          t.map.addOverlay(m);
-          this.lastAddMarker = m;
-        }else{
-          //delete marker
-          //t.map.removeOverlay(overlay);
-        }
-      });
-    }
-  }
-  
-  this.renderMarker = function(marker, msg) {
-    google.maps.Event.addListener(marker, "click", function() {
-      marker.openInfoWindowHtml(msg);
+    this.markers[name] = new google.maps.Marker({
+      title: document.getElementById(name + 'Name').value,
+      position: new google.maps.LatLng(pos.lat(), pos.lng()),
+      map: this.map
     });
-    this.map.addOverlay(marker);
+    var infowindow = new google.maps.InfoWindow({
+      content: document.getElementById(name + 'Name').value,
+      disableAutoPan: false
+    });
+    var _this = this;
+    google.maps.event.addListener(this.markers[name], 'click', function() {
+      infowindow.open(this.map, _this.markers[name]);
+    });
   }
   
-  this.syncro = function(id, point) {
-    if (point == 'undefined' || !point) {
-      return false;
+  this.unsetMarker = function(name) {
+    document.getElementById(name + 'Name').value = '';
+    document.getElementById(name + 'Lat').value  = '';
+    document.getElementById(name + 'Lng').value  = '';
+    if (this.markers[name]) {
+      this.markers[name].setMap();
     }
-    document.getElementById(id + 'Lat').value = point.lat();
-    document.getElementById(id + 'Lng').value = point.lng();
-  }
-  
-  this.viewMarker = function(key) {
-    if (key == 'undefined' || !key) {
-      return false;
-    }
-    var dispMarker = this.markers[key];
-    if (dispMarker == 'undefined' || !dispMarker) {
-      return false;
-    }
-    this.renderMarker(dispMarker['marker'], dispMarker['msg']);
-  }
-  
-  this.removeMarker = function(key) {
-    if (key == 'undefined' || !key) {
-      return false;
-    }
-    var rmMarker = this.markers[key];
-    if (rmMarker == 'undefined' || !rmMarker) {
-      return false;
-    } else {
-      this.map.removeOverlay(this.markers[key]['marker']);
-      delete this.markers[key];
-    }
-  }
-  
-  this.setCenter = function(point) {
-    if (point == 'undefined' || !point) {
-      return false;
-    }
-    this.map.setCenter(point);
-  }
-  
-}
-
-function ArticleMap_init(apiKey) {
-  var src = 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=' + apiKey;
-  document.write('<' + 'script type="text/javascript" src="' + src + '"' +'><' + '/script>');
-}
-ArticleMap.init = ArticleMap_init;
-
-function ArticleMap_addEvent(element, listener, func){
-  try {
-    element.addEventListener(listener, func, false);
-  } 
-  catch (e) {
-    element.attachEvent('on' + listener, func);
   }
 }
-ArticleMap.addEvent = ArticleMap_addEvent;

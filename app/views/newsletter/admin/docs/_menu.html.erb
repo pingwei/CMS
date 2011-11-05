@@ -9,7 +9,7 @@
   <%= action_menu :destroy   if safe{@item.editable? && @item.delivery_state == 'yet'} %>
 
   <% if params[:action] == 'show' %>
-  <%= link_to('テスト配信', {:do => :test}, :confirm => 'テスト配信してよろしいですか？') if @item.editable? %>
+  <%= link_to('テスト配信開始', {:do => :test}, :confirm => 'テスト配信してよろしいですか？') if @item.editable? %>
   <% if @item.enabled? && @item.deliverable? %>
   <span class="separator"></span>
   <%= link_to('配信', {:action => :deliver})  %>

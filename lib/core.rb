@@ -4,7 +4,6 @@ class Core
   cattr_reader   :now
   cattr_reader   :config
   cattr_reader   :title
-  cattr_reader   :map_key
   cattr_reader   :env
   cattr_reader   :params
   cattr_reader   :mode
@@ -25,7 +24,6 @@ class Core
     @@now          = Time.now.to_s(:db)
     @@config       = Util::Config.load(:core)
     @@title        = @@config['title'] || 'Joruri'
-    @@map_key      = @@config['map_key']
     @@env          = env
     @@params       = parse_query_string(env)
     @@mode         = nil

@@ -5,21 +5,49 @@ markers = map ? map.markers : []
 return render(:text => "") unless map
 return render(:text => "") if map.map_lat.blank? || map.map_lng.blank?
 
-map_key = Core.mode =~ /^(public|preview)$/ ? Page.site.map_key : Core.map_key
-map_key = Core.map_key if Core.request_uri =~ /^\/_preview\//
+%><script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+//<![CDATA[
 
-%><div class="maps">
-  <h2>地図</h2>
-  <script type="text/javascript" src="/_common/modules/cms/js/map.js"></script>
-  <script type="text/javascript">ArticleMap.init('<%= map_key %>');</script>
-  <script type="text/javascript">
-  //<![CDATA[
-  var map = new ArticleMap('map1', <%=h map.map_lat %>, <%=h map.map_lng %>, <%=h map.map_zoom %>);
-  <% markers.each do |marker| %>
-  map.addMarker(<%= marker.js_params %>);
+function addEvent(element, listener, func) {
+  try {
+    element.addEventListener(listener, func, false);
+  } catch (e) {
+    element.attachEvent('on' + listener, func);
+  }
+}
+
+addEvent(window, 'load', function() {
+  var mapOptions = {
+    center: new google.maps.LatLng(<%=h map.map_lat %>, <%=h map.map_lng %>),
+    zoom: <%=h map.map_zoom %>,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    scaleControl: true,
+    scrollwheel: false
+  };
+  var map = new google.maps.Map(document.getElementById("map1"), mapOptions);
+  
+  <% markers.each_with_index do |marker, idx| %>
+    var marker<%= idx %> = new google.maps.Marker({
+      //title: '<%= marker.name.gsub(/'/, "\\\\'") %>'
+      position: new google.maps.LatLng(<%= marker.lat %>, <%= marker.lng %>),
+      map: map
+    });
+    var infowindow<%= idx %> = new google.maps.InfoWindow({
+      content: '<%= marker.name.gsub(/'/, "\\\\'").gsub(/\r\n|\r|\n/, "<br />") %>',
+      disableAutoPan: false
+    });
+    google.maps.event.addListener(marker<%= idx %>, 'click', function() {
+      infowindow<%= idx %>.open(map, marker<%= idx %>);
+    });
   <% end %>
-  //]]>
-  </script>
+});
+
+//]]>
+</script>
+
+<div class="maps">
+  <h2>地図</h2>
   <%= "<h3>#{map.title}</h3>" if !map.title.blank? %>
-  <div id="map1" class="map" style="width: 600px; height: 300px"></div>
+  <div id="map1" class="map" style="width: 100%; height: 400px"></div>
 </div>

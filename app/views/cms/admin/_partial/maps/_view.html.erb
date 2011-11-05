@@ -5,24 +5,51 @@ markers = map ? map.markers : []
 return render(:text => "") unless map
 return render(:text => "") if map.map_lat.blank? || map.map_lng.blank?
 
-map_key = (Core.mode.to_s == 'publish') ?  Page.site.map_key : Core.map_key
-
 %><br />
-
-<p class="form">地図</p>
-
-<script type="text/javascript" src="/_common/modules/cms/js/map.js"></script>
-<script type="text/javascript">ArticleMap.init('<%= map_key %>');</script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 //<![CDATA[
-var map = new ArticleMap('map1', <%=h map.map_lat %>, <%=h map.map_lng %>, <%=h map.map_zoom %>);
-<% markers.each do |marker| %>
-map.addMarker(<%= marker.js_params %>);
-<% end %>
+
+function addEvent(element, listener, func) {
+  try {
+    element.addEventListener(listener, func, false);
+  } catch (e) {
+    element.attachEvent('on' + listener, func);
+  }
+}
+
+addEvent(window, 'load', function() {
+  var mapOptions = {
+    center: new google.maps.LatLng(<%=h map.map_lat %>, <%=h map.map_lng %>),
+    zoom: <%=h map.map_zoom %>,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    scaleControl: true,
+    scrollwheel: false
+  };
+  var map = new google.maps.Map(document.getElementById("map1"), mapOptions);
+  
+  <% markers.each_with_index do |marker, idx| %>
+    var marker<%= idx %> = new google.maps.Marker({
+      //title: '<%= marker.name.gsub(/'/, "\\\\'") %>'
+      position: new google.maps.LatLng(<%= marker.lat %>, <%= marker.lng %>),
+      map: map
+    });
+    var infowindow<%= idx %> = new google.maps.InfoWindow({
+      content: '<%= marker.name.gsub(/'/, "\\\\'").gsub(/\r\n|\r|\n/, "<br />") %>',
+      disableAutoPan: false
+    });
+    google.maps.event.addListener(marker<%= idx %>, 'click', function() {
+      infowindow<%= idx %>.open(map, marker<%= idx %>);
+    });
+  <% end %>
+});
+
 //]]>
 </script>
 
+<p class="form">地図</p>
+
 <div style="padding: 0px 10px;">
   <%= "#{h(map.title)}<br />" if !map.title.blank? %>
-  <div id="map1" style="width: 600px; height:300px"></div>
+  <div id="map1" style="width: 100%; height: 400px"></div>
 </div>

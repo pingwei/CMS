@@ -33,7 +33,7 @@ class ActionView::Helpers::FormBuilder
     value  = nil
     script = "value = arr"
     suf.scan(/\[(.*?)\]/).each do |m|
-      script += (post == nil && m[0] =~ /^[0-9]$/ ? "[#{m[0]}]" : "['#{m[0]}']")
+      script += (post == nil && m[0] =~ /^[0-9]+$/ ? "[#{m[0]}]" : "['#{m[0]}']")
     end
     eval("#{script} rescue nil")
     value.force_encoding(Encoding::UTF_8) if value.respond_to?(:force_encoding)

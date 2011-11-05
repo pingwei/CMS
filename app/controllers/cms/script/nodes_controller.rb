@@ -70,9 +70,12 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
         if !item.publish(render_public_as_string(uri, :site => item.site))
           raise item.errors.full_messages
         end
-        if item.published? || !::File.exist?("#{path}.r")
-          item.publish_page(render_public_as_string("#{uri}.r", :site => item.site),
-            :path => "#{path}.r", :dependent => :ruby)
+        
+        ruby_uri  = (uri =~ /\?/) ? uri.gsub(/(.*\.html)\?/, '\\1.r?') : "#{uri}.r"
+        ruby_path = "#{path}.r"
+        if item.published? || !::File.exist?(ruby_uri)
+          item.publish_page(render_public_as_string(ruby_uri, :site => item.site),
+            :path => ruby_path, :dependent => :ruby)
         end
         
         puts "OK: Published"

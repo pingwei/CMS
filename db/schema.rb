@@ -418,7 +418,6 @@ ActiveRecord::Schema.define(:version => 20110803122623) do
     t.string   "mobile_full_uri"
     t.integer  "node_id"
     t.text     "related_site"
-    t.string   "map_key"
   end
 
   create_table "cms_talk_tasks", :force => true do |t|

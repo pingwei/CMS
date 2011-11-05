@@ -48,17 +48,19 @@ module Sys::Model::Base::File
     
     @_file_data = file.read
     
-    begin
-      require 'RMagick'
-      image = Magick::Image.from_blob(@_file_data).shift
-      if image.format =~ /(GIF|JPEG|PNG)/
-        self.image_is = 1
-        self.image_width  = image.columns
-        self.image_height = image.rows
+    if name =~ /\.(bmp|gif|jpg|jpeg|png)$/i
+      begin
+        require 'RMagick'
+        image = Magick::Image.from_blob(@_file_data).shift
+        if image.format =~ /(GIF|JPEG|PNG)/
+          self.image_is = 1
+          self.image_width  = image.columns
+          self.image_height = image.rows
+        end
+      rescue LoadError
+      rescue Magick::ImageMagickError
+      rescue NoMethodError
       end
-    rescue LoadError
-    rescue Magick::ImageMagickError
-    rescue NoMethodError
     end
   end
   

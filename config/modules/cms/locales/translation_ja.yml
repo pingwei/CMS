@@ -15,7 +15,6 @@ ja:
         full_uri: "サイトURL"
         mobile_full_uri: "携帯URL"
         related_site: "関連サイト"
-        map_key: "地図APIキー"
 
       cms/site_setting:
         

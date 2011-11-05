@@ -98,10 +98,10 @@ private
       html = "<html>\n<head></head>\n<body>\n<p>#{message}</p>\n</body>\n</html>\n"
     end
     
-    return respond_to do |format|
-      format.html { render :status => status, :inline => html }
-      format.xml  { render :status => status, :xml => "<errors><error>#{message}</error></errors>" }
+    if request.format.to_s =~ /xml/i
+      render :status => status, :xml => "<errors><error>#{message}</error></errors>"
     end
+    render :status => status, :inline => html
   end
   
 #  def rescue_exception(exception)

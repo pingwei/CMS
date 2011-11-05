@@ -40,7 +40,8 @@ class Cms::Admin::Node::PagesController < Cms::Admin::Node::BaseController
   end
   
   def publish_ruby(item)
-    uri  = "#{item.public_uri}.r"
+    uri  = item.public_uri
+    uri  = (uri =~ /\?/) ? uri.gsub(/(.*\.html)\?/, '\\1.r?') : "#{uri}.r"
     path = "#{item.public_path}.r"
     item.publish_page(render_public_as_string(uri, :site => item.site), :path => path, :dependent => :ruby)
   end

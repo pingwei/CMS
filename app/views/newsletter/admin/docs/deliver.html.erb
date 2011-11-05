@@ -42,7 +42,6 @@ function requestDelivery(){
 }
 
 function successHandler(request) {
-  /* 3 minites later */
   setTimeout("requestDelivery()", 3000);
   return true;
 }

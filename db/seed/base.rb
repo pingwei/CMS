@@ -26,7 +26,6 @@ end
 
 core_uri   = Util::Config.load :core, :uri
 core_title = Util::Config.load :core, :title
-map_key    = Util::Config.load :core, :map_key
 
 ## ---------------------------------------------------------
 ## sys
@@ -74,8 +73,7 @@ site = Cms::Site.create({
   :state    => 'public',
   :name     => core_title,
   :full_uri => core_uri,
-  :node_id  => 1,
-  :map_key  => map_key
+  :node_id  => 1
 })
 
 Cms::Concept.create({
