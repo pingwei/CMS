@@ -8,8 +8,8 @@ class Cms::Content < ActiveRecord::Base
   include Cms::Model::Rel::Concept
   include Cms::Model::Auth::Concept
 
-  has_many   :settings, :foreign_key => :content_id,   :class_name => 'Cms::ContentSetting',
-    :order => :sort_no
+  has_many   :settings, :foreign_key => :content_id, :class_name => 'Cms::ContentSetting',
+    :order => :sort_no, :dependent => :destroy
     
   attr_accessor :in_settings
   

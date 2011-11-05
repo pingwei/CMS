@@ -12,6 +12,6 @@ return if !item.inquiry || !item.inquiry.visible?
    %><div class="tel">電話番号： <%= tel_to item.inquiry.tel %></div><% end %>
   <% if !item.inquiry.fax.blank?
    %><div class="fax">ファクシミリ： <%=h item.inquiry.fax %></div><% end %>
-  <% if safe{item.inquiry.email} && !item.inquiry.email.blank?
+  <% if item.inquiry_email_setting != "hidden" && safe{item.inquiry.email} && !item.inquiry.email.blank?
    %><div class="email">メールアドレス： <%= email_to item.inquiry.email %></div><% end %>
 </div>

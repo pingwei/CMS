@@ -35,8 +35,8 @@ ActionController::Routing::Routes.draw do |map|
     ns.resources :content_base,
       :controller => "admin/content/base",
       :path_prefix => "/_admin/#{mod}"
-    ns.resources :configs,
-      :controller => "admin/configs",
+    ns.resources :content_settings,
+      :controller => "admin/content/settings",
       :path_prefix => "/_admin/#{mod}/:content"
     
     ## node

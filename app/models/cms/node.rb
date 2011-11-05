@@ -21,6 +21,7 @@ class Cms::Node < ActiveRecord::Base
     :order => :name, :dependent => :destroy
   
   validates_presence_of :parent_id, :state, :model, :name, :title
+  validates_uniqueness_of :name, :scope => :parent_id
   
   after_destroy :remove_file
   
@@ -155,20 +156,20 @@ class Cms::Node < ActiveRecord::Base
   def candidate_parents
     args1  = %Q( :conditions => ["id = ?", Core.site.root_node], )
     args1 += %Q( :order => :name)
+    args2  = %Q( :conditions => ["id != ? AND parent_id = ? AND directory = 1", id, p.id], )
+    args2  = %Q( :conditions => ["parent_id = ? AND directory = 1", p.id], ) if new_record?
+    args2 += %Q( :order => :name)
+    make_candidates(args1, args2)
+  end
+  
+  def candidate_routes
+    args1  = %Q( :conditions => ["id = ?", Core.site.root_node], )
+    args1 += %Q( :order => :name)
     args2  = %Q( :conditions => ["id != ? AND parent_id = ?", id, p.id], )
     args2  = %Q( :conditions => ["parent_id = ?", p.id], ) if new_record?
     args2 += %Q( :order => :name)
     make_candidates(args1, args2)
   end
-  
-#  def candidate_routes
-#    args1  = %Q( :conditions => ["id = ?", Core.site.root_node], )
-#    args1 += %Q( :order => :name)
-#    args2  = %Q( :conditions => ["id != ? AND route_id = ?", id, p.id], )
-#    args2  = %Q( :conditions => ["route_id = ?", p.id], ) if new_record?
-#    args2 += %Q( :order => :name)
-#    make_candidates(args1, args2)
-#  end
   
 protected
   def remove_file

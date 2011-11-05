@@ -80,20 +80,23 @@ module Cms::Model::Base::Page::Publisher
     pub  = publishers.find(:first, :conditions => cond)
     
     return true if mobile_page?
-    if hash != nil && pub != nil
-      return true if hash == pub.content_hash && ::File.exist?(path)
+    if hash != nil && pub != nil && hash == pub.content_hash && ::File.exist?(path)
+      FileUtils.touch([path])
+      return true
     end
-    return true if ::File.exist?(path) && ::File.new(path).read == content
-    
-    Util::File.put(path, :data => content, :mkdir => true)
-    @published = true
+    if ::File.exist?(path) && ::File.new(path).read == content
+      FileUtils.touch([path])
+    else
+      Util::File.put(path, :data => content, :mkdir => true)
+      @published = true
+    end
     
     pub ||= Sys::Publisher.new
     pub.unid         = unid
     pub.dependent    = options[:dependent] ? options[:dependent].to_s : nil
     pub.path         = path
     pub.content_hash = hash
-    pub.save
+    pub.save if pub.changed?
     return true
   end
   

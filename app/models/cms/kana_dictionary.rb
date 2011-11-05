@@ -10,6 +10,23 @@ class Cms::KanaDictionary < ActiveRecord::Base
   
   before_save :convert_to_dic
   
+  def self.dic_mtime(type)
+    dic = nil
+    if type == :ruby
+      dic = "ipadic"
+    elsif type == :talk
+      dic = "unidic"
+    end
+    if dic
+      pkey = "kana_#{dic}_mtime"
+      file = "#{Rails.root}/ext/morph/#{dic}/cmsdic.da"
+      return Core.config[pkey] if Core.config[pkey]
+      return nil unless ::File.exist?(file)
+      return Core.config[pkey] = ::File.stat(file).mtime #TODO
+    end
+    return nil
+  end
+  
   def search_category(str, type)
     unless @sh
       require 'shell'
@@ -80,7 +97,7 @@ class Cms::KanaDictionary < ActiveRecord::Base
   def self.make_dic_file
     dic_data = {:ipadic => '', :unidic => ''}
     
-    self.find(:all).each do |item|
+    self.find(:all, :order => "id").each do |item|
       dic_data[:ipadic] += item.ipadic_body.gsub(/\r\n/, "\n") + "\n"
       dic_data[:unidic] += item.unidic_body.gsub(/\r\n/, "\n") + "\n"
     end

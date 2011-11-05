@@ -9,13 +9,4 @@ options  = contents.collect{|c| [c.name, c.id]}
   <%= content_base_form f, :container => :tr %>
 </table>
 
-<br /><p class="form">詳細設定</p>
-
-<table class="show">
-  <tr>
-    <th><%= @item.locale :doc_content_id %></th>
-    <td><%= f.array_select "in_settings[doc_content_id]", options, :include_blank => true %></td>
-  </tr>
-</table>
-
 <%= creator_form f %>

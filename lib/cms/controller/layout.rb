@@ -3,12 +3,13 @@ module Cms::Controller::Layout
   @no_cache    = nil
   
   def render_public_as_string(path, options = {})
-    Core.publish = true
+    Core.publish = true unless options[:preview]
     mode = Core.set_mode('preview')
     
     Page.initialize
     Page.site   = options[:site] || Core.site
     Page.uri    = path
+    Page.mobile = options[:mobile]
     
     begin
       routes = ActionController::Routing::Routes
@@ -101,7 +102,7 @@ module Cms::Controller::Layout
     Cms::Lib::Layout.find_data_files(body, concepts).each do |name, item|
       data = ''
       if item.image_file?
-        data = '<img src="' + item.public_uri + '" alt="' + item.title + '" />'
+        data = '<img src="' + item.public_uri + '" alt="' + item.title + '" title="' + item.title + '" />'
       else
         data = '<a href="' + item.public_uri + '" class="' + item.css_class + '" target="_blank">' + item.united_name + '</a>'
       end

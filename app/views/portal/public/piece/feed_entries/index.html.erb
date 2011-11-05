@@ -1,6 +1,6 @@
 <h2>新着情報</h2>
 <ul><% @entries.each do |entry| %>
-  <li><%=link_to h(entry.title), entry.public_uri, :target => '_blank' %><%= "（#{safe{entry.entry_updated.strftime('%Y年%_m月%_d日')}}　#{safe{entry.source_title}}）" %>
+  <li><%=link_to h(entry.title), entry.public_uri, :target => entry.link_target %><%= "（#{safe{entry.entry_updated.strftime('%Y年%_m月%_d日')}}　#{safe{entry.source_title}}）" %>
   </li><% end %>
 </ul>
 

@@ -38,7 +38,7 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   Dir::entries("#{Rails.root}/config/modules").each do |mod|
-    next if mod =~ /^\.+$/
+    next if mod =~ /^\./
     file = "#{Rails.root}/config/modules/#{mod}/locales/translation_ja.yml"
     config.i18n.load_path << file
   end

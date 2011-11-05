@@ -5,7 +5,7 @@
 <table class="calendar">
   <% @items.each do |item| %><tr>
     <td class="<%= item[:date_class] %>"><%= item[:anchor] %><%= item[:date] %></td>
-    <td class="title"><%= link_to h(item[:entry].title), item[:entry].public_uri, :target => '_blank' %><span class="<%= item[:source_class] %>"><%= "（#{h(item[:source_title])}）" if item[:source_title] %></span></td>
+    <td class="title"><%= link_to h(item[:entry].title), item[:entry].public_uri, :target => item[:entry].link_target %><span class="<%= item[:source_class] %>"><%= "（#{h(item[:source_title])}）" if item[:source_title] %></span></td>
   </tr><% end %>
 </table>
 

@@ -35,7 +35,7 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
       end
       
       ## modules' page
-      if item.model != 'Cms::Directory' #&& item.model == 'Article::Unit'
+      if item.model != 'Cms::Directory'
         begin
           publish_page(item, :uri => item.public_uri, :site => item.site, :path => item.public_path)
           model = item.model.underscore.pluralize

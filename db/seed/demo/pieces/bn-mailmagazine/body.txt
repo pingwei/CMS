@@ -1,0 +1,5 @@
+<div id="bnMailmagazine" class="piece">
+<div class="pieceContainer">
+<div class="pieceBody"><a href="/mailmagazine/"><img src="/_common/themes/joruri/top/images/bn-mailmaga.gif" alt="ジョールリ市メールマガジン登録はこちら" title="ジョールリ市メールマガジン登録はこちら" /></a></div>
+</div>
+</div>

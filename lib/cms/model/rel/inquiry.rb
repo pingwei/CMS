@@ -21,8 +21,6 @@ module Cms::Model::Rel::Inquiry
   end
 
   def in_inquiry=(values)
-    #@inquiry = values
-    #@inquiry.each {|k,v| @inquiry[k.to_s] = nil if v.blank? }
     @inquiry = {}
     values.each {|k,v| @inquiry[k.to_s] = v if !v.blank? }
     write_attribute(:in_inquiry, @inquiry)
@@ -51,12 +49,15 @@ module Cms::Model::Rel::Inquiry
       if inquiry_presence?(:tel) && @inquiry['tel'].blank?
         errors.add "連絡先（電話番号）", :empty
       end
-      if inquiry_presence?(:email) && @inquiry['email'].blank?
-        errors.add "連絡先（メールアドレス）", :empty
-      end
       errors.add "連絡先（電話番号）", :onebyte_characters if @inquiry['tel'].to_s !~/^[ -~｡-ﾟ]*$/
       errors.add "連絡先（ファクシミリ）", :onebyte_characters if @inquiry['fax'].to_s !~/^[ -~｡-ﾟ]*$/
-      errors.add "連絡先（メールアドレス）", :onebyte_characters if @inquiry['email'].to_s !~/^[ -~｡-ﾟ]*$/
+      
+      if inquiry_email_setting != "hidden"
+        if inquiry_presence?(:email) && @inquiry['email'].blank?
+          errors.add "連絡先（メールアドレス）", :empty
+        end
+        errors.add "連絡先（メールアドレス）", :onebyte_characters if @inquiry['email'].to_s !~/^[ -~｡-ﾟ]*$/
+      end
     end
   end
 
@@ -69,12 +70,14 @@ module Cms::Model::Rel::Inquiry
     @inquiry = nil
     
     _inq = inquiry || Cms::Inquiry.new
-    _inq.state    = values['state']    #unless values['state'].nil?
-    _inq.group_id = values['group_id'] #unless values['group_id'].nil?
-    _inq.charge   = values['charge']   #unless values['charge'].nil?
-    _inq.tel      = values['tel']      #unless values['tel'].nil?
-    _inq.fax      = values['fax']      #unless values['fax'].nil?
-    _inq.email    = values['email']    #unless values['email'].nil?
+    _inq.state    = values['state']
+    _inq.group_id = values['group_id']
+    _inq.charge   = values['charge']
+    _inq.tel      = values['tel']
+    _inq.fax      = values['fax']
+    if inquiry_email_setting != "hidden"
+      _inq.email    = values['email']
+    end
 
     if _inq.new_record?
       _inq.id = unid
@@ -84,5 +87,9 @@ module Cms::Model::Rel::Inquiry
     end
     inquiry(true)
     return true
+  end
+  
+  def inquiry_email_setting
+    "visible"
   end
 end

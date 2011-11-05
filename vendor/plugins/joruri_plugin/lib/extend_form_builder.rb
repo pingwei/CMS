@@ -26,6 +26,8 @@ class ActionView::Helpers::FormBuilder
     else
       return nil unless var = @template.instance_variable_get("@#{@object_name}").send(pre)
       if var.class == Hash
+        #script = "var = var" + suf.gsub("[", "['").gsub("]", "']").gsub(/\['([0-9]+)'\]$/, '[\\1]')
+        #eval("#{script} rescue nil")
         var = var[idx]
       else
         var = var[idx.to_i]

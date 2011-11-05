@@ -426,6 +426,81 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "enquete_forms", ["content_id", "sort_no"], :name => "content_id"
 
+  create_table "newsletter_delivery_logs", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "content_id"
+    t.string   "state",             :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "doc_id"
+    t.string   "letter_type",       :limit => 15
+    t.text     "title"
+    t.text     "body",              :limit => 2147483647
+    t.string   "delivery_state",    :limit => 15
+    t.integer  "delivered_count"
+    t.integer  "deliverable_count"
+    t.integer  "last_member_id"
+  end
+
+  add_index "newsletter_delivery_logs", ["content_id", "doc_id", "letter_type"], :name => "content_id"
+
+  create_table "newsletter_docs", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "content_id"
+    t.string   "state",          :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "delivery_state", :limit => 15
+    t.datetime "delivered_at"
+    t.string   "name"
+    t.text     "title"
+    t.text     "body",           :limit => 2147483647
+    t.text     "mobile_title"
+    t.text     "mobile_body",    :limit => 2147483647
+  end
+
+  add_index "newsletter_docs", ["content_id", "updated_at"], :name => "content_id"
+
+  create_table "newsletter_members", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "content_id"
+    t.string   "state",            :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "letter_type",      :limit => 15
+    t.text     "email"
+    t.integer  "delivered_doc_id"
+    t.datetime "delivered_at"
+  end
+
+  add_index "newsletter_members", ["content_id", "letter_type", "created_at"], :name => "content_id"
+
+  create_table "newsletter_requests", :force => true do |t|
+    t.integer  "content_id"
+    t.string   "state",             :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "request_state",     :limit => 15
+    t.string   "request_type",      :limit => 15
+    t.string   "letter_type",       :limit => 15
+    t.text     "subscribe_email"
+    t.text     "unsubscribe_email"
+    t.text     "token"
+  end
+
+  add_index "newsletter_requests", ["content_id", "request_state", "request_type"], :name => "content_id"
+
+  create_table "newsletter_tests", :force => true do |t|
+    t.integer  "unid"
+    t.integer  "content_id"
+    t.string   "state",       :limit => 15
+    t.string   "agent_state", :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "name"
+    t.text     "email"
+  end
+
   create_table "portal_categories", :force => true do |t|
     t.integer  "unid"
     t.integer  "parent_id",                              :null => false

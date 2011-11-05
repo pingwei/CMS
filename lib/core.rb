@@ -103,7 +103,7 @@ class Core
     @@request_uri = path
     
     self.recognize_mode
-    self.recognize_site if @mode != 'script'
+    self.recognize_site
     
     @@internal_uri = '/404.html' unless @@internal_uri
   end
@@ -189,7 +189,7 @@ private
       @@site         = Cms::Site.find(site_id)
       Page.site      = @@site
       Page.mobile    = site_modile
-      @@internal_uri = search_node @@request_uri.gsub(/^\/_[a-z]+\/[0-9]*(.*)/, '\1')
+      @@internal_uri = @@request_uri
     when 'public'
       @@site         = Cms::Site.find_by_script_uri(@@script_uri)
       Page.site      = @@site
@@ -202,10 +202,12 @@ private
       Page.site      = @@site
       @@internal_uri = @@request_uri
     when 'script'
-      @@site         = nil
-      Page.site      = @@site
-      @@internal_uri = @@request_uri
-      @@current_node = nil
+      if @@env.key?('SERVER_PROTOCOL') == false
+        @@site         = nil
+        Page.site      = @@site
+        @@internal_uri = @@request_uri
+        @@current_node = nil
+      end
     end
   end
   

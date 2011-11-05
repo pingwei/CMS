@@ -318,4 +318,14 @@ class Article::Doc < ActiveRecord::Base
     close_page
     return true
   end
+  
+  def default_map_position
+    v = content.setting_value(:default_map_position)
+    v.blank? ? super : v
+  end
+  
+  def inquiry_email_setting
+    v = content.setting_value(:inquiry_email_display)
+    v.blank? ? super : v
+  end
 end

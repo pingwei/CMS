@@ -1,0 +1,19 @@
+<p class="form">基本情報</p>
+
+<table class="show">
+  <tr>
+    <th><%= @item.locale(:state) %></th>
+    <td><%=h safe{@item.status.name} %></td>
+  </tr><tr>
+    <th><%= @item.locale(:agent_state) %></th>
+    <td><%=h safe{@item.agent_status.name} %></td>
+  </tr><tr>
+    <th><%= @item.locale(:email) %></th>
+    <td><%=h @item.email %></td>
+  </tr><tr>
+    <th><%= @item.locale(:name) %></th>
+    <td><%=h @item.name %></td>
+  </tr>
+</table>
+
+<%= creator_view @item %>

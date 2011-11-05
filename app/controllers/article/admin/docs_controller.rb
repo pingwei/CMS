@@ -11,9 +11,7 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
     default_url_options :content => @content
     return redirect_to(request.env['PATH_INFO']) if params[:reset]
     
-    if rcg = Article::Model::Content::Config.find(:recognition_type, @content)
-      @recognition_type = rcg.value
-    end
+    @recognition_type = @content.setting_value(:recognition_type)
   end
 
   def index
@@ -38,6 +36,7 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
 
   def new
     @item = Article::Doc.new({
+      :content_id   => @content.id,
       :state        => 'recognize',
       :notice_state => 'hidden',
       :recent_state => 'visible',
@@ -45,6 +44,7 @@ class Article::Admin::DocsController < Cms::Controller::Admin::Base
       :event_state  => 'hidden'
     })
     @item.in_inquiry = @item.default_inquiry
+    @item.in_recognizer_ids = @content.setting_value(:default_recognizers)
     
     ## add tmp_id
     unless params[:_tmp]

@@ -3,14 +3,18 @@ class Portal::FeedEntry < Cms::FeedEntry
   belongs_to :content,        :foreign_key => :content_id,        :class_name => 'Portal::Content::FeedEntry'
 
   def source_title
-    @source_title if @source_title
+    return @source_title if @source_title
     if feed
       @source_title = feed.title
     else
-      @source_title = Core.site.name
+      @source_title = nil #Core.site.name
     end
   end
-
+  
+  def link_target
+    feed ? "_blank" : nil
+  end
+  
   def public_uri
     if name
       return nil unless node = content.doc_node

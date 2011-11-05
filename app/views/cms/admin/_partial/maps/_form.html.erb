@@ -8,9 +8,10 @@ end
 
 _map  = item.find_map_by_name('1')
 
-map_lat  = _map && _map.map_lat  != '' ? _map.map_lat : 34.074598
-map_lng  = _map && _map.map_lng  != '' ? _map.map_lng : 134.551411
-map_zoom = _map && _map.map_zoom != '' ? _map.map_zoom : 15
+default_position = item.default_map_position.split(/[ ]*,[ ]*/)
+map_lat  = (_map && _map.map_lat  != '') ? _map.map_lat : default_position[0]
+map_lng  = (_map && _map.map_lng  != '') ? _map.map_lng : default_position[1]
+map_zoom = (_map && _map.map_zoom != '') ? _map.map_zoom : 15
 
 _input = Proc.new do |name, col, options|
   _name = f.object_name.to_s + "[_maps][#{name}][#{col}]"

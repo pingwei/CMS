@@ -20,8 +20,11 @@ return nil unless item.inquiry.visible?
   </tr><tr>
     <th>ファクシミリ</th>
     <td><%=h item.inquiry.fax %></td>
-  </tr><tr>
+  </tr>
+  <% if item.inquiry_email_setting != "hidden" %>
+  <tr>
     <th>メールアドレス</th>
     <td><%=h item.inquiry.email %></td>
   </tr>
+  <% end %>
 </table>

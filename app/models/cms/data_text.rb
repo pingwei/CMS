@@ -11,4 +11,5 @@ class Cms::DataText < ActiveRecord::Base
   belongs_to :concept, :foreign_key => :concept_id, :class_name => 'Cms::Concept'
   
   validates_presence_of :state, :name, :title, :body
+  validates_uniqueness_of :name, :scope => :concept_id
 end

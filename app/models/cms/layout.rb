@@ -11,6 +11,7 @@ class Cms::Layout < ActiveRecord::Base
   belongs_to :status,  :foreign_key => :state, :class_name => 'Sys::Base::Status'
   
   validates_presence_of :state, :name, :title
+  validates_uniqueness_of :name, :scope => :concept_id
   
   after_destroy :remove_css_files
   

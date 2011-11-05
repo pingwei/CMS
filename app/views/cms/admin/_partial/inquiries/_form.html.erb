@@ -37,9 +37,12 @@ group  = Sys::Group.find_by_id(item.in_inquiry['group_id']) || Core.user_group
   <th>ファクシミリ</th>
   <td><span <%= error?('連絡先（ファクシミリ）') %>>
     <%= f.array_text_field "in_inquiry[fax]", :class => 'number' %></span></td>
-</tr><tr>
+</tr>
+<% if item.inquiry_email_setting != "hidden" %>
+<tr>
   <th>メールアドレス <% if @item.inquiry_presence?(:email) %><span class="note">※</span><% end %></th>
   <td><span <%= error?('連絡先（メールアドレス）') %>>
     <%= f.array_text_field "in_inquiry[email]", :class => 'name' %></span></td>
 </tr>
+<% end %>
 </table>

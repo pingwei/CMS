@@ -23,6 +23,11 @@ ja:
         model: "コンテンツ種別"
         name: "コンテンツ名"
 
+      cms/content_setting:
+        content_id: "コンテンツ"
+        name: "設定名"
+        value: "設定値"
+
       cms/layout:
         concept_id: "コンセプト"
         state_no: "状態"

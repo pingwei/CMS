@@ -1,6 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   mod = "cms"
-
+  
+  map.cms_preview "/_preview/:site/*path",
+    :controller => "cms/admin/preview"
+    
   ## admin
   map.namespace(mod, :namespace => '') do |ns|
     ns.resources :tests,

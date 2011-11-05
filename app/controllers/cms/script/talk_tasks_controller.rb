@@ -2,7 +2,8 @@
 require 'digest/md5'
 class Cms::Script::TalkTasksController < Cms::Controller::Script::Publication
   def exec
-    Cms::TalkTask.find(:all, :order => "id").each do |task|
+    Cms::TalkTask.find(:all, :select => :id, :order => "id").each do |v|
+      task = Cms::TalkTask.find(v[:id])
       begin
         if ::File.exist?(task.path)
           rs = make_sound(task)
@@ -20,8 +21,8 @@ class Cms::Script::TalkTasksController < Cms::Controller::Script::Publication
   
   def make_sound(task)
     content = ::File.new(task.path).read
-    hash = Digest::MD5.new.update(content.to_s).to_s
-    return true if hash == task.content_hash && ::File.exist?("#{task.path}.mp3")
+    #hash = Digest::MD5.new.update(content.to_s).to_s
+    #return true if hash == task.content_hash && ::File.exist?("#{task.path}.mp3")
     
     gtalk = Cms::Lib::Navi::Gtalk.new
     gtalk.make(content)

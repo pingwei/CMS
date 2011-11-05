@@ -61,7 +61,8 @@
     </td>
     <td style="text-align: center;">
       <% if item.image_file? %>
-      <a href="#" id="link_image#{item.id}" onclick="mceInsertContent('<img src=\'<%= _path + item.escaped_name %>\' alt=\'<%= item.alt %>\'>'); return false;">貼付</a>
+      <a href="#" id="link_image#{item.id}"
+       onclick="mceInsertContent('<img src=\'<%= _path + item.escaped_name %>\' alt=\'<%= item.alt %>\' title=\'<%= item.alt %>\'>'); return false;">貼付</a>
       <% end %>
     </td>
     <td><%= h(item.name) %></td>

@@ -1,3 +1,81 @@
+1.1.2
+  CREATE TABLE newsletter_delivery_logs (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    content_id int(11) DEFAULT NULL,
+    state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    doc_id int(11) DEFAULT NULL,
+    letter_type varchar(15) DEFAULT NULL,
+    title text,
+    body longtext,
+    delivery_state varchar(15) DEFAULT NULL,
+    delivered_count int(11) DEFAULT NULL,
+    deliverable_count int(11) DEFAULT NULL,
+    last_member_id int(11) DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY content_id (content_id,doc_id,letter_type)
+  );
+  CREATE TABLE newsletter_docs (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    content_id int(11) DEFAULT NULL,
+    state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    delivery_state varchar(15) DEFAULT NULL,
+    delivered_at datetime DEFAULT NULL,
+    name varchar(255) DEFAULT NULL,
+    title text,
+    body longtext,
+    mobile_title text,
+    mobile_body longtext,
+    PRIMARY KEY (id),
+    KEY content_id (content_id,updated_at)
+  );
+  CREATE TABLE newsletter_members (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    content_id int(11) DEFAULT NULL,
+    state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    letter_type varchar(15) DEFAULT NULL,
+    email text,
+    delivered_doc_id int(11) DEFAULT NULL,
+    delivered_at datetime DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY content_id (content_id,letter_type,created_at)
+  );
+  CREATE TABLE newsletter_requests (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    content_id int(11) DEFAULT NULL,
+    state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    request_state varchar(15) DEFAULT NULL,
+    request_type varchar(15) DEFAULT NULL,
+    letter_type varchar(15) DEFAULT NULL,
+    subscribe_email text,
+    unsubscribe_email text,
+    token text,
+    PRIMARY KEY (id),
+    KEY content_id (content_id,request_state,request_type)
+  );
+  CREATE TABLE newsletter_tests (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    unid int(11) DEFAULT NULL,
+    content_id int(11) DEFAULT NULL,
+    state varchar(15) DEFAULT NULL,
+    agent_state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    name text,
+    email text,
+    PRIMARY KEY (id)
+  );
+
 1.1.1
   CREATE TABLE cms_piece_link_items (
     id int(11) NOT NULL AUTO_INCREMENT,

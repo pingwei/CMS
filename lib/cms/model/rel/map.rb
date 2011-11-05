@@ -8,6 +8,10 @@ module Cms::Model::Rel::Map
   
   attr_accessor :_maps
   
+  def default_map_position
+    "34.074598,134.551411" # tokushima
+  end
+  
   def find_map_by_name(name)
     return nil if maps.size == 0
     maps.each do |map|

@@ -16,8 +16,8 @@ var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
   <div class="content">
     <% @tabs.each do |tab| %>
     <ul class="<%=h tab[:name] %>" <%= 'style="display: none;"' unless tab[:current] %>>
-      <% tab[:docs].each do |doc| %><li><%= link_to h(doc.title), doc.public_uri, :target => '_blank' %>
-      <%= "（#{safe{doc.entry_updated.strftime('%Y年%_m月%_d日')}}　#{safe{doc.source_title}}）" %>
+      <% tab[:docs].each do |doc| %><li><%= link_to h(doc.title), doc.public_uri, :target => doc.link_target %>
+      <%= "（#{safe{doc.entry_updated.strftime('%Y年%_m月%_d日')}}" %><%= "　#{doc.source_title}" if doc.source_title %>）
       </li><% end %>
     </ul><% end %>
   </div>
