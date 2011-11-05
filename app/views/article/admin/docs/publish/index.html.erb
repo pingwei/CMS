@@ -1,4 +1,4 @@
-<%= render :file => "#{File.dirname(params[:controller])}/_search.html.erb" %>
+<%= render :file => "#{::File.dirname(params[:controller])}/_search.html.erb" %>
 
 <table class="index">
 
@@ -24,7 +24,8 @@
     <td style="text-align: center;"><%= safe{item.updated_at.strftime("%Y-%m-%d %H:%M")} %></td>
     <td style="text-align: center;"><%=h item.status.name %></td>
     <td style="text-align: center;">
-      <%= link_to '表示', item.preview_uri, :target => '_blank' if item.preview_uri%>
+      <%= link_to 'PC', item.preview_uri, :target => '_blank' if item.preview_uri %>
+      <%= link_to '携帯', item.preview_uri(:mobile => true), :target => '_blank' if item.preview_uri %>
     </td>
   </tr>
   <% end %>

@@ -67,8 +67,8 @@ module Cms::Lib::Layout
     
     items = {}
     names.uniq.each do |name|
-      dirname  = File.dirname(name)
-      basename = dirname == '.' ? name : File.basename(name)
+      dirname  = ::File.dirname(name)
+      basename = dirname == '.' ? name : ::File.basename(name)
       
       tab  = Cms::DataFile.table_name
       item = Cms::DataFile.new.public

@@ -11,7 +11,7 @@ class Util::Config
 private
   def self.read(filename)
     unless @@cache[filename]
-      config = File.join(RAILS_ROOT, 'config', filename + '.yml')
+      config = ::File.join(RAILS_ROOT, 'config', filename + '.yml')
       @@cache[filename] = YAML.load_file(config)[Rails.env]
     end
     return @@cache[filename]

@@ -94,7 +94,7 @@ class Cms::FeedEntry < ActiveRecord::Base
     conditions << entry.condition
     
     condition = Condition.new
-    conditions.each {|c| condition.or(c) }
+    conditions.each {|c| condition.or(c) if c.where }
     
     self.and condition if conditions.size > 0
     self

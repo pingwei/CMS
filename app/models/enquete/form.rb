@@ -41,7 +41,7 @@ class Enquete::Form < ActiveRecord::Base
       value = values[col.element_name]
       next if value.blank?
       
-      acol =Enquete::AnswerColumn.new({
+      acol = Enquete::AnswerColumn.new({
         :answer_id => ans.id,
         :form_id   => id,
         :column_id => col.id,
@@ -49,6 +49,6 @@ class Enquete::Form < ActiveRecord::Base
       })
       acol.save
     end
-    true
+    ans
   end
 end

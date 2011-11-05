@@ -17,7 +17,7 @@ group  = Sys::Group.find_by_id(item.in_inquiry['group_id']) || Core.user_group
 
 <table class="show">
 <tr>
-  <th>課 <span class="note">※</span></th>
+  <th>課 <% if @item.inquiry_presence?(:group_id) %><span class="note">※</span><% end %></th>
   <td><span <%= error?('連絡先（課）') %>>
     <% if Core.user.has_auth?(:manager) %>
     <%= f.select_with_tree "in_inquiry[group_id]", groups %>
@@ -30,7 +30,7 @@ group  = Sys::Group.find_by_id(item.in_inquiry['group_id']) || Core.user_group
   <td><span <%= error?('連絡先（室・担当）') %>>
     <%= f.array_text_field "in_inquiry[charge]", :class => 'name' %></span></td>
 </tr><tr>
-  <th>電話番号 <span class="note">※</span></th>
+  <th>電話番号 <% if @item.inquiry_presence?(:tel) %><span class="note">※</span><% end %></th>
   <td><span <%= error?('連絡先（電話番号）') %>>
     <%= f.array_text_field "in_inquiry[tel]", :class => 'number' %></span></td>
 </tr><tr>
@@ -38,7 +38,7 @@ group  = Sys::Group.find_by_id(item.in_inquiry['group_id']) || Core.user_group
   <td><span <%= error?('連絡先（ファクシミリ）') %>>
     <%= f.array_text_field "in_inquiry[fax]", :class => 'number' %></span></td>
 </tr><tr>
-  <th>メールアドレス <span class="note">※</span></th>
+  <th>メールアドレス <% if @item.inquiry_presence?(:email) %><span class="note">※</span><% end %></th>
   <td><span <%= error?('連絡先（メールアドレス）') %>>
     <%= f.array_text_field "in_inquiry[email]", :class => 'name' %></span></td>
 </tr>

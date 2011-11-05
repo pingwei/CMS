@@ -2,8 +2,8 @@
 class Sys::Controller::Admin::Base < ApplicationController
   include Sys::Controller::Admin::Auth
   helper Sys::FormHelper
-  rescue_from ActiveRecord::RecordNotFound, :with => :error_auth
   before_filter :pre_dispatch
+  rescue_from ActiveRecord::RecordNotFound, :with => :error_auth
   
   def initialize_application
     return false unless super
@@ -41,6 +41,6 @@ private
   end
   
   def error_auth
-    http_error 500, '権限がありません。'
+    http_error 403, "アクセス権限がありません。"
   end
 end

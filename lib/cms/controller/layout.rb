@@ -3,17 +3,12 @@ module Cms::Controller::Layout
   @no_cache    = nil
   
   def render_public_as_string(path, options = {})
+    Core.publish = true
     mode = Core.set_mode('preview')
     
     Page.initialize
     Page.site   = options[:site] || Core.site
     Page.uri    = path
-    
-    ## reset_mobile
-    if Page.mobile? || request.mobile?
-      Page.mobile = nil
-      def request.mobile; nil; end
-    end
     
     begin
       routes = ActionController::Routing::Routes

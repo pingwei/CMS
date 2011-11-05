@@ -33,7 +33,7 @@ class Cms::Admin::PiecesController < Cms::Controller::Admin::Base
     
     _create @item do
       respond_to do |format|
-        format.html { return redirect_to(@item.edit_admin_uri) }
+        format.html { return redirect_to(@item.admin_uri) }
       end
     end
   end

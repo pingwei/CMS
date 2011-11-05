@@ -8,7 +8,7 @@ class Cms::Public::TalkController < ApplicationController
   
   def down_mp3
     uri = Core.request_uri.gsub(/\.mp3$/, '').gsub(/\.r$/, '')
-    return http_error(404) if File.extname(uri) != '.html'
+    return http_error(404) if ::File.extname(uri) != '.html'
     
     uri = "#{request.env['SCRIPT_URI'].gsub(/^(.*?\/\/.*?)\/.*/, '\1')}#{uri}"
     res = Util::Http::Request.send(uri)

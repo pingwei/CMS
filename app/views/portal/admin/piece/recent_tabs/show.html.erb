@@ -4,25 +4,17 @@
   <%= piece_base_view @item, :container => :tr %>
 </table>
 
-<br />
-<p class="form">タブ設定</p>
+<br /><p class="form">タブ設定</p>
 
-<table class="index">
+<div class="actionMenu">
+  <%= link_to(:edit, portal_piece_recent_tab_tabs_path(@item.id)) if safe{@item.editable?} %>
+</div>
+
+<table class="show">
+  <% Portal::Piece::RecentTabXml.find(:all, @piece).each_with_index do |item, idx| %>
   <tr>
-    <th style="width: 200px;"><%= Portal::Piece::RecentTabXml.new(@piece).locale(:name) %></th>
-    <th style="width: 200px;"><%= Portal::Piece::RecentTabXml.new(@piece).locale(:title) %></th>
-    <th style="width: ;">条件</th>
-  </tr>
-
-  <% Portal::Piece::RecentTabXml.find(:all, @piece).each do |item| %>
-  <tr <%= cycle '', 'class="cycle"' %>>
-    <td><%=h item.name %></td>
+    <th>タブ <%=h idx + 1 %></th>
     <td><%=h item.title %></td>
-    <td>
-      <% if (items = item.category_items).size > 0 %>
-      グループ &gt; <%= items.collect{|c| c.title}.join('，') %><br />
-      <% end %>
-    </td>
   </tr>
   <% end %>
 </table>

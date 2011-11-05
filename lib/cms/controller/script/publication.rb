@@ -19,7 +19,7 @@ class Cms::Controller::Script::Publication < ApplicationController
     uri  = (params[:uri] =~ /\.html$/ ? "#{params[:uri]}.r" : "#{params[:uri]}index.html.r")
     path = (params[:path] =~ /\.html$/ ? "#{params[:path]}.r" : "#{params[:path]}index.html.r")
     dep  = params[:dependent] ? "#{params[:dependent]}/ruby" : "ruby"
-    if item.published? || !File.exist?(path)
+    if item.published? || !::File.exist?(path)
       item.publish_page(render_public_as_string(uri, :site => site), :path => path, :dependent => dep)
     end
     

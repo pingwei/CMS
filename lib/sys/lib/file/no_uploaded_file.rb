@@ -5,7 +5,7 @@ class Sys::Lib::File::NoUploadedFile
       @data      = options[:data]
     else
       require 'mime/types'
-      file       = File.new(path)
+      file       = ::File.new(path)
       @data      = file.read
       @mime_type = MIME::Types.type_for(path)[0].to_s
     end

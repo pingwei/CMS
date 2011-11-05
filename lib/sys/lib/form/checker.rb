@@ -7,7 +7,7 @@ class Sys::Lib::Form::Checker
     @links ||= {}
     text.scan(/href="([^"]+)"/i).each do |m|
       uri = m[0]
-      uri = File.join(Core.site.full_uri, uri) if uri =~ /^\//
+      uri = ::File.join(Core.site.full_uri, uri) if uri =~ /^\//
       next if uri =~ /^(#|mailto:|javascript:)/i
       next if uri !~ /^http:/i
       uri = CGI::unescapeHTML(uri)

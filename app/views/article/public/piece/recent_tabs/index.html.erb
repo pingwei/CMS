@@ -26,8 +26,8 @@ var docTabs = new ArticleDocTabs('<%= Page.current_piece.css_id %>');
     <div class="<%= tab[:name] %>" <%= 'style="display: none;"' unless tab[:current] %>>
       <% if tab[:more] %>
       <div class="feed">
-        <a href="<%= File.join(tab[:more], 'index.rss') %>" class="rss">RSS</a>
-        <a href="<%= File.join(tab[:more], 'index.atom') %>" class="atom">Atom</a></div>
+        <a href="<%= ::File.join(tab[:more], 'index.rss') %>" class="rss">RSS</a>
+        <a href="<%= ::File.join(tab[:more], 'index.atom') %>" class="atom">Atom</a></div>
       <div class="more">
         <a href="<%= tab[:more] %>">&gt;&gt;新着記事一覧</a></div>
       <% end %>

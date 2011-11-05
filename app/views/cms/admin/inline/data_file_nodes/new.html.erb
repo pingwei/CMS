@@ -1,4 +1,4 @@
-<%= render :partial => "#{File.dirname(params[:controller])}/data_files/menu" %>
+<%= render :partial => "#{::File.dirname(params[:controller])}/data_files/menu" %>
 
 <% form_for :item, :url => {:action => :create}, :html => {:multipart => true} do |f| %>
 

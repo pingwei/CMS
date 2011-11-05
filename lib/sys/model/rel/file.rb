@@ -15,7 +15,7 @@ module Sys::Model::Rel::File
   end
   
   def public_files_path
-    "#{File.dirname(public_path)}/files"
+    "#{::File.dirname(public_path)}/files"
   end
   
   def publish_files

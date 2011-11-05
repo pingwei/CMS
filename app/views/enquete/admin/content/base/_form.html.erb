@@ -4,4 +4,13 @@
   <%= content_base_form f, :container => :tr %>
 </table>
 
+<br /><p class="form">詳細設定</p>
+
+<table class="show">
+  <tr>
+    <th><%= @item.locale :email %></th>
+    <td><%= f.array_text_field "in_settings[email]", :class => "email" %></td>
+  </tr>
+</table>
+
 <%= creator_form f %>

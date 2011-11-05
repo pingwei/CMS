@@ -16,13 +16,13 @@ class Sys::Lib::Logger::Base
     
     @common_file = log_file(:messages)
     if @common_file
-      dir = File.dirname(@common_file)
+      dir = ::File.dirname(@common_file)
       FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
     end
     
     @target_file = @name ? log_file(@name) : nil
     if @target_file
-      dir = File.dirname(@target_file)
+      dir = ::File.dirname(@target_file)
       FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
     end
     
@@ -43,10 +43,10 @@ class Sys::Lib::Logger::Base
   def puts(message, options = {})
     file = options[:file] || @target_file
     return false unless file
-    f = File.open(file, 'a')
+    f = ::File.open(file, 'a')
     f.flock(File::LOCK_EX)
     f.puts message
-    f.flock(File::LOCK_UN)
+    f.flock(::File::LOCK_UN)
     f.close
   end
   

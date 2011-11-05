@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "entry_updated"
     t.date     "event_date"
     t.text     "title"
-    t.text     "summary",        :limit => 16777215
+    t.text     "summary",        :limit => 2147483647
     t.text     "link_alternate"
     t.text     "link_enclosure"
     t.text     "categories"
@@ -304,6 +304,20 @@ ActiveRecord::Schema.define(:version => 0) do
 
   add_index "cms_nodes", ["parent_id", "name"], :name => "parent_id"
 
+  create_table "cms_piece_link_items", :force => true do |t|
+    t.integer  "piece_id",                 :null => false
+    t.string   "state",      :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.text     "body"
+    t.string   "uri"
+    t.integer  "sort_no"
+    t.string   "target"
+  end
+
+  add_index "cms_piece_link_items", ["piece_id"], :name => "piece_id"
+
   create_table "cms_piece_settings", :force => true do |t|
     t.integer  "piece_id",   :null => false
     t.datetime "created_at"
@@ -414,17 +428,17 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "portal_categories", :force => true do |t|
     t.integer  "unid"
-    t.integer  "parent_id",                            :null => false
+    t.integer  "parent_id",                              :null => false
     t.integer  "content_id"
     t.string   "state",            :limit => 15
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "level_no",                             :null => false
+    t.integer  "level_no",                               :null => false
     t.integer  "sort_no"
     t.integer  "layout_id"
     t.string   "name"
     t.text     "title"
-    t.text     "entry_categories", :limit => 16777215
+    t.text     "entry_categories", :limit => 2147483647
   end
 
   add_index "portal_categories", ["parent_id", "content_id", "state"], :name => "parent_id"

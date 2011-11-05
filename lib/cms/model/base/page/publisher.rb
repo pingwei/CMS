@@ -81,9 +81,9 @@ module Cms::Model::Base::Page::Publisher
     
     return true if mobile_page?
     if hash != nil && pub != nil
-      return true if hash == pub.content_hash && File.exist?(path)
+      return true if hash == pub.content_hash && ::File.exist?(path)
     end
-    return true if File.exist?(path) && File.new(path).read == content
+    return true if ::File.exist?(path) && ::File.new(path).read == content
     
     Util::File.put(path, :data => content, :mkdir => true)
     @published = true

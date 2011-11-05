@@ -108,10 +108,10 @@ protected
           raise 'MakeSoundError'
         end
         
-        dir = File.dirname(task.sound_path)
+        dir = ::File.dirname(task.sound_path)
         FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
         FileUtils.mv(file[:path], task.sound_path)
-        File.chmod(0644, task.sound_path)
+        ::File.chmod(0644, task.sound_path)
         task.content = content
         task.result  = 'success'
         task.terminate

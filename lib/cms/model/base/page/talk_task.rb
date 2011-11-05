@@ -14,7 +14,7 @@ module Cms::Model::Base::Page::TalkTask
     pub  = publishers.find(:first, :conditions => cond)
     return true unless pub
     return true if pub.path !~ /\.html$/
-    return true if !published? && File.exist?("#{pub.path}.mp3")
+    return true if !published? && ::File.exist?("#{pub.path}.mp3")
     
     task = talk_tasks.find(:first, :conditions => cond) || Cms::TalkTask.new
     task.unid         = pub.unid

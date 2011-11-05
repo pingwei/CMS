@@ -85,7 +85,7 @@ module Sys::Model::Rel::Publication
     pub                = publisher || Sys::Publisher.new
     pub.published_at   = Core.now
     pub.published_path = public_path.gsub(/^#{Rails.root.to_s}/, '.')
-    pub.name           = File.basename(public_path)
+    pub.name           = ::File.basename(public_path)
     pub.content_type   = 'text/html'
     pub.content_length = content.size
     if pub.id

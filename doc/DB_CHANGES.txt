@@ -1,3 +1,19 @@
+1.1.1
+  CREATE TABLE cms_piece_link_items (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    piece_id int(11) NOT NULL,
+    state varchar(15) DEFAULT NULL,
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    name varchar(255) DEFAULT NULL,
+    body text DEFAULT NULL,
+    uri varchar(255) DEFAULT NULL,
+    sort_no int(11) DEFAULT NULL,
+    target varchar(255) DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY piece_id (piece_id)
+  );
+
 1.1.0
   CREATE TABLE cms_feeds (
     id int(11) NOT NULL AUTO_INCREMENT,

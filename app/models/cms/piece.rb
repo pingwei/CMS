@@ -17,6 +17,7 @@ class Cms::Piece < ActiveRecord::Base
   attr_accessor :in_settings
   
   validates_presence_of :state, :model, :name, :title
+  validates_uniqueness_of :name, :scope => :concept_id
   
   after_save :save_settings
   
@@ -26,7 +27,7 @@ class Cms::Piece < ActiveRecord::Base
       settings.each do |st|
         if st.sort_no
           values[st.name] ||= {}
-          values[st.name][st.sort_no] = value
+          values[st.name][st.sort_no] = st.value
         else
           values[st.name] = st.value
         end
@@ -85,9 +86,28 @@ class Cms::Piece < ActiveRecord::Base
 protected
   def save_settings
     in_settings.each do |name, value|
-      st = settings.find(:first, :conditions => {:name => name}) || new_setting(name)
-      st.value = value
-      st.save if st.changed?
+      name = name.to_s
+      
+      if !value.is_a?(Hash)
+        st = settings.find(:first, :conditions => ["name = ?", name]) || new_setting(name)
+        st.value   = value
+        st.sort_no = nil
+        st.save if st.changed?
+        next
+      end
+      
+      _settings = settings.find(:all, :conditions => ["name = ?", name])
+      value.each_with_index do |data, idx|
+        st = _settings[idx] || new_setting(name)
+        st.sort_no = data[0]
+        st.value   = data[1]
+        st.save if st.changed?
+      end
+      (_settings.size - value.size).times do |i|
+        idx = value.size + i - 1
+        _settings[idx].destroy
+        _settings.delete_at(idx)
+      end
     end
     return true
   end

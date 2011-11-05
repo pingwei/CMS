@@ -19,17 +19,17 @@ class Cms::Script::TalkTasksController < Cms::Controller::Script::Publication
   end
   
   def make_sound(task)
-    content = File.new(task.path).read
+    content = ::File.new(task.path).read
     hash = Digest::MD5.new.update(content.to_s).to_s
-    return true if hash == task.content_hash && File.exist?("#{task.path}.mp3")
+    return true if hash == task.content_hash && ::File.exist?("#{task.path}.mp3")
     
     gtalk = Cms::Lib::Navi::Gtalk.new
     gtalk.make(content)
     mp3 = gtalk.output
     return false unless mp3
-    return false if File.stat(mp3[:path]).size == 0
+    return false if ::File.stat(mp3[:path]).size == 0
     FileUtils.mv(mp3[:path], "#{task.path}.mp3")
-    File.chmod(0644, "#{task.path}.mp3")
+    ::File.chmod(0644, "#{task.path}.mp3")
     return true
   end
 end

@@ -8,9 +8,6 @@ class Enquete::Public::Node::FormsController < Cms::Controller::Public::Base
   end
   
   def index
-#    @item = Bbs::Item.new
-#    return create if request.post?
-    
     item = Enquete::Form.new.public
     item.and :content_id, @content.id
     #doc.search params
@@ -49,11 +46,18 @@ class Enquete::Public::Node::FormsController < Cms::Controller::Public::Base
       :ipaddr     => request.remote_addr,
       :user_agent => request.user_agent
     }
-    unless @item.save_answer(@form.values(:string), client)
+    unless answer = @item.save_answer(@form.values(:string), client)
       render :text => "送信に失敗しました。"
       return false
     end
-      
+    
+    ## sendmail
+    begin
+      send_answer_mail(@item, answer)
+    rescue => e
+      error_log("メール送信失敗 #{e}")
+    end
+    
     redirect_to "#{Core.current_node.public_uri}#{@item.id}/sent"
   end
   
@@ -71,5 +75,31 @@ protected
       form.add_element(col.column_type, col.element_name, col.name, col.element_options)
     end
     form
+  end
+  
+  def send_answer_mail(item, answer)
+    mail_fr = "cms@" + Page.site.full_uri.gsub(/^.*?\/\/(.*?)(:|\/).*/, '\\1')
+    mail_fr = mail_fr.gsub(/www\./, '')
+    mail_to = item.content.setting_value(:email)
+    return false if mail_to.blank?
+    
+    subject = "投稿：#{item.name}"
+    
+    message = ""
+    message += "■フォーム名\n"
+    message += "#{item.name}\n\n"
+    message += "■回答日時\n"
+    message += "#{answer.created_at.strftime('%Y-%m-%d %H:%M')}\n\n"
+    message += "■IPアドレス\n"
+    message += "#{answer.ipaddr}\n\n"
+    message += "■ユーザエージェント\n"
+    message += "#{answer.user_agent}\n\n"
+    
+    answer.columns.each do |col|
+      message += "■#{col.form_column.name}\n"
+      message += "#{col.value}\n\n"
+    end
+    
+    send_mail(mail_fr, mail_to, subject, message)
   end
 end

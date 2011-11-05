@@ -208,7 +208,7 @@ class Sys::Model::XmlRecord::Base
   end
   
   def to_xml_element
-    node = REXML::Element.new File.basename(self.class.node_xpath)
+    node = REXML::Element.new ::File.basename(self.class.node_xpath)
     attributes.each do |name, val|
       if self.class.elements.index("#{name}")
         arr = val
@@ -234,7 +234,7 @@ class Sys::Model::XmlRecord::Base
     doc = REXML::Document.new(xml)
     doc.add_element('xml') unless doc.root
     
-    xpath = File.dirname(self.class.node_xpath)
+    xpath = ::File.dirname(self.class.node_xpath)
     unless parent = doc.root.elements[xpath]
       parent = doc.root
       xpath.split('/').each do |name|
@@ -243,7 +243,7 @@ class Sys::Model::XmlRecord::Base
       end
     end
     
-    parent.each_element(File.basename(self.class.node_xpath)) do |e|
+    parent.each_element(::File.basename(self.class.node_xpath)) do |e|
       if @_primary_value
         parent.delete_element(e) if e.attribute(self.class.primary_key).to_s == @_primary_value
       elsif !self.class.primary_key

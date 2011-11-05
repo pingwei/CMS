@@ -1,11 +1,11 @@
 class Util::File
   def self.put(path, options ={})
     if options[:mkdir] == true
-      dir = File.dirname(path)
+      dir = ::File.dirname(path)
       FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
     end
     if options[:data]
-      f = File.open(path, 'w')
+      f = ::File.open(path, 'w')
       f.flock(File::LOCK_EX)
       f.write(options[:data] ? options[:data] : '')
       f.flock(File::LOCK_UN)

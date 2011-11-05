@@ -18,6 +18,7 @@ class Core
   cattr_accessor :dispatched
   cattr_accessor :concept
   cattr_accessor :messages
+  cattr_accessor :publish
   
   ## Initializes.
   def self.initialize(env = nil)
@@ -39,6 +40,7 @@ class Core
     @@dispatched   = nil
     @@concept      = nil
     @@messages     = []
+    @@publish      = nil # for mobile
     
     #require 'page'
     Page.initialize

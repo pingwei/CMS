@@ -145,10 +145,10 @@ protected
       "次の手順により，承認作業を行ってください。\n" +
       "\n" +
       "１．PC用記事のプレビューにより文書を確認\n" +
-      "　#{item.preview_uri}\n" +
+      "#{item.preview_uri}\n" +
       "\n" +
       "２．次のリンクから承認を実施\n" +
-      "　#{url_for(:action => :show, :id => item)}\n"
+      "#{url_for(:action => :show, :id => item)}\n"
     
     users ||= item.recognizers
     users.each {|user| send_mail(mail_fr, user.email, subject, message) }

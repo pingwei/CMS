@@ -26,10 +26,18 @@ class Sys::Lib::Ldap
   
   ## Connect.
   def self.connect(params)
-    require 'ldap'
-    conn = LDAP::Conn.new(params[:host], params[:port])
-    conn.set_option(LDAP::LDAP_OPT_PROTOCOL_VERSION, 3)
-    return conn
+    begin
+      require 'ldap'
+      timeout(3) do
+        conn = LDAP::Conn.new(params[:host], params[:port])
+        conn.set_option(LDAP::LDAP_OPT_PROTOCOL_VERSION, 3)
+        return conn
+      end
+    rescue Timeout::Error => e
+      raise "LDAP: 接続に失敗 (#{e})"
+    rescue Exception => e
+      raise "LDAP: エラー (#{e})"
+    end
   end
   
   ## Bind.

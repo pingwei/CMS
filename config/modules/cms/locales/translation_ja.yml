@@ -46,9 +46,15 @@ ja:
         view_title: "表示タイトル"
         head: "ヘッダー"
         body: "本文"
-        state_no: "状態"
         sort_no: "並び順"
 
+      cms/piece_link_item:
+        state: "状態"
+        name: "リンク名"
+        uri: "URL"
+        sort_no: "並び順"
+        target: "対象ウィンドウ"
+        
       cms/node:
         parent_id: "親ディレクトリ"
         concept_id: "コンセプト"

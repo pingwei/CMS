@@ -102,7 +102,7 @@ class Article::Doc < ActiveRecord::Base
     if name =~ /^[0-9]{13}$/
       _name = name.gsub(/^((\d{4})(\d\d)(\d\d)(\d\d)(\d\d).*)$/, '\2/\3/\4/\5/\6/\1')
     else
-      _name = File.join(name[0..0], name[0..1], name[0..2], name)
+      _name = ::File.join(name[0..0], name[0..1], name[0..2], name)
     end
     "#{content.public_path}/docs/#{_name}/index.html"
   end
@@ -190,9 +190,9 @@ class Article::Doc < ActiveRecord::Base
     
     condition = Condition.new
     if group.condition == 'and'
-      conditions.each {|c| condition.and(c) }
+      conditions.each {|c| condition.and(c) if c.where }
     else
-      conditions.each {|c| condition.or(c) }
+      conditions.each {|c| condition.or(c) if c.where }
     end
     
     self.and condition if conditions.size > 0

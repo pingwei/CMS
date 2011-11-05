@@ -85,7 +85,7 @@ class Cms::Concept < ActiveRecord::Base
       choices << [('　　' * i) + p.name, p.id]
       self.class.find(:all, eval("{#{args2}}")).each do |c|
         down.call(c, i + 1)
-        break if (loop += 1) > 20
+        break if (loop += 1) > 200
       end
     end
     
@@ -96,10 +96,10 @@ class Cms::Concept < ActiveRecord::Base
   def candidate_parents
     args1  = %Q( :conditions => ["id != ? AND site_id = ? AND level_no = 1", id, Core.site.id], )
     args1  = %Q( :conditions => ["site_id = ? AND level_no = 1", Core.site.id], ) unless id
-    args1 += %Q( :order => :name)
+    args1 += %Q( :order => :sort_no)
     args2  = %Q( :conditions => ["id != ? AND parent_id = ?", id, p.id], )
     args2  = %Q( :conditions => ["parent_id = ?", p.id], ) if new_record?
-    args2 += %Q( :order => :name)
+    args2 += %Q( :order => :sort_no)
     make_candidates(args1, args2)
   end
 end

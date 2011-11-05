@@ -54,11 +54,6 @@ module ApplicationHelper
         %Q(href="#{uri})
       end
     end
-#    if Core.request_uri != Core.internal_uri
-#      links.gsub!(/href="#{URI.encode(Core.internal_uri)}/) do |m|
-#        m.gsub(/^(href=").*/, '\1' + URI.encode(Core.request_uri))
-#      end
-#    end
     if request.mobile?
       links.gsub!(/<a [^>]*?rel="prev( |")/) {|m| m.gsub(/<a /, '<a accesskey="*" ')}
       links.gsub!(/<a [^>]*?rel="next( |")/) {|m| m.gsub(/<a /, '<a accesskey="#" ')}

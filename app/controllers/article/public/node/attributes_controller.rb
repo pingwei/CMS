@@ -28,8 +28,8 @@ class Article::Public::Node::AttributesController < Cms::Controller::Public::Bas
     return show_feed if params[:file] == "feed"
     return http_error(404) unless params[:file] =~ /^(index|more)$/
     @more  = params[:file] == 'more'
-    @page  = 1  unless @more
-    @limit = 10 unless @more
+    @page  = 1  if !@more && !request.mobile?
+    @limit = 10 if !@more
     
     doc = Article::Doc.new.public
     doc.agent_filter(request.mobile)

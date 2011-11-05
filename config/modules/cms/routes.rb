@@ -3,6 +3,9 @@ ActionController::Routing::Routes.draw do |map|
 
   ## admin
   map.namespace(mod, :namespace => '') do |ns|
+    ns.resources :tests,
+      :controller  => "admin/tests",
+      :path_prefix => "/_admin/#{mod}"
     ns.resources :concepts,
       :controller  => "admin/concepts",
       :path_prefix => "/_admin/#{mod}/:parent",
@@ -70,11 +73,20 @@ ActionController::Routing::Routes.draw do |map|
     ns.resources :piece_bread_crumbs,
       :controller  => "admin/piece/bread_crumbs",
       :path_prefix => "/_admin/#{mod}"
+    ns.resources :piece_links,
+      :controller  => "admin/piece/links",
+      :path_prefix => "/_admin/#{mod}"
+    ns.resources :piece_link_items,
+      :controller  => "admin/piece/link_items",
+      :path_prefix => "/_admin/#{mod}/:piece"
   end
   
   map.namespace(mod, :namespace => '', :path_prefix => '/_admin') do |ns|
     ns.connect "tool_rebuild",
       :controller => "admin/tool/rebuild",
+      :action     => :index
+    ns.connect "tool_search",
+      :controller => "admin/tool/search",
       :action     => :index
   end
       

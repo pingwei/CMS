@@ -8,9 +8,9 @@ class Cms::Layout < ActiveRecord::Base
   include Cms::Model::Rel::Concept
   include Cms::Model::Auth::Concept
 
-  belongs_to :status,  :foreign_key => :state,      :class_name => 'Sys::Base::Status'
+  belongs_to :status,  :foreign_key => :state, :class_name => 'Sys::Base::Status'
   
-  validates_presence_of :state, :name, :title, :body
+  validates_presence_of :state, :name, :title
   
   after_destroy :remove_css_files
   
@@ -148,14 +148,14 @@ class Cms::Layout < ActiveRecord::Base
   
   def extend_css(path)
     return '' unless FileTest.exist?(path)
-    css = File.new(path).read
+    css = ::File.new(path).read
     if css =~ /^@import/
       css.gsub!(/(^|\n)@import .*?(\n|$)/iom) do |m|
         src = m.gsub(/(^|\n)@import ["](.*)["].*?(\n|$)/, '\2')
         if src.slice(0, 9) == '/_common/'
           src = "#{Rails.root}/public#{src}"
         elsif src.slice(0, 1) != '/'
-          src = File.dirname(path) + '/' + src
+          src = ::File.dirname(path) + '/' + src
         else
           '/* skip */'
         end
@@ -180,9 +180,9 @@ class Cms::Layout < ActiveRecord::Base
   end
   
   def remove_css_files
-    FileUtils.rm(stylesheet_path) if File.exist?(stylesheet_path)
-    FileUtils.rm(mobile_stylesheet_path) if File.exist?(mobile_stylesheet_path)
-    FileUtils.rmdir(File.dirname(stylesheet_path)) rescue nil
+    FileUtils.rm_f(stylesheet_path)
+    FileUtils.rm_f(mobile_stylesheet_path)
+    FileUtils.rmdir(::File.dirname(stylesheet_path)) rescue nil
     return true
   end
 end

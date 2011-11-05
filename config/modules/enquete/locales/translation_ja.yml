@@ -1,6 +1,9 @@
 ja: 
   activerecord: 
     attributes: 
+      enquete/content/base:
+        email: "通知先メールアドレス"
+        
       enquete/form: 
         state: "状態"
         sort_no: "並び順"
