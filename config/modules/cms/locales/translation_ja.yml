@@ -116,6 +116,14 @@ ja:
         link_alternate: "代替URL"
         entry_count: "記事取込数"
       
+      cms/stylesheet:
+        path: "パス"
+        name: "ファイル名"
+        body: "内容"
+        new_directory: "新規ディレクトリ名"
+        new_file: "新規ファイル名"
+        new_upload: "ファイル"
+      
       ## node
       cms/model/node/page:
         name: "ファイル名"

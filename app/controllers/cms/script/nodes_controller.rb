@@ -10,12 +10,14 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
   end
   
   def publish_node(node)
-    return error_log(e) if @ids.key?(node.id)
+    return if @ids.key?(node.id)
     @ids[node.id] = 1
     last_name = nil
     
     cond = ["parent_id = ? AND name IS NOT NULL AND name != ''", node.id]
-    Cms::Node.new.find(:all, :conditions => cond, :order => "directory, name, state DESC, id").each do |item|
+    Cms::Node.new.find(:all, :select => :id, :conditions => cond, :order => "directory, name, state DESC, id").each do |v|
+      item = Cms::Node.find_by_id(v[:id])
+      next unless item
       next if item.name.blank? || item.name == last_name
       last_name = item.name
       

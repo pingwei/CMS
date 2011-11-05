@@ -131,6 +131,7 @@ module Cms::Controller::Layout
           :body => body
         )
       rescue => e #InvalidStyleException
+        error_log(e)
       end
       
       case request.mobile

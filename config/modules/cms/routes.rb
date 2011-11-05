@@ -30,6 +30,9 @@ ActionController::Routing::Routes.draw do |map|
       :controller  => "admin/pieces",
       :path_prefix => "/_admin/#{mod}",
       :collection  => [:models]
+    ns.stylesheets "stylesheets/*path",
+      :path_prefix => "/_admin/#{mod}",
+      :controller  => "admin/stylesheets"
     ns.resources :data_texts,
       :controller  => "admin/data/texts",
       :path_prefix => "/_admin/#{mod}"

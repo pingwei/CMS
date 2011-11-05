@@ -7,4 +7,4 @@ return render(:text => "") if links.size == 0
 <% links.each do |item| %>
   <li><%= link_to h(item.name), item.uri, :target => item.target %></li>
 <% end %>
-</u>
+</ul>

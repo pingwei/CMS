@@ -1,0 +1,30 @@
+<table class="show">
+  <tr>
+    <th>ファイル名</td>
+    <td><%=h @item.name %></td>
+  </tr>
+  <% if @item.file? %>
+  <tr>
+    <th>ファイル種別</td>
+    <td><%=h @item.mime_type %></td>
+  </tr><tr>
+    <th>サイズ</td>
+    <td><%=h number_format(@item.size) %> Bytes</td>
+  </tr>
+  <% end %>
+  <tr>
+    <th>更新日時</td>
+    <td><%=h safe{@item.updated_at.strftime('%Y-%m-%d %H:%M')} %></td>
+  </tr>
+</table>
+  
+<% if @item.textfile? %>
+<table class="show">
+  <tr>
+    <th>内容</td>
+  </tr><tr>
+    <td style="white-space: pre;"><%=hbr @item.body.to_s rescue "#読み込みに失敗しました。" %></td>
+  </tr>
+</table>
+<% end %>
+

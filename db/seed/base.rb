@@ -87,7 +87,7 @@ Cms::Concept.create({
   :name      => core_title
 })
 
-d = Cms::Node.create({
+Cms::Node.create({
   :site_id      => 1,
   :concept_id   => 1,
   :parent_id    => 0,
@@ -99,12 +99,18 @@ d = Cms::Node.create({
   :name         => '/',
   :title        => core_title
 })
-Cms::Node.create(d.attributes.merge({
+
+Cms::Node.create({
+  :site_id      => 1,
+  :concept_id   => 1,
   :parent_id    => 1,
   :route_id     => 1,
+  :state        => 'public',
+  :published_at => Time.now,
   :directory    => 0,
   :model        => 'Cms::Page',
-  :name         => 'index.html'
-}))
+  :name         => 'index.html',
+  :title        => core_title
+})
 
 puts "Imported base data."

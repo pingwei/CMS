@@ -22,7 +22,7 @@ class Cms::Model::Node::Page < Cms::Node
     return false unless save(false)
     
     if rep = replaced_page
-      rep.destroy
+      rep.destroy if rep.directory == 0
     end
     
     publish_page(content, :path => public_path, :uri => public_uri)

@@ -3,7 +3,8 @@ require 'digest/md5'
 class Cms::Script::TalkTasksController < Cms::Controller::Script::Publication
   def exec
     Cms::TalkTask.find(:all, :select => :id, :order => "id").each do |v|
-      task = Cms::TalkTask.find(v[:id])
+      task = Cms::TalkTask.find_by_id(v[:id])
+      next unless task
       begin
         if ::File.exist?(task.path)
           rs = make_sound(task)

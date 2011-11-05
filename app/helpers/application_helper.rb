@@ -61,6 +61,11 @@ module ApplicationHelper
     links
   end
   
+  ## Number format
+  def number_format(num)
+    number_to_currency(num, :unit => '', :precision => 0)
+  end
+
   ## Emoji
   def emoji(name)
     require 'jpmobile'
