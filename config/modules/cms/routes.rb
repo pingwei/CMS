@@ -22,14 +22,14 @@ ActionController::Routing::Routes.draw do |map|
     ns.resources :nodes,
       :controller  => "admin/nodes",
       :path_prefix => "/_admin/#{mod}/:parent",
-      :collection  => [:search, :models]
+      :collection  => [:search, :content_options, :model_options]
     ns.resources :layouts,
       :controller  => "admin/layouts",
       :path_prefix => "/_admin/#{mod}"
     ns.resources :pieces,
       :controller  => "admin/pieces",
       :path_prefix => "/_admin/#{mod}",
-      :collection  => [:models]
+      :collection  => [:content_options, :model_options]
     ns.stylesheets "stylesheets/*path",
       :path_prefix => "/_admin/#{mod}",
       :controller  => "admin/stylesheets"

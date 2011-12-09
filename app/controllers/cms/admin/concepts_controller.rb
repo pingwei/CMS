@@ -83,9 +83,10 @@ class Cms::Admin::ConceptsController < Cms::Controller::Admin::Base
     end
 
     concept.parents_tree.each{|c| layouts += c.layouts}
-    
     layouts = layouts.collect{|i| ["#{i.concept.name} : #{i.title}", i.id]}
-    @layouts  = [["// 一覧を更新しました（#{layouts.size}件）",'']] + layouts
+    
+    concept_name = concept ? "#{concept.name}:" : nil
+    @layouts  = [["// 一覧を更新しました（#{concept_name}#{layouts.size}件）",'']] + layouts
     
     respond_to do |format|
       format.html { render :layout => false }

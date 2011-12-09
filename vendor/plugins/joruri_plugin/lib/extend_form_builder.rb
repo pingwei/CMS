@@ -94,6 +94,7 @@ class ActionView::Helpers::FormBuilder
       end
       options.delete(:selected)
     end
+    options.delete(:conditions)
     
     return @template.select_tag(method, choices, options)
   end

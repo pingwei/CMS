@@ -65,6 +65,7 @@ private
   end
   
   def http_error(status, message = nil)
+    erase_render_results rescue nil
     Page.error = status
     
     if status == 404

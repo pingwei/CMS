@@ -17,10 +17,28 @@ class Sys::Lib::Form::Checker
   end
   
   def uri_exists?(uri)
-    if head = Util::Http::Request.head(uri)
-      return true if head.code.to_s == "200"
+    require 'open-uri'
+    require "resolv-replace"
+    require 'timeout'
+    
+    ok_code = '200 OK'
+    options = {
+      :proxy => Core.proxy,
+      :progress_proc => lambda {|size| raise ok_code }
+    }
+    
+    begin
+      timeout(2) do
+        open(uri, options) do |f|
+          return true if f.status[0].to_i == 200
+        end
+      end
+    rescue TimeoutError
+    rescue => e
+      return true if e.to_s == ok_code
     end
-    false
+    
+    return false
   end
   
   def errors
@@ -33,7 +51,7 @@ class Sys::Lib::Form::Checker
     return nil if @links.blank? && @alts.blank?
     
     html  = %Q(<div class="noticeExplanation" id="noticeExplanation">)
-    html += %Q(<h2>リンクチェックの結果。</h2>)
+    html += %Q(<h2>リンクチェック結果</h2>)
     
     if @links.size > 0
       html += %Q(<p>次のURLを確認しました。</p><ul>)

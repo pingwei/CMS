@@ -2,19 +2,16 @@
 <div class="pieceContainer">
 <div class="pieceHeader"><h2>ライフイベント</h2></div>
 <div class="pieceBody">
-
-<table summary="ライフイベント"><tr>
-<td class="pregnant"><p><a href="/lifeevent/ninshin.html"><img src="/_common/themes/joruri/top/images/ic-ninshin.gif" width="45" height="45" alt="妊娠・出産" /></a><br /><a href="/lifeevent/ninshin.html">妊娠・出産</a></p></td>
-<td class="child"><p><a href="/lifeevent/kosodate.html"><img src="/_common/themes/joruri/top/images/ic-kosodate.gif" width="45" height="45" alt="子育て・教育" /></a><br /><a href="/lifeevent/kosodate.html">子育て・教育</a></p></td>
-<td class="work"><p><a href="/lifeevent/shushoku.html"><img src="/_common/themes/joruri/top/images/ic-shuushoku.gif" width="45" height="45" alt="就職・退職" /></a><br /><a href="/lifeevent/shushoku.html">就職・退職</a></p></td>
-<td class="adult"><p><a href="/lifeevent/seijin.html"><img src="/_common/themes/joruri/top/images/ic-seijin.gif" width="45" height="45" alt="成人になったら" /></a><br /><a href="/lifeevent/seijin.html">成人になったら</a></p></td>
-</tr>
-<tr>
-<td class="moving"><p><a href="/lifeevent/hikkoshi.html"><img src="/_common/themes/joruri/top/images/ic-hikkoshi.gif" width="45" height="45" alt="引越し" /></a><br /><a href="/lifeevent/hikkoshi.html">引越し</a></p></td>
-<td class="marriage"><p><a href="/lifeevent/kekkon.html"><img src="/_common/themes/joruri/top/images/ic-kekkon.gif" width="45" height="45" alt="結婚・離婚" /></a><br /><a href="/lifeevent/kekkon.html">結婚・離婚</a></p></td>
-<td class="welfare"><p><a href="/lifeevent/fukushi.html"><img src="/_common/themes/joruri/top/images/ic-fukushi2.gif" width="45" height="45" alt="福祉・介護" /></a><br /><a href="/lifeevent/fukushi.html">福祉・介護</a></p></td>
-<td class="death"><p><a href="/lifeevent/shibo.html"><img src="/_common/themes/joruri/top/images/ic-shibou.gif" width="45" height="45" alt="死亡" /></a><br /><a href="/lifeevent/shibo.html">死亡</a></p></td>
-</tr></table>
+<ul>
+<li class="pregnant"><p><a href="/lifeevent/ninshin.html"><img src="/_common/themes/joruri/top/images/ic-ninshin.gif" width="45" height="45" alt="妊娠・出産" /></a><br /><a href="/lifeevent/ninshin.html">妊娠・出産</a></p></li>
+<li class="child"><p><a href="/lifeevent/kosodate.html"><img src="/_common/themes/joruri/top/images/ic-kosodate.gif" width="45" height="45" alt="子育て・教育" /></a><br /><a href="/lifeevent/kosodate.html">子育て・教育</a></p></li>
+<li class="work"><p><a href="/lifeevent/shushoku.html"><img src="/_common/themes/joruri/top/images/ic-shuushoku.gif" width="45" height="45" alt="就職・退職" /></a><br /><a href="/lifeevent/shushoku.html">就職・退職</a></p></li>
+<li class="adult"><p><a href="/lifeevent/seijin.html"><img src="/_common/themes/joruri/top/images/ic-seijin.gif" width="45" height="45" alt="成人になったら" /></a><br /><a href="/lifeevent/seijin.html">成人になったら</a></p></li>
+<li class="moving"><p><a href="/lifeevent/hikkoshi.html"><img src="/_common/themes/joruri/top/images/ic-hikkoshi.gif" width="45" height="45" alt="引越し" /></a><br /><a href="/lifeevent/hikkoshi.html">引越し</a></p></li>
+<li class="marriage"><p><a href="/lifeevent/kekkon.html"><img src="/_common/themes/joruri/top/images/ic-kekkon.gif" width="45" height="45" alt="結婚・離婚" /></a><br /><a href="/lifeevent/kekkon.html">結婚・離婚</a></p></li>
+<li class="welfare"><p><a href="/lifeevent/fukushi.html"><img src="/_common/themes/joruri/top/images/ic-fukushi2.gif" width="45" height="45" alt="福祉・介護" /></a><br /><a href="/lifeevent/fukushi.html">福祉・介護</a></p></li>
+<li class="death"><p><a href="/lifeevent/shibo.html"><img src="/_common/themes/joruri/top/images/ic-shibou.gif" width="45" height="45" alt="死亡" /></a><br /><a href="/lifeevent/shibo.html">死亡</a></p></li>
+</ul>
 
 </div>
 </div>

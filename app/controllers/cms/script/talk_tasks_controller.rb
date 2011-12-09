@@ -16,6 +16,7 @@ class Cms::Script::TalkTasksController < Cms::Controller::Script::Publication
       rescue Exception => e
         error_log "#{e} #{task.path}"
       end
+      Script.keep_lock
     end
     render :text => "OK"
   end

@@ -26,11 +26,11 @@
 <% if @form.elements.size > 0 %>
 <div class="submitters">
   <% if !@confirm %>
-  <input type="submit" value="確認画面へ" />
+  <input type="submit" class="confirm" value="確認画面へ" />
   <% else %>
   <input type="hidden" name="confirm" value="1" />
-  <input type="submit" value="送信する" />
-  <input type="submit" name="edit" value="変更する" />
+  <input type="submit" class="send" value="送信する" />
+  <input type="submit" class="edit" name="edit" value="変更する" />
   <% end %>
 </div>
 <% end %>

@@ -10,6 +10,16 @@ ActionController::Routing::Routes.draw do |map|
   
   ## admin
   map.namespace(mod, :namespace => '') do |ns|
+    ns.tests "tests",
+      :controller  => "admin/tests",
+      :path_prefix => "/_admin/#{mod}"
+    ns.tests_mail "tests_mail",
+      :controller  => "admin/tests/mail",
+      :path_prefix => "/_admin/#{mod}"
+    ns.tests_link_check "tests_link_check",
+      :controller  => "admin/tests/link_check",
+      :path_prefix => "/_admin/#{mod}"
+    
     ns.resources :maintenances,
       :controller  => "admin/maintenances",
       :path_prefix => "/_admin/#{mod}"

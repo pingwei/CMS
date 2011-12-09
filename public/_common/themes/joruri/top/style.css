@@ -275,6 +275,7 @@
 #ArticleCategory .categoryBosaigai {
   clear: both;
 }
+
 /* life event
 ------------------------------------- */
 #lifeEvent {
@@ -287,54 +288,59 @@
   background-repeat: repeat-x;
 }
 #lifeEvent .pieceHeader h2 {
+  overflow: hidden;
   height: 30px;
   background-image: url(./images/tl-lifeevent.gif);
   background-position: left top;
   background-repeat: no-repeat;
   text-indent: -9999px;
-  overflow: hidden;
 }
-#lifeEvent table {
+#lifeEvent ul {
   width: 100%;
+  clear: both;
 }
-#lifeEvent td {
+#lifeEvent li {
+  float: left;
   width: 25%;
   text-align: center;
   vertical-align: middle;
 }
-#lifeEvent td p {
+#lifeEvent li p {
   padding: 8px 0px;
   line-height: 1.5;
 }
-#lifeEvent td.pregnant p {
+#lifeEvent li.pregnant p {
   margin: 0px 6px 8px 0px;
   background-color: #ffe7ff;
 }
-#lifeEvent td.child p {
+#lifeEvent li.child p {
   margin: 0px 4px 8px 2px;
   background-color: #ffecb9;
 }
-#lifeEvent td.work p {
+#lifeEvent li.work p {
   margin: 0px 2px 8px 4px;
   background-color: #c5efff;
 }
-#lifeEvent td.adult p {
+#lifeEvent li.adult p {
   margin: 0px 0px 8px 6px;
   background-color: #cdede8;
 }
-#lifeEvent td.moving p {
+#lifeEvent li.moving {
+  clear: both;
+}
+#lifeEvent li.moving p {
   margin: 0px 6px 8px 0px;
   background-color: #e1f6be;
 }
-#lifeEvent td.marriage p {
+#lifeEvent li.marriage p {
   margin: 0px 4px 8px 2px;
   background-color: #eee9a9;
 }
-#lifeEvent td.welfare p {
+#lifeEvent li.welfare p {
   margin: 0px 2px 8px 4px;
   background-color: #f5dac5;
 }
-#lifeEvent td.death p {
+#lifeEvent li.death p {
   margin: 0px 0px 8px 6px;
   background-color: #f0dfef;
 }

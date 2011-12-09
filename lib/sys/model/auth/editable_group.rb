@@ -1,8 +1,9 @@
 # encoding: utf-8
 module Sys::Model::Auth::EditableGroup
   def editable
-    self.join :editable_group
+    return self if Core.user.has_auth?(:manager)
     
+    self.join :editable_group
     self.and Condition.new do |c|
       col = "sys_editable_groups.group_ids"
       val = Core.user_group.id

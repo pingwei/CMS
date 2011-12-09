@@ -24,7 +24,7 @@
         <a href="<%= url_for(:id => item, :action => :download) %>" class="<%= item.css_class %>" target="_blank">File</a>
       <% end %>
     </td>
-    <td><%=h safe{item.node.name} %><br /><%=h "（#{item.node.title}）" if safe{item.node.title}.to_s != '' %></td>
+    <td><%=h safe{item.node.name} %><br /><%= "（#{h(item.node.title)}）" if safe{item.node.title}.to_s != '' %></td>
     <td><%=h item.name %><br /><%=h "（#{item.title}）" if item.name != item.title %></td>
     <td style="text-align: center;"><%= item.eng_unit %><br /><%= item.image_size %></td>
     <td style="text-align: center;"><%= item.updated_at.strftime('%Y-%m-%d %H:%M')%></td>

@@ -21,6 +21,8 @@ class Cms::Script::NodesController < Cms::Controller::Script::Publication
       next if item.name.blank? || item.name == last_name
       last_name = item.name
       
+      Script.keep_lock
+      
       if !item.public?
         item.close_page
         next

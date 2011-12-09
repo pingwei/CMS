@@ -24,6 +24,8 @@ class Sys::Script::TasksController < ApplicationController
         task_act = "#{task.name}_by_task"
         task_prm = {:unid => unid, :task => task, :item => item}
         render_component_as_string :controller => task_ctr, :action => task_act, :params => task_prm
+        
+        Script.keep_lock
       rescue => e
         puts "Error: #{e}"
       end

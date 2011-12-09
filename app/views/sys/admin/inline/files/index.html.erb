@@ -65,7 +65,7 @@
        onclick="mceInsertContent('<img src=\'<%= _path + item.escaped_name %>\' alt=\'<%= item.alt %>\' title=\'<%= item.alt %>\'>'); return false;">貼付</a>
       <% end %>
     </td>
-    <td><%= h(item.name) %></td>
+    <td><%= h(item.name) %><br /><%= "（#{h(item.title)}）" if item.name != item.title %></td>
     <td style="text-align: center;"><%= item.eng_unit %><br /><%= item.image_size %></td>
   </tr>
   <% end %>

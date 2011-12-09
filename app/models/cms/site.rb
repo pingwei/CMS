@@ -61,11 +61,11 @@ class Cms::Site < ActiveRecord::Base
   end
   
   def self.find_by_script_uri(script_uri)
-    base = script_uri.gsub(/^([a-z]+:\/\/[^\/]+\/).*/, '\1')
+    base = script_uri.gsub(/^[a-z]+:\/\/([^\/]+\/).*/, '\1')
     item = Cms::Site.new.public
     cond = Condition.new do |c|
-      c.or :full_uri, 'LIKE', "#{base}%"
-      c.or :mobile_full_uri, 'LIKE', "#{base}%"
+      c.or :full_uri, 'LIKE', "http://#{base}%"
+      c.or :mobile_full_uri, 'LIKE', "http://#{base}%"
     end
     item.and cond
     return item.find(:first, :order => :id)

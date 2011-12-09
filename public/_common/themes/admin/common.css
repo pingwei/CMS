@@ -2,6 +2,17 @@
    Common Classes.
 ========================================================= */
 
+/* Text.
+----------------------------------------------- */
+.pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.monospace {
+  font-family: "MS Gothic", "ＭＳ　ゴシック", "Courier New", sans-serif;
+}
+
 /* Notice.
 ----------------------------------------------- */
 .notice {
